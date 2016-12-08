@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="txt_bitte_waehlen">Bitte wählen</string>
+
+    <!-- Einstellungen -->
+    <string name="txt_einstell_email_senden_an">E-Mail senden an</string>
+    <string name="txt_einstell_an">An</string>
+    <string name="txt_einstell_username">Von - Username</string>
+    <string name="txt_einstell_password">Von - Passwort</string>
+    <string name="txt_einstell_transport">E-Mail Transport</string>
+    <string name="txt_einstell_mail_transport_protocol">Transport Protocol</string>
+    <string name="txt_einstell_mail_host">Host</string>
+    <string name="txt_einstell_mail_smtp_auth">SMTP Auth</string>
+    <string name="txt_einstell_mail_mail_smtp_port">SMTP Port</string>
+    <string name="txt_einstell_mail_smtp_socketFactory_port">Socket Factory Port</string>
+    <string name="txt_einstell_mail_smtp_socketFactory_class">Socket Factory Class</string>
+    <string name="txt_einstell_mail_smtp_socketFactory_fallback">Socket Factory Fallback</string>
+    <string name="txt_einstell_mail_smtp_quitwait">SMTP Quitwait</string>
+
+</resources>

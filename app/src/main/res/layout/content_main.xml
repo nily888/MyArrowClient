@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myLayout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.rene.myarrow.MainActivity"
+    tools:showIn="@layout/activity_main" >
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:text="Los geht's"
+        android:id="@+id/start_button"
+        android:onClick="onClickStartButton"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40sp"
+        android:background="@drawable/button_bg_action"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Statistiken"
+        android:id="@+id/statistiken_button"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickStatistikenButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Einstellungen"
+        android:id="@+id/einstellungen_button"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickEinstellungenButton" />
+
+</LinearLayout>

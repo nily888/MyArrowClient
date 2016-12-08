@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.rene.myarrow.MainActivity">
+    <item
+        android:id="@+id/action_getlocation"
+        android:orderInCategory="100"
+        android:title="Wo bin ich"
+        app:showAsAction="never" />
+
+</menu>

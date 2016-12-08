@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title= "Parameter für die Berechnung der Punkte">
+
+        <EditTextPreference
+            android:key="startwert"
+            android:title="Startwert"
+            android:defaultValue="16"
+            android:inputType="number" />
+
+        <EditTextPreference
+            android:key="abzug"
+            android:title="Abzug"
+            android:defaultValue="6"
+            android:inputType="number" />
+
+        <EditTextPreference
+            android:key="bonus"
+            android:title="Bonus"
+            android:defaultValue="4"
+            android:inputType="number" />
+
+        <EditTextPreference
+            android:key="bonus_plus"
+            android:title="Bonus Plus"
+            android:defaultValue="4"
+            android:inputType="number" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/txt_einstell_email_senden_an">
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_an"
+            android:defaultValue="rene.dueber@hotmail.com"
+            android:key="an"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_username"
+            android:defaultValue="rene.dueber@googlemail.com"
+            android:key="username"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_password"
+            android:defaultValue=""
+            android:key="password"
+            android:password="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/txt_einstell_transport">
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_transport_protocol"
+            android:defaultValue="smtp"
+            android:key="mail_transport_protocol"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_host"
+            android:defaultValue="smtp.gmail.com"
+            android:key="mail_host"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_smtp_auth"
+            android:defaultValue="true"
+            android:key="mail_smtp_auth"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_mail_smtp_port"
+            android:defaultValue="465"
+            android:key="mail_smtp_port"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_smtp_socketFactory_port"
+            android:defaultValue="465"
+            android:key="mail_smtp_socketFactory_port"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_smtp_socketFactory_class"
+            android:defaultValue="javax.net.ssl.SSLSocketFactory"
+            android:key="mail_smtp_socketFactory_class"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_smtp_socketFactory_fallback"
+            android:defaultValue="false"
+            android:key="mail_smtp_socketFactory_fallback"/>
+
+        <EditTextPreference
+            android:title="@string/txt_einstell_mail_smtp_quitwait"
+            android:defaultValue="false"
+            android:key="mail_smtp_quitwait"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

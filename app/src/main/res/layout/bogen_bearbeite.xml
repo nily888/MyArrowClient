@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ergebnis_am_ziel">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Bogenname"
+        android:textSize="20sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:hint="Name"
+        android:id="@+id/edt_bogenname" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Standard"
+        android:id="@+id/txt_standard"
+        android:textSize="20sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:text="Bild vom Bogen"
+        android:id="@+id/imageButton"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickimageButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="Speichere Bogen..."
+        android:id="@+id/store_button"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickStoreBogen" />
+
+</LinearLayout>

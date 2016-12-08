@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/opt_parcour_add_ziel"
+        android:orderInCategory="100"
+        android:title="Ziel hinzufügen"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/opt_parcour_bearbeiten"
+        android:orderInCategory="100"
+        android:title="Parcour bearbeiten"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/opt_parcour_loeschen"
+        android:orderInCategory="100"
+        android:title="Parcour löschen"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/opt_statistik"
+        android:orderInCategory="100"
+        android:title="Statistiks"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/opt_review"
+        android:orderInCategory="100"
+        android:title="Review parcour"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/opt_show_on_map"
+        android:orderInCategory="100"
+        android:title="Auf der Karte anzeigen"
+        app:showAsAction="never" />
+
+</menu>

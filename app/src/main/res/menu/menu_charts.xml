@@ -1,0 +1,19 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.rene.myarrow.GUI.Statistiken.ChartEineRundeAlleZiele">
+
+    <item
+        android:id="@+id/action_saveToPath"
+        android:orderInCategory="100"
+        android:title="in der Gallerie speichern"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_shareToWhatsapp"
+        android:orderInCategory="100"
+        android:title="teilen auf Whatsapp"
+        app:showAsAction="never" />
+
+</menu>

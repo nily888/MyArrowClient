@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ergebnis_am_ziel">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Zielnummer "
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Nummer "
+                android:textSize="20sp"
+                android:id="@+id/edt_zielnummer" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Zielname "
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:textSize="20sp"
+                android:id="@+id/edt_zielname" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Dateiname"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/txt_zieldateiname"
+                android:textAlignment="textStart"
+                android:transitionName="Dateiname"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="GPS Koordinaten "
+            android:gravity="center_vertical" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:id="@+id/txt_gps_lat_koordinaten"
+            android:gravity="center"
+            android:background="@drawable/button_bg_transparent"
+            android:onClick="onClickWoBinIch"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:id="@+id/txt_gps_lon_koordinaten"
+            android:gravity="center"
+            android:background="@drawable/button_bg_transparent"
+            android:onClick="onClickWoBinIch"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:text="Zielbild"
+        android:id="@+id/zielbild_button"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickZielBild" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Add Ziel..."
+        android:id="@+id/update_button"
+        android:background="@drawable/button_bg_action"
+        android:textColor="#ffffff"
+        android:onClick="onClickAddZiel" />
+
+</LinearLayout>

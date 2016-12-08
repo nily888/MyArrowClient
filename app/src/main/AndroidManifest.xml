@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.rene.myarrow">
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/start_button"
+        android:label="MyArrow"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:versionCode="1"
+        android:versionName="1.0"
+        android:name="android.support.multidex.MultiDexApplication">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="MyArrow"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".GUI.Ergebnis.ErgebnisAmZiel"
+            android:label="Erfasse Ergebnis am Ziel"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Ergebnis.GesamtErgebnisAnzeigen"
+            android:label="Endergebnis anzeigen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Parcour.NeuerParcour"
+            android:label="Neuen Parcour anlegen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Parcour.BearbeiteParcour"
+            android:label="Parcour bearbeiten"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Parcour.SelectParcour"
+            android:label="Selektiere den Parcour"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Parcour.ReviewParcour"
+            android:label="Review den Parcour"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Parcour.SelectRunde"
+            android:label="Selektiere die Runde"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Parcour.SelectRundenSchuetzen"
+            android:label="Selektiere den RundenSchuetzen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Parcour.StartParcour"
+            android:label="Starte Parcour mit einer neuen Runde"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.RundenZiel.SelectRundenZiele"
+            android:label="Selektiere die Rundenziele"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.RundenZiel.RundenZielBearbeiten"
+            android:label="Rundenziel bearbeiten"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Bogen.NeuerBogen"
+            android:label="Neuer Bogen anlegen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Bogen.BearbeiteBogen"
+            android:label="Bogen bearbeiten"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Bogen.SelektiereBogen"
+            android:label="Bogen auswählen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Pfeil.NeuerPfeil"
+            android:label="Neuer Pfeil anlegen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Pfeil.BearbeitePfeil"
+            android:label="Pfeil bearbeiten"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Pfeil.SelektierePfeil"
+            android:label="Pfeil auswählen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Schuetzen.NeuerSchuetze"
+            android:label="Neuer Schuetzen anlegen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Schuetzen.BearbeiteSchuetze"
+            android:label="Schuetzen bearbeiten"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Schuetzen.SelektiereSchuetze"
+            android:label="Schuetzen auswählen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Ziel.SelektiereParcour"
+            android:label="Parcur auswählen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Ziel.SelektiereZiel"
+            android:label="Ziel auswählen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Ziel.BearbeiteZiel"
+            android:label="Ziel bearbeiten"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Ziel.AddZiel"
+            android:label="Ziel hinzufügen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Einstellungen.EinstellungenBearbeiten"
+            android:label="Einstellungen für die Berechnung"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Einstellungen.Einstellungen"
+            android:label="Einstellungen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GUI.Statistiken.ChartSelectGroup"
+            android:label="Einstiegschart aussuchen" />
+        <activity
+            android:name=".GUI.Statistiken.ChartAlleParcours"
+            android:label="Alle Parcours" />
+        <activity
+            android:name=".GUI.Statistiken.ChartAlleSchuetzen"
+            android:label="Alle Schuetzen" />
+        <activity
+            android:name=".GUI.Statistiken.ChartEinParcourAlleSchuetzen"
+            android:label="Ein Parcour alle Schuetzen" />
+        <activity
+            android:name=".GUI.Statistiken.ChartEinSchuetzeAlleParcours"
+            android:label="Ein Schuetze alle Parcours" />
+        <activity
+            android:name=".GUI.Statistiken.ChartEinSchuetzeAlleRunden"
+            android:label="Ein Schuetze alle Runden" />
+        <activity
+            android:name=".GUI.Statistiken.ChartEineRundeAlleZiele"
+            android:label="Eine Runde alle Ziele" />
+        <activity
+            android:name=".misc.GetPicture"
+            android:label="Ein Foto selektieren" />
+        <activity
+            android:name=".misc.ShowMap"
+            android:label="Ort auf Google anzeigen" />
+        <activity
+            android:name=".GUI.Tools.Tools"
+            android:label="Meine Tools"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name=".Synchronisation.NetworkReceiver">
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

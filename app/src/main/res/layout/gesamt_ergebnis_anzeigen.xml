@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ergebnis_am_ziel">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Parcourname "
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Name"
+                android:textSize="20sp"
+                android:id="@+id/txt_name" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Startzeit "
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Startzeit"
+                android:textSize="20sp"
+                android:id="@+id/txt_startzeit" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Endzeit "
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Endzeit"
+                android:textSize="20sp"
+                android:id="@+id/txt_endzeit" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Dauer (min) "
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Dauer"
+                android:textSize="20sp"
+                android:id="@+id/txt_dauer" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Ergebnis "
+                android:textSize="20sp"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Ergebnis"
+                android:textSize="20sp"
+                android:id="@+id/txt_gesamtergebnis"
+                android:onClick="onClickSchuetzenliste"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="Anmerkungen"
+        android:id="@+id/txt_anmerkungen" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:text="Ciao......"
+        android:textColor="#ffffff"
+        android:id="@+id/ciao_button"
+        android:onClick="onClickCiao"/>
+
+</LinearLayout>

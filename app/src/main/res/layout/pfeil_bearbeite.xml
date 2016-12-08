@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="10"
+    android:background="@mipmap/ergebnis_am_ziel">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Pfeilname "
+        android:textSize="20sp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="Name"
+        android:textSize="20sp"
+        android:id="@+id/edt_pfeilname" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Standard"
+        android:id="@+id/txt_standard"
+        android:textSize="20sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:text="Bild vom Pfeil"
+        android:id="@+id/imageButton"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickimageButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="Speichere Pfeil..."
+        android:id="@+id/store_button"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickStorePfeil" />
+
+</LinearLayout>

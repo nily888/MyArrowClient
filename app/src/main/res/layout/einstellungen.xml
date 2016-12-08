@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ergebnis_am_ziel">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Review Parcour"
+        android:id="@+id/txt_review_parcour"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickReviewParcour" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Schützen"
+        android:id="@+id/txt_schuetzen"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickSchuetzen" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Bögen"
+        android:id="@+id/txt_bogen"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickBogen" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Pfeile"
+        android:id="@+id/txt_pfeil"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickPfeil" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Ziele"
+        android:id="@+id/txt_ziel"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickZiel" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Berechnung"
+        android:id="@+id/txt_berechnung"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickBerechungen" />
+</LinearLayout>

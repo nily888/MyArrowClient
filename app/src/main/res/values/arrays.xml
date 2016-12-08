@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="wetter">
+        <item>Sonnig</item>
+        <item>Wolkig</item>
+        <item>Regen</item>
+        <item>Windig</item>
+        <item>Kalt</item>
+        <item>Warm</item>
+        <item>Heiß</item>
+    </string-array>
+
+    <string-array name="my_options">
+        <item>Zielnummer</item>
+        <item>Bild</item>
+        <item>Map</item>
+    </string-array>
+
+</resources>

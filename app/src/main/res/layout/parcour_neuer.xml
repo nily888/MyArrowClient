@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    tools:context=".GUI.Parcour.NeuerParcour"
+    android:background="@mipmap/ergebnis_am_ziel">
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Parcourname "
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:hint="Name"
+                android:id="@+id/txt_parcourname" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Anzahl Ziele "
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:hint="0"
+                android:inputType="number"
+                android:id="@+id/txt_anzahl_ziele" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Strasse "
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:hint="Strasse"
+                android:id="@+id/txt_strasse" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="PLZ "
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="PLZ"
+                    android:id="@+id/txt_plz" />
+
+            </LinearLayout>
+
+            <LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Ort "
+                    android:gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Ort"
+                    android:id="@+id/txt_ort" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Anmerkungen "
+                android:gravity="center_vertical" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:hint="Anmerkungen"
+                android:id="@+id/txt_anmerkungen" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="GPS Koordinaten "
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:id="@+id/txt_gps_lat_koordinaten"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:id="@+id/txt_gps_lon_koordinaten"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Standard"
+        android:id="@+id/txt_standard"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:text="Erstelle Parcour..."
+        android:id="@+id/ciao_button"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickCreateParcour" />
+
+</LinearLayout>

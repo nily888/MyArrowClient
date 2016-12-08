@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'mykeystore'
+            keyPassword 'satelindo'
+            storeFile file('C:/Users/rened/Documents/OneDrive/Dokumente/Projects/Rene Dueber Keystore.jks')
+            storePassword 'satelindo'
+        }
+    }
+    compileSdkVersion 24
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.example.rene.myarrow"
+        minSdkVersion 24
+        targetSdkVersion 24
+        versionName '6.5'
+        // Enabling multidex support.
+        multiDexEnabled true
+        signingConfig signingConfigs.config
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            // runProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+
+    // useLibrary 'org.apache.http.legacy'
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    productFlavors {
+        dev {
+            minSdkVersion 25
+            targetSdkVersion 25
+        }
+        prod {
+            minSdkVersion 25
+            targetSdkVersion 25
+            versionName '6.5'
+            signingConfig signingConfigs.config
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
+    compile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services:9.8.0'
+    compile 'com.google.android.gms:play-services-maps:9.8.0'
+    compile files('libs/mail.jar')
+    compile files('libs/httpclient-4.5.2.jar')
+    compile files('libs/additionnal.jar')
+    compile files('libs/activation.jar')
+    compile files('libs/mpandroidchartlibrary-2-2-4.jar')
+    compile files('libs/robotium-solo-5.5.4.jar')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

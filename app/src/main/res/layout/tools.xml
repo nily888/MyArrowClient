@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ergebnis_am_ziel">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Backup Database"
+        android:id="@+id/txt_backup_db"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickBackupDB" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Import Database"
+        android:id="@+id/txt_restore_db"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickRestoreDB" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Sync mit Server"
+        android:id="@+id/txt_sync_server"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickSyncServer" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Sync Reset"
+        android:id="@+id/txt_sync_reset"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickSyncReset" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Dateinamen überprüfen"
+        android:id="@+id/txt_check_files"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickCheckFiles" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Gallerie überprüfen"
+        android:id="@+id/txt_pfeil"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickCheckGallery" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Convert STARTZEIT"
+        android:id="@+id/txt_ziel"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickConvertStartzeit" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Ergebnisse aktualisieren"
+        android:id="@+id/txt_update_ergebnisse"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_bg_transparent"
+        android:onClick="onClickUpdateGesamtPunkte" />
+
+</LinearLayout>
