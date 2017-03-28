@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -782,8 +783,12 @@ public class MyArrowDB extends SQLiteOpenHelper {
          * zunächst Device-Id (z.B. IMEI) auslesen
          */
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-        String deviceid = tm.getDeviceId();
-        if (deviceid==null) deviceid = "000000000000000";
+        String deviceid;
+        if (tm.getDeviceId() != null){
+            deviceid = tm.getDeviceId();
+        }else {
+            deviceid = "000000000000000";
+        }
         Date tempTimeStamp = new Date();
 
         // Default-Pfeil anlegen
