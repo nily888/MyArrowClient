@@ -20,7 +20,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     private boolean mRotate=false;
     private int sleepTime=2000;
     private int mRunden=1;
-    private final String mRunde = "/16 ";
+    private final String mRunde = "/17 ";
     private static final String TAG = MainActivityTest.class.getSimpleName();
 
     public MainActivityTest(){
@@ -471,13 +471,13 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
         doRotate();
 
-        mSimulator.clickLongOnText("Default-Parcour");
-        assertTrue("SubMenu wird nicht angezeigt", mSimulator.searchText("Parcour bearbeiten"));
-        doRotate();
-        mSimulator.clickOnText("Auf der Karte anzeigen");
-        mSimulator.sleep(sleepTime);
-        doRotate();
-        mSimulator.goBack();
+        //mSimulator.clickLongOnText("Default-Parcour");
+        //assertTrue("SubMenu wird nicht angezeigt", mSimulator.searchText("Parcour bearbeiten"));
+        //doRotate();
+        //mSimulator.clickOnText("Auf der Karte anzeigen");
+        //mSimulator.sleep(sleepTime);
+        //doRotate();
+        //mSimulator.goBack();
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
         doRotate();
         mSimulator.clickOnText("Neuer Parcour");

@@ -16,7 +16,7 @@ public class ParcourTbl implements ParcourColumns {
     public static final String SQL_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     "_id                 INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "gid                 TEXT, " +
+                    "gid                 TEXT UNIQUE, " +
                     "name                TEXT NOT NULL, " +
                     "anzahl_ziele        INTEGER NOT NULL, " +
                     "strasse             TEXT, " +

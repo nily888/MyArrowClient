@@ -13,7 +13,7 @@ public class RundenSchuetzenTbl implements RundenSchuetzenColumns {
     public static final String SQL_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     "_id            INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "gid            TEXT, " +
+                    "gid            TEXT UNIQUE, " +
                     "schuetzengid   TEXT NOT NULL," +
                     "rundengid      TEXT NOT NULL," +
                     "gesamtergebnis INTEGER," +

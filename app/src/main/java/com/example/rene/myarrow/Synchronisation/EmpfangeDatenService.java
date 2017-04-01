@@ -132,6 +132,7 @@ public class EmpfangeDatenService {
                 Log.d(TAG, "erhalteDaten(): DATA = " + data);
                 if (tag.equals("table")) {
                     got++;
+                    // TODO warum kann ich doppelte abspeichern
                     switch (data) {
                         case "ziel":
                             speichereZiel(response);

@@ -1418,9 +1418,11 @@ public class MyArrowDB extends SQLiteOpenHelper {
         Log.i(TAG, "storeForgeinDataset(): Start");
         final SQLiteDatabase dbCon = sINSTANCE.getWritableDatabase();
         try {
+            //
             final long id = dbCon.insertOrThrow(table, null, daten);
 
         } catch(SQLiteConstraintException e) {
+            // TODO Fehler 2067 noch abfangen
             if (e.equals(19)) {             // SQLITE_CONSTRAINT = Abort due to constraint violation
                 String gid = daten.getAsString("gid");
                 daten.remove("gid");

@@ -48,8 +48,8 @@ public class StartParcour extends Activity implements MultiSpinnerListener{
     private ParcourSpeicher mParcourSpeicher;
 
     /** Die DB Id des ausgewählten Kontaktes. */
-    private String    mParcourGId;
-    private Parcour   parcourCursor;
+    private String   mParcourGId;
+    private Parcour  parcourCursor;
     private String[] schuetzenArray;
     private String[] ausgewaehlteSchuetzen;
 

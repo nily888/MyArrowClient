@@ -226,9 +226,22 @@ public class ErgebnisAmZiel extends FragmentActivity {
         for (int index=0;(index<rundenschuetzenArray.length); index++) {
             Fragment newFragment = new TrefferAmZiel();
             Bundle bundle = new Bundle();
+            /**
+             * Submit rundenGID
+             */
             bundle.putString(Konstante.OUT_PARAM_RUNDEN_GID, mRundenGID);
+            /**
+             * Submit all rundenschuetzen GIDs (Array)
+             */
             bundle.putString(Konstante.OUT_PARAM_RUNDENSCHUETZEN_GID, rundenschuetzenArray[index][1]);
+            /**
+             * Submit the current Target
+             */
             bundle.putInt(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, mAktuellesZiel);
+            /**
+             * TODO Why and when -1
+             * OUT_PARAM_ZIEL_GID = -1 means
+             */
             bundle.putString(Konstante.OUT_PARAM_ZIEL_GID, "-1");
             bundle.putString("schuetzenname", rundenschuetzenArray[index][2]);
             newFragment.setArguments(bundle);
@@ -250,10 +263,9 @@ public class ErgebnisAmZiel extends FragmentActivity {
          * aktuelle Zielnummer und Anzahl der Ziele in dieser Runden anzeigen
          */
         sMyOptions[0] = String.valueOf(mAktuellesZiel) + "/" + String.valueOf(mAnzahlZiele);
-
-        //
-        // Wenn vorhanden, Ergebnisbild anzeigen
-        //
+        /**
+         * Wenn vorhanden, Ergebnisbild anzeigen
+         */
         RundenZielSpeicher rzSpeicher = new RundenZielSpeicher(this);
         String mDateiname = rzSpeicher.getDateiname(mRundenGID, mAktuellesZiel);
         if (mDateiname!=null && !mDateiname.equals("")) {
@@ -266,9 +278,9 @@ public class ErgebnisAmZiel extends FragmentActivity {
     }
 
     private void loadTrefferAmZiel(){
-        //
-        // * Swipe vorbereiten
-        //
+        /**
+         * Swipe vorbereiten
+         */
         mFragments = new ArrayList<Fragment>();
         mFragments = loadMyFragments();
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -303,9 +315,9 @@ public class ErgebnisAmZiel extends FragmentActivity {
     }
 
     public void onClickZurueck(View v) {
-        //
-        // wollen Sie wirklich zurück?
-        //
+        /**
+         * wollen Sie wirklich zurück?
+         */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Zurück");
         builder.setMessage("Sind Sie sicher?");

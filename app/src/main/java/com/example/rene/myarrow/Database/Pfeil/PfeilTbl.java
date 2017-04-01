@@ -23,7 +23,7 @@ public final class PfeilTbl implements PfeilColumns {
     public static final String SQL_CREATE =
         "CREATE TABLE " + TABLE_NAME + " (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "gid TEXT, " +
+            "gid TEXT UNIQUE, " +
             "name TEXT NOT NULL," +
             "dateiname TEXT," +
             "standard BOOLEAN," +

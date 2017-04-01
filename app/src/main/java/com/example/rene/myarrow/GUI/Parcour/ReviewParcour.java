@@ -115,6 +115,7 @@ public class ReviewParcour extends AppCompatActivity {
                     final Intent i = new Intent(this, RundenZielBearbeiten.class);
                     i.putExtra(Konstante.OUT_PARAM_RUNDENZIEL_GID,
                             mExtras.getString(Konstante.IN_PARAM_RUNDENZIEL_GID));
+                    Log.d(TAG, "onActivityResult(3004): RUNDENZIEL_GID - " + mExtras.getString(Konstante.IN_PARAM_RUNDENZIEL_GID));
                     startActivityForResult(i, 3005);
                 } else {
                     Log.w(TAG, "onActivityResult(3004): Es wurde nichts übergeben");

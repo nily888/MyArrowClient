@@ -117,10 +117,14 @@ public class RundenZielBearbeiten extends FragmentActivity {
         //
         Fragment newFragment = new TrefferAmZiel();
         Bundle bundle = new Bundle();
+        Log.d(TAG,"oncreate(): RUNDENZIEL_GID      - " + mRundenZiel.rundengid + " / " + mRundenZielGID);
+        Log.d(TAG,"oncreate(): RUNDENSCHUETZEN_GID - " + mRundenSchuetzen.schuetzengid);
+        Log.d(TAG,"oncreate(): ZIEL_GID            - " + mRundenZiel.zielgid);
         bundle.putString(Konstante.OUT_PARAM_RUNDEN_GID, mRundenZiel.rundengid);
         bundle.putString(Konstante.OUT_PARAM_RUNDENSCHUETZEN_GID, mRundenSchuetzen.schuetzengid);
         bundle.putInt(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, -1); // mZiel.nummer
-        bundle.putString(Konstante.OUT_PARAM_ZIEL_GID, mRundenZiel.zielgid);
+        bundle.putString(Konstante.OUT_PARAM_ZIEL_GID, mRundenZiel.gid);
+        //        zielgid);
         bundle.putString("schuetzenname", mSchuetzen.name);
         newFragment.setArguments(bundle);
         newFragment.setRetainInstance(true);
@@ -322,6 +326,7 @@ public class RundenZielBearbeiten extends FragmentActivity {
         final Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey(Konstante.IN_PARAM_RUNDENZIEL_GID)) {
             mRundenZielGID = extras.getString(Konstante.IN_PARAM_RUNDENZIEL_GID);
+            Log.d(TAG, "oncreate(): RUNDENZIEL_GID - " + mRundenZielGID);
         } else {
             Log.w(TAG, "oncreate(): Keine RundenZiel-Id übergeben");
         }

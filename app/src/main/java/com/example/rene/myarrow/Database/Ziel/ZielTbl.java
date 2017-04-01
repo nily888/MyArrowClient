@@ -16,7 +16,7 @@ public class ZielTbl implements ZielColumns {
     public static final String SQL_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     "_id                 INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "gid                 TEXT, " +
+                    "gid                 TEXT UNIQUE, " +
                     "parcourgid          TEXT NOT NULL," +
                     "nummer              INTEGER NOT NULL," +
                     "name                TEXT NOT NULL," +

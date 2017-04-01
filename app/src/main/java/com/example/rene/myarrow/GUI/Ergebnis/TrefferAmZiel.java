@@ -105,6 +105,13 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
         RundenZiel rz = new RundenZiel();
         Log.d(TAG, "zeigeDetails(): mAktuellesZiel = " + mAktuellesZiel);
         Log.d(TAG, "zeigeDetails(): mZielGID       = " + mZielGID);
+        /**
+         *
+         * mAktuallesZiel = -1 means
+         * mZielGID = -1 means
+         *
+         */
+        // TODO to be filled out
         if (mAktuellesZiel>-1 && mZielGID.equals("-1")) {
             rz = new RundenZielSpeicher(mContext)
                     .loadRundenZiel(mRundenGID, mRundenSchuetzenGID, mAktuellesZiel);
@@ -169,14 +176,17 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
     private void getParameter(Bundle savedInstanceState){
         Bundle bundle = this.getArguments();
         mRundenGID = bundle.getString(Konstante.IN_PARAM_RUNDEN_GID);
-        if (mRundenGID.equals("")) {
+        Log.d(TAG, "getParameter(): mRundenGID - " + mRundenGID);
+        if (mRundenGID.isEmpty() || mRundenGID.equals("")) {
             mRundenGID = savedInstanceState.getString(Konstante.IN_PARAM_RUNDEN_GID);
         }
         mRundenSchuetzenGID = bundle.getString(Konstante.IN_PARAM_RUNDENSCHUETZEN_GID);
-        if (mRundenSchuetzenGID.equals("")) {
+        Log.d(TAG, "getParameter(): mRundenSchuetzenGID - " + mRundenSchuetzenGID);
+        if (mRundenSchuetzenGID.isEmpty() || mRundenSchuetzenGID.equals("")) {
             mRundenSchuetzenGID = savedInstanceState.getString(Konstante.IN_PARAM_RUNDENSCHUETZEN_GID);
         }
         mAktuellesZiel = bundle.getInt(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID);
+        Log.d(TAG, "getParameter(): mAktuellesZiel - " + mAktuellesZiel);
         if (mAktuellesZiel == 0){
             mAktuellesZiel = savedInstanceState.getInt(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID);
         }
@@ -186,7 +196,6 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
             mSchuetze = savedInstanceState.getString("schuetzenname");
         }
         mZielGID = bundle.getString(Konstante.IN_PARAM_ZIEL_GID);
-        Log.d(TAG, "getParameter(): mAktuellesZiel - " + mAktuellesZiel );
         Log.d(TAG, "getParameter(): mZielGID       - " + mZielGID);
         if (mZielGID.isEmpty() || mZielGID.equals("")) {
             mZielGID = savedInstanceState.getString(Konstante.IN_PARAM_ZIEL_GID);
