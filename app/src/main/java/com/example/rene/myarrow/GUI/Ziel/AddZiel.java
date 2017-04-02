@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rene.myarrow.Database.Parcour.Parcour;
 import com.example.rene.myarrow.Database.Parcour.ParcourSpeicher;
@@ -197,26 +198,41 @@ public class AddZiel extends AppCompatActivity{
     }
 
     public void onClickAddZiel(View v) {
-
         Log.d(TAG, "onClickAddZiel(): Start");
+        /* *
+         * Ziel Nummer auslesen
+         */
+        Log.d(TAG, "onClickAddZiel(): Ziel Nummer - findViewById");
+        EditText fldZielNummer = (EditText) findViewById(R.id.edt_zielnummer);
+        int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());
+
+        /**
+         * Passt die Zielnummer? Darf nur um eins höher sein als die aktuelle Anzahl von Zielen
+         */
+        Log.d(TAG, "onClickAddZiel(): Anzahl Ziele / neueZielnummer: "
+                + String.valueOf(mParcour.anzahl_ziele) + " / " + String.valueOf(nZielNummer));
+        if ((mParcour.anzahl_ziele+1) < nZielNummer) {
+            Toast.makeText(this, "Die Zielnummer darf nicht höher als " + String.valueOf(mParcour.anzahl_ziele+1) + " sein!",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         //
         // wollen Sie wirklich ein Ziel hinzufügen?
         //
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Weiter");
-        builder.setMessage("Sind Sie sicher ? Empfehlung wäre neuen Parcour anzulegen!");
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder2.setTitle("Weiter");
+        builder2.setMessage("Sind Sie sicher ? Empfehlung wäre neuen Parcour anzulegen!");
         // O.K., verstanden ein Ziel hinzufügen
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 /* *
                  * Ziel Nummer auslesen
                  */
-                Log.d(TAG, "onClickAddZiel(): Ziel Name - findViewById");
+                Log.d(TAG, "onClickAddZiel(): Ziel Nummer - findViewById");
                 EditText fldZielNummer = (EditText) findViewById(R.id.edt_zielnummer);
-                int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());
-
-                /* *
+                int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());                /* *
                  * Ziel Name auslesen
                  */
                 Log.d(TAG, "onClickAddZiel(): Ziel Name - findViewById");
@@ -278,7 +294,7 @@ public class AddZiel extends AppCompatActivity{
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Do nothing
@@ -286,8 +302,8 @@ public class AddZiel extends AppCompatActivity{
                 finish();
             }
         });
-        AlertDialog alert = builder.create();
-        alert.show();
+        AlertDialog alert2 = builder2.create();
+        alert2.show();
     }
 
     @Override
