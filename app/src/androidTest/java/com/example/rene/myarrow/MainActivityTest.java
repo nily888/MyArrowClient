@@ -22,6 +22,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     private int mRunden=1;
     private final String mRunde = "/17 ";
     private static final String TAG = MainActivityTest.class.getSimpleName();
+    private testMisc tm;
 
     public MainActivityTest(){
         super(MainActivity.class);
@@ -29,6 +30,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void setUp() throws Exception {
         mSimulator = new Solo(getInstrumentation(), getActivity());
+        tm = new testMisc(mSimulator, sleepTime);
     }
 
     public void testMainActivity() throws Exception {
@@ -80,14 +82,14 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
         mSimulator.clickOnText("Los geht's");
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        doRotate();
+        tm.doRotate(mRotate);
 
         // Default-Parcour auswählen
         mCheck = new String[]{"Default-Parcour"};
         mSimulator.clickOnText(mCheck[0]);
         mSimulator.sleep(sleepTime);
         assertTrue(mCheck[0] + " wird nicht angezeigt", mSimulator.searchText("max. erreichte Punkte"));
-        doRotate();
+        tm.doRotate(mRotate);
 
         // Schützen auswählen
         mCheck = new String[]{"Default-Schuetze 1"};
@@ -98,7 +100,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mSimulator.clickOnText("Jetzt geht es los...");
         assertTrue("Erstes Ziel wird nicht angezeigt", mSimulator.searchText("1/2"));
         assertTrue("Erstes Ziel => aktuelle Punkte / max.Punkte wird nicht angezeigt", mSimulator.searchText("0/40"));
-        doRotate();
+        tm.doRotate(mRotate);
 
         // Erster Schuss
         mCheck = new String[]{"Default-Schuetze 1", "im 2ten Schuss", "+10 Punkte"};
@@ -106,7 +108,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
         // und jetzt zum nächsten Ziel
         mCheck = new String[]{"10 - Zweites Ziel", "2/2", "10/30"};
-        testClickOnWeiter();
+        tm.testClickOnWeiter(mCheck);
 
         // Zweiter Schuss
         assertTrue("Zweiter Ziel wird nicht angezeigt", mSimulator.searchText("2/2"));
@@ -116,11 +118,11 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         // Zum vorherigen Ziel zurueck
         // und schon wieder bin ich beim ersten Ziel
         mCheck = new String[]{"1/2", "0/40"};
-        testClickOnZurueck();
+        tm.testClickOnZurueck(mCheck);
 
         // und jetzt zum nächsten Ziel
         mCheck = new String[]{"20 - Zweites Ziel", "2/2", "10/30"};
-        testClickOnWeiter();
+        tm.testClickOnWeiter(mCheck);
 
         // Mit weiter jetzt zur Gesamtuebersicht
         Log.d(TAG, "Weiter geht es zur Gesamtuebersicht");
@@ -160,86 +162,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mSimulator.clickOnText("Map");
         mSimulator.goBack();
         assertTrue("Ergebnis wird nicht angezeigt", mSimulator.searchText("Default-Schuetze 1"));
-    }
-
-    public void testBoegen() {
-        // Update
-        mSimulator.clickOnText("Bögen");
-        assertTrue("Bogenliste wird nicht angezeigt", mSimulator.searchText("Default-Bogen"));
-        mSimulator.clickOnText("Default-Bogen");
-        mSimulator.sleep(sleepTime);
-        assertTrue("Bogen Default-Bogen wird nicht angezeigt", mSimulator.searchText("Speichere Bogen..."));
-        mSimulator.clickOnText("Speichere Bogen...");
-        assertTrue("Bogenliste wird nicht angezeigt", mSimulator.searchText("Default-Bogen"));
-        // Insert
-        mSimulator.clickOnText("Neuer Bogen");
-        assertTrue("Neuer Boegen wird nicht angezeigt", mSimulator.searchText("Speichere Bogen..."));
-        mSimulator.clearEditText(0);
-        mSimulator.enterText(0, "Default-Bogen 3");
-        mSimulator.clickOnText("Speichere Bogen...");
-        assertTrue("Bögen werden nicht angezeigt", mSimulator.searchText("Default-Bogen 3"));
-        // Delete
-        mSimulator.clickLongOnText("Default-Bogen 3");
-        assertTrue("Löschen wird nicht angezeigt", mSimulator.searchText("Löschen"));
-        mSimulator.clickOnText("Löschen");
-        assertTrue("Bögen werden nicht angezeigt", mSimulator.searchText("Default-Bogen"));
-        mSimulator.goBack();
-        assertTrue("Einstellungen werden nicht angezeigt", mSimulator.searchText("Pfeile"));
-        mSimulator.goBack();
-        assertTrue("Startseite wird nicht angezeigt", mSimulator.searchText("Einstellungen"));
-    }
-
-    public void testPfeile(){
-        // Update
-        String mPfeil = "Default-Pfeil";
-        String mNeuerPfeil = "Default-Pfeil 3";
-        mSimulator.clickOnText("Pfeile");
-        assertTrue("Pfeile werden nicht angezeigt", mSimulator.searchText(mPfeil));
-        mSimulator.clickOnText(mPfeil);
-        mSimulator.sleep(sleepTime);
-        assertTrue("Pfeile werden nicht angezeigt", mSimulator.searchText("Speichere Pfeil..."));
-        mSimulator.clickOnText("Speichere Pfeil...");
-        assertTrue("Pfeile werden nicht angezeigt", mSimulator.searchText(mPfeil));
-        // Insert
-        mSimulator.clickOnText("Neuer Pfeil");
-        assertTrue("Neuer Pfeil werden nicht angezeigt", mSimulator.searchText("Speichere Pfeil..."));
-        mSimulator.clearEditText(0);
-        mSimulator.enterText(0, mNeuerPfeil);
-        mSimulator.clickOnText("Speichere Pfeil...");
-        assertTrue("Pfeile werden nicht angezeigt", mSimulator.searchText(mNeuerPfeil));
-        // Delete
-        mSimulator.clickLongOnText(mNeuerPfeil);
-        assertTrue("Löschen wird nicht angezeigt", mSimulator.searchText("Löschen"));
-        mSimulator.clickOnText("Löschen");
-        mSimulator.goBack();
-        assertTrue("Einstellungen werden nicht angezeigt", mSimulator.searchText("Bögen"));
-        mSimulator.goBack();
-        assertTrue("Startseite wird nicht angezeigt", mSimulator.searchText("Einstellungen"));
-    }
-
-    public void testZiele(){
-        Log.d(TAG, "Ziele testen");
-        mSimulator.clickOnText("Ziele");
-        assertTrue("Parcoure werden nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        mSimulator.clickOnText("Default-Parcour");
-        assertTrue("Ziele werden nicht angezeigt", mSimulator.searchText("Default Ziel 1"));
-        mSimulator.clickOnText("Default Ziel 1");
-        mSimulator.assertCurrentActivity("Wartet auf die Class BearbeiteZiel", BearbeiteZiel.class);
-        // mSimulator.clickOnText("Zielbild");
-        // mSimulator.assertCurrentActivity("Wartet auf die Class BildAnzeigen", BildAnzeigen.class);
-        // mSimulator.goBack();
-        // mSimulator.assertCurrentActivity("Wartet auf die Class BearbeiteZiel", BearbeiteZiel.class);
-        assertTrue("Pfeil wird nicht angezeigt", mSimulator.searchText("Update Ziel..."));
-        mSimulator.clickOnText("Update Ziel...");
-        assertTrue("GoBack: Ziele werden nicht angezeigt", mSimulator.searchText("Default Ziel 1"));
-        mSimulator.goBack();
-        mSimulator.sleep(sleepTime);
-        assertTrue("Parcoure werden nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        mSimulator.goBack();
-        assertTrue("Einstellungen werden nicht angezeigt", mSimulator.searchText("Berechnung"));
-        mSimulator.goBack();
-        assertTrue("Startseite wird nicht angezeigt", mSimulator.searchText("Einstellungen"));
-        Log.d(TAG, "Ziel Prüfung abgeschlossen");
     }
 
     public void testSchuetzen() {
@@ -303,64 +225,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertEquals("Toggle Button is NOT " + mCheck[2], true, mSimulator.isToggleButtonChecked(mCheck[2]));
     }
 
-    public void testClickOnWeiter() {
-        Log.i(TAG, "Weiter geht es => Click on WEITER");
-        mSimulator.clickOnText("weiter");
-        mSimulator.assertCurrentActivity("Wartet auf die Class ErgebnisAmZiel", ErgebnisAmZiel.class);
-        assertTrue(mCheck[0] + " " + mCheck[1] + " wird nicht angezeigt", mSimulator.searchText(mCheck[1]));
-        assertTrue(mCheck[0] + " => aktuelle Punkte / max.Punkte (" + mCheck[2] +
-                ") wird nicht angezeigt", mSimulator.searchText(mCheck[2]));
-        Log.d(TAG, "getLocalClassName:   " + mSimulator.getCurrentActivity().getLocalClassName());
-    }
-
-    public void testClickOnZurueck() {
-        Log.d(TAG, "Zurück zum vorherigen Ziel");
-        mSimulator.clickOnText("zurück");
-        mSimulator.clickOnText("OK");
-        assertTrue("Erstes Ziel " + mCheck[0] + " wird nicht angezeigt", mSimulator.searchText(mCheck[0]));
-        assertTrue("Erstes Ziel => aktuelle Punkte / max.Punkte wird nicht angezeigt", mSimulator.searchText(mCheck[1]));
-    }
-
-    public void testReviewParcour() {
-        Log.d(TAG, "Rieview Parcour testen");
-        mSimulator.clickOnText("Review Parcour");
-        assertTrue("Default-Parcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        mSimulator.clickOnText("Default-Parcour");
-        assertTrue("Runde wird nicht angezeigt", mSimulator.searchText(mRunde));
-        mSimulator.clickInList(0);
-        // mSimulator.clickOnText(mRunde);
-        assertTrue("Default-Schuetze 1 wird nicht angezeigt", mSimulator.searchText("Default-Schuetze 1"));
-        mSimulator.clickOnText("Default-Schuetze 1");
-        assertTrue("Ziel 1 wird nicht angezeigt", mSimulator.searchText("Default Ziel 1"));
-        mSimulator.clickOnText("Default Ziel 1");
-        assertTrue("Ziel zu Bearbeiten wird nicht angezeigt", mSimulator.searchText("+10 Punkte"));
-        mSimulator.clickOnText("+10 Punkte");
-        assertTrue("Ziel Ergebnis kann nicht geändert werden", mSimulator.searchText("im 2ten Schuss"));
-        mSimulator.clickOnText("im 1ten Schuss");
-        assertTrue("Mit einem Schuss wird nicht angezeigt", mSimulator.searchText("+16 Punkte"));
-        mSimulator.clickOnText("Speichern");
-        assertTrue("Ziel 1 mit 16 Punkte wird nicht angezeigt", mSimulator.searchText("16"));
-        mSimulator.clickOnText("Default Ziel 1");
-        assertTrue("Mit einem Schuss wird nicht angezeigt", mSimulator.searchText("+16 Punkte"));
-        mSimulator.clickOnText("+16 Punkte");
-        assertTrue("im 1ten Schuss wird nicht angezeigt", mSimulator.searchText("im 1ten Schuss"));
-        mSimulator.clickOnText("im 2ten Schuss");
-        assertTrue("+10 Punkte wird nicht angezeigt", mSimulator.searchText("+10 Punkte"));
-        mSimulator.clickOnText("Speichern");
-        assertTrue("Ziel 1 mit 10 Punkte wird nicht angezeigt", mSimulator.searchText("10"));
-        mSimulator.goBack();
-        assertTrue("Default-Schuetze 1 wird nicht angezeigt", mSimulator.searchText("Default-Schuetze 1"));
-        mSimulator.goBack();
-        assertTrue("Runde wird nicht angezeigt", mSimulator.searchText(mRunde));
-        mSimulator.goBack();
-        assertTrue("Default-Parcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        mSimulator.goBack();
-        assertTrue("Einstellungen werden nicht angezeigt", mSimulator.searchText("Review Parcour"));
-        mSimulator.goBack();
-        assertTrue("Startbildschirm wird nicht angezeigt", mSimulator.searchText("Los geht's"));
-        Log.d(TAG, "Review Parcour Prüfung abgeschlossen");
-    }
-
     public void testBerechnungen() {
         Log.d(TAG, "Berechnung testen");
         mSimulator.clickOnText("Berechnung");
@@ -394,23 +258,23 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         // Review Parcour testen
         //
         testGoToEinstellungen();
-        testReviewParcour();
+        new testReviewParcour(mSimulator, sleepTime, mRunde).testReviewParcour();
 
         //
         // Bögen testen
         //
         testGoToEinstellungen();
-        testBoegen();
+        new testBogen(mSimulator, sleepTime).testBoegen();
 
         //
         // Pfeile testen
         //
         testGoToEinstellungen();
-        testPfeile();
+        new testPfeil(mSimulator, sleepTime).testPfeile();
 
         // Ziele testen
         testGoToEinstellungen();
-        testZiele();
+        new testZiel(mSimulator, sleepTime).testZiele();
 
         // Berechnungen testen
         testGoToEinstellungen();
@@ -433,43 +297,32 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertTrue("Einstellungen werden nicht angezeigt", mSimulator.searchText("Bögen"));
     }
 
-    public void SlideToRight(){
-        Log.d(TAG, "nach rechts");
-        mSimulator.scrollViewToSide(mSimulator.getView(R.id.pager), Solo.RIGHT);
-        Log.d(TAG, "nach links");
-        mSimulator.scrollViewToSide(mSimulator.getView(R.id.pager), Solo.LEFT);
-        Log.d(TAG, "nach rechts");
-        mSimulator.scrollViewToSide(mSimulator.getView(R.id.pager), Solo.RIGHT);
-        // Log.d(TAG, "sleep()");
-        // mSimulator.sleep(sleepTime);
-    }
-
     public void testParcourSubMenu() {
 
         assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
         mSimulator.clickOnText("Los geht's");
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        doRotate();
+        tm.doRotate(mRotate);
 
         mSimulator.clickLongOnText("Default-Parcour");
         assertTrue("SubMenu wird nicht angezeigt", mSimulator.searchText("Parcour bearbeiten"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickOnText("Parcour bearbeiten");
         assertTrue("Parcour wird nicht angezeigt", mSimulator.searchText("Parcour bearbeiten"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickOnText("Update Parcour");
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        doRotate();
+        tm.doRotate(mRotate);
 
         mSimulator.clickLongOnText("Default-Parcour");
         assertTrue("SubMenu wird nicht angezeigt", mSimulator.searchText("Parcour bearbeiten"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickOnText("Statistik");
         assertTrue("Statistik wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.goBack();
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        doRotate();
+        tm.doRotate(mRotate);
 
         //mSimulator.clickLongOnText("Default-Parcour");
         //assertTrue("SubMenu wird nicht angezeigt", mSimulator.searchText("Parcour bearbeiten"));
@@ -479,36 +332,29 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         //doRotate();
         //mSimulator.goBack();
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickOnText("Neuer Parcour");
         assertTrue("Neuer Parcour wird nicht angezeigt", mSimulator.searchText("Neuen Parcour anlegen"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.enterText(0, "Please Delete");
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.enterText(1, "3");
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickOnText("Erstelle Parcour");
         assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickOnText("Los geht's");
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Please Delete"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickLongOnText("Please Delete");
         assertTrue("SubMenu wird nicht angezeigt", mSimulator.searchText("Parcour bearbeiten"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.clickOnText("Parcour löschen");
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
-        doRotate();
+        tm.doRotate(mRotate);
         mSimulator.goBack();
         assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
-        doRotate();
-
+        tm.doRotate(mRotate);
     }
 
-    private void doRotate(){
-        if (mRotate) {
-            mSimulator.setActivityOrientation(Solo.LANDSCAPE);
-            mSimulator.setActivityOrientation(Solo.PORTRAIT);
-        }
-    }
 }
