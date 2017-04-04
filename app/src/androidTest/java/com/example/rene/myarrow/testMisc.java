@@ -33,7 +33,6 @@ public class testMisc {
         assertTrue(mCheck[0] + " " + mCheck[1] + " wird nicht angezeigt", mSimulator.searchText(mCheck[1]));
         assertTrue(mCheck[0] + " => aktuelle Punkte / max.Punkte (" + mCheck[2] +
                 ") wird nicht angezeigt", mSimulator.searchText(mCheck[2]));
-        Log.d(TAG, "getLocalClassName:   " + mSimulator.getCurrentActivity().getLocalClassName());
     }
 
     public void testClickOnZurueck(String[] mCheck) {

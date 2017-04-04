@@ -4,9 +4,6 @@ package com.example.rene.myarrow;
  * Created by rene on 4/3/17.
  */
 
-import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
-
 import com.robotium.solo.Solo;
 
 import static junit.framework.Assert.assertTrue;
@@ -14,6 +11,7 @@ import static junit.framework.Assert.assertTrue;
 public class testBogen {
     private Solo mSimulator;
     private int sleepTime;
+    private static final String TAG = MainActivityTest.class.getSimpleName();
 
     public testBogen(Solo msimulator) {
         mSimulator = msimulator;
