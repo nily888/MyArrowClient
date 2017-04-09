@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.rene.myarrow.Database.Bogen.Bogen;
 import com.example.rene.myarrow.Database.Bogen.BogenSpeicher;
 import com.example.rene.myarrow.Database.Bogen.BogenTbl;
+import com.example.rene.myarrow.Database.MyArrowDB;
 import com.example.rene.myarrow.Database.Parcour.Parcour;
 import com.example.rene.myarrow.Database.Parcour.ParcourSpeicher;
 import com.example.rene.myarrow.Database.Parcour.ParcourTbl;
@@ -61,7 +62,7 @@ public class EmpfangeDatenService {
          */
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         deviceid = tm.getDeviceId();
-        if (deviceid==null) {
+        if (deviceid == null) {
             Log.e(TAG, "EmpfangeDatenService(): Keine Device-ID vorhanden => auf 000000000000000 gesetzt!!");
             deviceid = "000000000000000";
         }
@@ -72,13 +73,14 @@ public class EmpfangeDatenService {
         String response = null;
 
         /**
-         *
+         * action=getdata & deviceid=
          */
         Uri.Builder builder = new Uri.Builder()
                 .appendQueryParameter("action", "getdata")
                 .appendQueryParameter("deviceid", deviceid);
 
         if (httpRequest.sendeHttpRequest_temp(builder.build().getEncodedQuery())) {
+            // TODO nach erhaltenDaten() schieben
             response = httpRequest.empfangeHttpRequest();
             Log.d(TAG, "empfangeDaten(): Response = " + response);
             if (response.equals("")) return;
@@ -114,8 +116,28 @@ public class EmpfangeDatenService {
         String tag;
         String data;
         boolean weiter = true;
-        int got=0;
+        int got = 0;
 
+
+        /**
+         * action=getdata
+         *     => anzahl=xxxx
+         * action=o.k.
+         *     => table=......
+         *     => done=done
+         * action=updatemobile
+         *
+         * action=getdata
+         *     => anzahl=xxxx
+         *
+         * action=o.k.
+         *     => table=......
+         *     => done=done
+         * action=update
+         *     => table=updatemobile
+         * action=done
+         *
+         */
         Uri.Builder builder = new Uri.Builder()
                 .appendQueryParameter("action", "o.k.")
                 .appendQueryParameter("deviceid", deviceid);
@@ -166,14 +188,28 @@ public class EmpfangeDatenService {
                             speichereSchuetzen(response);
                             break;
 
+                        case "updatemobile":
+                            updateGIDs(response);
+                            break;
+
                         default:
                             Log.e(TAG, "erhalteDaten(): Fehler - Tabelle (" + data + ") unbekannt !!");
-                            weiter=false;
+                            weiter = false;
                             break;
 
                     }
 
                 } else if (record.equals("done=done")) {
+                    /**
+                     * Es wurden alle Table Update erfolgreich aktualisiert
+                     */
+                    builder = new Uri.Builder().appendQueryParameter("action", "updatemobile");
+                    httpRequest.sendeHttpRequest_temp(builder.build().getEncodedQuery());
+
+                } else if (record.equals("updatemobile=done")) {
+                    /**
+                     * Es wurden alle GIDs wurden erfolgreich aktualisiert
+                     */
                     builder = new Uri.Builder().appendQueryParameter("action", "done");
                     httpRequest.sendeHttpRequest_temp(builder.build().getEncodedQuery());
                     weiter = false;
@@ -186,7 +222,7 @@ public class EmpfangeDatenService {
                 }
             } else {
                 Log.e(TAG, "erhalteDaten(): Fehler - Verbindung konnte nicht hergestellt werden !!");
-                weiter=false;
+                weiter = false;
             }
         }
         return got;
@@ -199,7 +235,7 @@ public class EmpfangeDatenService {
         String[] daten = response.split("&");
         Bogen bogen = new Bogen();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             tag = daten[n].split("=")[0];
             data = daten[n].split("=")[1];
             switch (tag) {
@@ -253,7 +289,7 @@ public class EmpfangeDatenService {
         String[] daten = response.split("&");
         Parcour parcour = new Parcour();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             Log.d(TAG, "speichereParcour(): " + daten[n]);
             tag = daten[n].split("=")[0];
             data = daten[n].split("=")[1];
@@ -303,7 +339,7 @@ public class EmpfangeDatenService {
                     break;
 
                 case ParcourTbl.STANDARD:
-                    parcour.standard = (data.equals("1")?true:false);
+                    parcour.standard = (data.equals("1") ? true : false);
                     break;
 
                 case ParcourTbl.TRANSFERED:
@@ -333,7 +369,7 @@ public class EmpfangeDatenService {
         String[] daten = response.split("&");
         Pfeil pfeil = new Pfeil();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             tag = daten[n].split("=")[0];
             data = daten[n].split("=")[1];
             switch (tag) {
@@ -353,7 +389,7 @@ public class EmpfangeDatenService {
                     break;
 
                 case PfeilTbl.STANDARD:
-                    pfeil.standard = (data.equals("1")?true:false);
+                    pfeil.standard = (data.equals("1") ? true : false);
                     break;
 
                 case PfeilTbl.DATEINAME:
@@ -387,7 +423,7 @@ public class EmpfangeDatenService {
         String[] daten = response.split("&");
         Runden runden = new Runden();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             tag = daten[n].split("=")[0];
             data = daten[n].split("=")[1];
             switch (tag) {
@@ -457,7 +493,7 @@ public class EmpfangeDatenService {
         String[] daten = response.split("&");
         RundenSchuetzen rundenschuetzen = new RundenSchuetzen();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             tag = daten[n].split("=")[0];
             data = daten[n].split("=")[1];
             switch (tag) {
@@ -511,7 +547,7 @@ public class EmpfangeDatenService {
         String[] daten = response.split("&");
         RundenZiel rundenziel = new RundenZiel();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             tag = daten[n].split("=")[0];
             Log.d(TAG, "speichereRundenZiel(): TAG =" + tag);
             data = daten[n].split("=")[1];
@@ -545,23 +581,23 @@ public class EmpfangeDatenService {
                     break;
 
                 case RundenZielTbl.EINS:
-                    rundenziel.eins = (data.equals("1")?true:false);
+                    rundenziel.eins = (data.equals("1") ? true : false);
                     break;
 
                 case RundenZielTbl.ZWEI:
-                    rundenziel.zwei = (data.equals("1")?true:false);
+                    rundenziel.zwei = (data.equals("1") ? true : false);
                     break;
 
                 case RundenZielTbl.DREI:
-                    rundenziel.drei = (data.equals("1")?true:false);
+                    rundenziel.drei = (data.equals("1") ? true : false);
                     break;
 
                 case "kills":
-                    rundenziel.kill = (data.equals("1")?true:false);
+                    rundenziel.kill = (data.equals("1") ? true : false);
                     break;
 
                 case RundenZielTbl.KILLKILL:
-                    rundenziel.killkill = (data.equals("1")?true:false);
+                    rundenziel.killkill = (data.equals("1") ? true : false);
                     break;
 
                 case RundenZielTbl.PUNKTE:
@@ -603,7 +639,7 @@ public class EmpfangeDatenService {
         String[] daten = response.split("&");
         Schuetzen schuetzen = new Schuetzen();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             tag = daten[n].split("=")[0];
             data = daten[n].split("=")[1];
             switch (tag) {
@@ -648,17 +684,17 @@ public class EmpfangeDatenService {
     }
 
     private void speichereZiel(String response) {
-        String tag=null;
-        String data=null;
+        String tag = null;
+        String data = null;
         String[] daten = response.split("&");
         Ziel ziel = new Ziel();
 
-        for (int n=0; n<daten.length; n++) {
+        for (int n = 0; n < daten.length; n++) {
             Log.d(TAG, "speichereZiel(): Problem? " + n + " / " + daten[n]);
             tag = daten[n].split("=")[0];
             if (daten[n].split("=")[1] == null) {
-                data=null;
-            } else{
+                data = null;
+            } else {
                 data = daten[n].split("=")[1];
             }
             switch (tag) {
@@ -716,6 +752,58 @@ public class EmpfangeDatenService {
         zs.storeForgeinZiel(ziel);
         zs.schliessen();
 
+    }
+
+    private void updateGIDs(String response) {
+        String tag = null;
+        String data = null;
+        String[] daten = response.split("&");
+        String[] dataSet = new String[4];
+
+        for (int n = 0; n < daten.length; n++) {
+            Log.d(TAG, "updateGIDs(): Problem? " + n + " / " + daten[n]);
+            tag = daten[n].split("=")[0];
+            if (daten[n].split("=")[1] == null) {
+                data = null;
+            } else {
+                data = daten[n].split("=")[1];
+            }
+
+            /**
+             * Mappen der erhalenen Informationen auf Felder
+             */
+            switch (tag) {
+                case "table":
+                    break;
+
+                case "deviceid":
+                    break;
+
+                case "tablename":
+                    dataSet[0] = data;
+                    break;
+
+                case "fieldname":
+                    dataSet[1] = data;
+                    break;
+
+                case "old_gid":
+                    dataSet[2] = data;
+                    break;
+
+                case "new_gid":
+                    dataSet[3] = data;
+                    break;
+
+            }
+        }
+        /**
+         * Änderung der GID durchführen
+         */
+        if (!dataSet[0].isEmpty() & !dataSet[1].isEmpty() & !dataSet[2].isEmpty() & !dataSet[3].isEmpty()){
+            MyArrowDB mDb = MyArrowDB.getInstance(context);
+            mDb.changeGID(dataSet[0], dataSet[1], dataSet[2], dataSet[3]);
+        }
     }
 
 }

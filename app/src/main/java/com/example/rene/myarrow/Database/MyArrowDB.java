@@ -1446,4 +1446,32 @@ public class MyArrowDB extends SQLiteOpenHelper {
         Log.i(TAG, "storeForgeinDataset(): End");
         return true;
     }
+
+    /**
+     * Aktualisieren eines Parcours mit der ID id
+     * @param tablename
+     * @param fieldname
+     * @param old_gid
+     * @param new_gid
+     * @return
+     */
+    public int changeGID(String tablename,
+                         String fieldname,
+                         String old_gid,
+                         String new_gid) {
+        Log.d(TAG, "changeGID(): Start");
+        Log.d(TAG, "changeGID(): TableName - " + tablename);
+        Log.d(TAG, "changeGID(): FieldName - " + fieldname);
+        Log.d(TAG, "changeGID(): old_GID   - " + old_gid);
+        Log.d(TAG, "changeGID(): new_GID   - " + new_gid);
+        ContentValues dataToInsert = new ContentValues();
+        dataToInsert.put(fieldname, new_gid);
+        dataToInsert.put("zeitstempel", new Date().getTime());
+        final SQLiteDatabase dbCon = sINSTANCE.getWritableDatabase();
+        final int mid = dbCon.update(tablename, dataToInsert, fieldname + "=?",
+                new String[]{ old_gid });
+        Log.i(TAG, "changeGID()(): " + tablename + " mit " + fieldname + "=" + old_gid + " = " + mid + " aktualisiert.");
+        dbCon.close();
+        return mid;
+    }
 }

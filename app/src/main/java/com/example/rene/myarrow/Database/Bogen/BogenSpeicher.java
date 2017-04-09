@@ -379,7 +379,7 @@ public class BogenSpeicher {
     /**
      * Nach erfolgreichem übertragen der Daten, Datensatz als "übertragen (transfered=1)" markieren
      *
-     * @param id
+     * @param gid
      *      Datensatz ID, welche aktualisiert werden soll.
      * @return
      *      Anzahl der Datensätze, welche aktualisiert wurden. Sollte nur ein Datensatz sein.

@@ -46,7 +46,7 @@
 
         <EditTextPreference
             android:title="@string/txt_einstell_password"
-            android:defaultValue=""
+            android:defaultValue="*****"
             android:key="password"
             android:password="true"/>
 
