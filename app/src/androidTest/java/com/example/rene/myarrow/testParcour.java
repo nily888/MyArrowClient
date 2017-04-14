@@ -29,11 +29,10 @@ public class testParcour {
         mRotate = mrotate;    }
 
     public void testParcour(int newTargets){
-        String[] mCheck;
-
         /**
          * Los geht's und Default-Parcour aussuchen
          */
+        Log.i(TAG, "testParcour(): Start");
         assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
         mSimulator.clickOnText("Los geht's");
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
@@ -59,6 +58,27 @@ public class testParcour {
             }
         }
 
+        assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
+        tm.doRotate(mRotate);
+        mSimulator.goBack();
+        assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
+
+        Log.i(TAG, "testParcour(): Ende....");
+
+    }
+
+    public void testStartParcour() {
+        String[] mCheck;
+
+        /**
+         * Los geht's und Default-Parcour aussuchen
+         */
+        Log.i(TAG, "testParcour(): Start");
+        assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
+        mSimulator.clickOnText("Los geht's");
+        assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
+        tm.doRotate(mRotate);
+
         /**
          * Default-Parcour auswählen
          */
@@ -71,8 +91,9 @@ public class testParcour {
         // Schützen auswählen
         mCheck = new String[]{"Default-Schuetze 1"};
         testSchuetzenAuswählen(mCheck);
-
     }
+
+
 
     /**
      * Schuetzen aus der Combo Box auswaehlen

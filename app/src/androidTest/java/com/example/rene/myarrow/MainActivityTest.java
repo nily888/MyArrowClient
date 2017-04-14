@@ -15,8 +15,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     private Solo mSimulator;
     private String[] mCheck;
     private static final boolean mRotate=false;
-    private static final int sleepTime=2000;
-    private static final int mRunden=10;
+    private static final int sleepTime=200;
+    private static final int mRunden=1;
     private static final String mJahr = "/17 ";
     private static final String TAG = MainActivityTest.class.getSimpleName();
 
@@ -49,7 +49,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
          * n neue Runden eingeben, 2 Ziele
          */
         for (int n=0; n<mRunden; n++ ){
-            Log.d(TAG, "testMainActivity(): Runde = " + n);
+            Log.d(TAG, "testMainActivity(): Runde = " + (n+1));
+            new testParcour(mSimulator, sleepTime, mRotate).testStartParcour();
             new testRunde(mSimulator, sleepTime, mRotate).testRunde(2);
         }
 
@@ -62,13 +63,15 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
          * n neue Runden eingeben, yy Ziele
          */
         for (int n=0; n<mRunden; n++ ){
-            Log.d(TAG, "testMainActivity(): Runde = " + n);
+            Log.d(TAG, "testMainActivity(): Runde = " + (n+1));
+            new testParcour(mSimulator, sleepTime, mRotate).testStartParcour();
             new testRunde(mSimulator, sleepTime, mRotate).testRunde(4);
         }
 
         /**
          * Parcour Sub-Menu testen (lange drücken)
          */
+        new testParcour(mSimulator, sleepTime, mRotate).testParcourSubMenu();
         new testParcour(mSimulator, sleepTime, mRotate).testParcourSubMenu();
 
         /**

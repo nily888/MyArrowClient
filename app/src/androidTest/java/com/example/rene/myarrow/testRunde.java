@@ -1,9 +1,11 @@
 package com.example.rene.myarrow;
 
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.robotium.solo.Solo;
 
+import static java.security.AccessController.getContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -36,13 +38,30 @@ public class testRunde {
         String[] mCheck;
 
         /**
-         *
+         * Anzahl der Ziele ausgeben
          */
-        Log.i(TAG, "Testen einer Runde");
+        Log.i(TAG, "testRunde(): Anzahl der Runden " + String.valueOf(mTargets));
 
         // und jetzt geht es los.....
-        Log.i(TAG, "Click on Jetzt geht es los...");
-        mSimulator.clickOnText("Jetzt geht es los...");
+        Log.i(TAG, "testRunde(): Click on Jetzt geht es los...");
+
+        if (!mSimulator.searchText("Jetzt geht es los...")) {
+            Log.e(TAG, "testRunde()Search: Text not found= Jetzt geht es los...");
+            if (mSimulator.searchText("max. erreichte Punkte")) {
+                mSimulator.goBack();
+            }
+        }
+
+        if (!mSimulator.searchButton("Jetzt geht es los...")) {
+            Log.e(TAG, "testRunde()Button: Text not found= Jetzt geht es los...");
+            if (mSimulator.searchText("max. erreichte Punkte")) {
+                mSimulator.goBack();
+            }
+        }
+
+        assertTrue("Jetzt geht es los... wird nicht angezeigt", mSimulator.searchText("Jetzt geht es los..."));
+
+        mSimulator.clickOnButton("Jetzt geht es los...");
         assertTrue("Erstes Ziel wird nicht angezeigt", mSimulator.searchText("1/" + String.valueOf(mTargets).trim()));
         assertTrue("Erstes Ziel => aktuelle Punkte / max.Punkte wird nicht angezeigt",
                 mSimulator.searchText("0/" + String.valueOf(mTargets*20).trim()));

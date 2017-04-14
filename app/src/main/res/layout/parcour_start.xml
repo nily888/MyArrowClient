@@ -126,7 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:text="Jetzt geht es los..."
+        android:text="@string/txt_parcour_jetzt_geht_es_los"
         android:textColor="#ffffff"
         android:id="@+id/los_button"
         android:onClick="onClickRundeStarten"/>
