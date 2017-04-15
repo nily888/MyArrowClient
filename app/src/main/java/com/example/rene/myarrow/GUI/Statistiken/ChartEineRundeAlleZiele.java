@@ -83,7 +83,7 @@ public class ChartEineRundeAlleZiele extends AppCompatActivity implements OnChar
         mTitle = mSchuetzenName + " - " + mSubTile;
         setTitle(mSchuetzenName);
 
-        /** Daten aus der Datenbank holen */
+        /* Daten aus der Datenbank holen */
         rzSpeicher = new RundenZielSpeicher(this);
         rz = rzSpeicher.getZielPunkte(mRundenGID, mSchuetzenGID);
         if ( rz == null || rz.getCount() < 1){
@@ -91,8 +91,8 @@ public class ChartEineRundeAlleZiele extends AppCompatActivity implements OnChar
             return;
         }
 
-        /** pro Parcour den Durchschnittlichen Punktestand anzeigen
-	     *   BarChart initialisieren
+        /* pro Parcour den Durchschnittlichen Punktestand anzeigen
+	        BarChart initialisieren
          */
         chart = (BarChart) findViewById(R.id.chart);
         getXAxisValuesChart();
@@ -192,8 +192,8 @@ public class ChartEineRundeAlleZiele extends AppCompatActivity implements OnChar
         //
         //
         saveChart();
-        /**
-         * Show share dialog BOTH image and text
+        /*
+          Show share dialog BOTH image and text
          */
         File imageFile = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM), "MyArrow");

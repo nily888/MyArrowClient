@@ -44,12 +44,12 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
         mContext = getContext();
         berechnePunkte = new BerechneErgebnis(mContext);
         getParameter(savedInstanceState);
-        /**
-         * View anzeigen
+        /*
+          View anzeigen
          */
         rootView = inflater.inflate(R.layout.treffer_am_ziel, container, false);
-        /**
-         * Buttons in der View anlegen
+        /*
+          Buttons in der View anlegen
          */
         // im ersten Schuss
         ToggleButton einSchuss = (ToggleButton) rootView.findViewById(R.id.ein_schuss);
@@ -76,8 +76,8 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
         killkillSchuss.setTextOff("Spot-Kill?");
         killkillSchuss.setTextOn("+" + String.valueOf(berechnePunkte.getErgebnis(0, 2)) + " Punkte");
         killkillSchuss.setOnClickListener(this);
-        /**
-         *
+        /*
+
          */
         return rootView;
     }
@@ -99,17 +99,17 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
     }
 
     private void zeigeDetails(){
-        /**
-         * Variable initialisieren
+        /*
+          Variable initialisieren
          */
         RundenZiel rz = new RundenZiel();
         Log.d(TAG, "zeigeDetails(): mAktuellesZiel = " + mAktuellesZiel);
         Log.d(TAG, "zeigeDetails(): mZielGID       = " + mZielGID);
-        /**
-         *
-         * mAktuallesZiel = -1 means
-         * mZielGID = -1 means
-         *
+        /*
+
+          mAktuallesZiel = -1 means
+          mZielGID = -1 means
+
          */
         // TODO to be filled out
         if (mAktuellesZiel>-1 && mZielGID.equals("-1")) {
@@ -124,38 +124,38 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
         }
 
         ToggleButton toggleDisplay;
-        /**
-         * Ein Schuss
+        /*
+          Ein Schuss
          */
         toggleDisplay = (ToggleButton) rootView.findViewById(R.id.ein_schuss);
         toggleDisplay.setChecked(rz.eins);
-        /**
-         * Zwei Schuss
+        /*
+          Zwei Schuss
          */
         toggleDisplay = (ToggleButton) rootView.findViewById(R.id.zwei_schuss);
         toggleDisplay.setChecked(rz.zwei);
-        /**
-         * Drei Schuss
+        /*
+          Drei Schuss
          */
         toggleDisplay = (ToggleButton) rootView.findViewById(R.id.drei_schuss);
         toggleDisplay.setChecked(rz.drei);
-        /**
-         * Kill
+        /*
+          Kill
          */
         toggleDisplay = (ToggleButton) rootView.findViewById(R.id.kill_schuss);
         toggleDisplay.setChecked(rz.kill);
-        /**
-         * Kill-Kill
+        /*
+          Kill-Kill
          */
         toggleDisplay = (ToggleButton) rootView.findViewById(R.id.killkill_schuss);
         toggleDisplay.setChecked(rz.killkill);
-        /**
-         * Schuetzennamen anzeigen
+        /*
+          Schuetzennamen anzeigen
          */
         TextView fldSchuetze = (TextView) rootView.findViewById(R.id.txt_schuetze);
         fldSchuetze.setText(mSchuetze);
-        /**
-         * aktuellen Punktestand anzeigen
+        /*
+          aktuellen Punktestand anzeigen
          */
         int mAktuellePunkte = new RundenSchuetzenSpeicher(mContext)
                 .getPunktestand(mRundenGID, mRundenSchuetzenGID);
@@ -204,14 +204,14 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        /** Variable initialisieren */
+        /* Variable initialisieren */
         ToggleButton toggleDisplay1 = (ToggleButton) rootView.findViewById(R.id.ein_schuss);
         ToggleButton toggleDisplay2 = (ToggleButton) rootView.findViewById(R.id.zwei_schuss);
         ToggleButton toggleDisplay3 = (ToggleButton) rootView.findViewById(R.id.drei_schuss);
         ToggleButton toggleDisplayK = (ToggleButton) rootView.findViewById(R.id.kill_schuss);
         ToggleButton toggleDisplayS = (ToggleButton) rootView.findViewById(R.id.killkill_schuss);
 
-        /** Soll die Änderung durchgeführt werden? */
+        /* Soll die Änderung durchgeführt werden? */
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Ändern?");
         builder.setMessage("Sind Sie sicher?");

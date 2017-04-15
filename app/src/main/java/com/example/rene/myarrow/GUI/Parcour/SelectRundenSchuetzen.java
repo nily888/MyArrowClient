@@ -44,9 +44,6 @@ public class SelectRundenSchuetzen extends ListActivity implements LoaderManager
     private static final int LOADER_ID_RUNDENSCHUETZEN = 4;
 
     /** */
-    private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks;
-
-    /** */
     private SimpleCursorAdapter mRundenSchuetzenAdapter;
 
     /** Schnittstelle zum persistenten Speicher. */
@@ -75,7 +72,8 @@ public class SelectRundenSchuetzen extends ListActivity implements LoaderManager
         // Referenz auf das Objekt, das sich um die Callbacks nach einer
         // Datenanfrage kuemmert. Ist i.A. die Activity oder das aufrufende
         // Fragment.
-        mLoaderCallbacks = this;
+        /* */
+        LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks = this;
         //
         // Registriert einen Loader mit ID LOADER_ID_MOBILLISTE beim LoaderManager.
         // Ab hier uebernimmt der Manager die Kontrolle ueber den Lebenszyklus des Loaders.

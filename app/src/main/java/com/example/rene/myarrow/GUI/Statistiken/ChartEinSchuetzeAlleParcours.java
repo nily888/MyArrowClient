@@ -43,7 +43,6 @@ public class ChartEinSchuetzeAlleParcours  extends AppCompatActivity implements 
     /** */
     private ParcourSpeicher pSpeicher;
     private String mSchuetzenGId;
-    private RundenSchuetzenSpeicher rsSpeicher;
     private String[][] rs;
     ArrayList<String> xAxis = new ArrayList<>();
     BarChart chart;
@@ -72,17 +71,17 @@ public class ChartEinSchuetzeAlleParcours  extends AppCompatActivity implements 
         mTitle = tss.getSchuetzenNamen(mSchuetzenGId);
         setTitle(mTitle);
 
-        /** Daten aus der Datenbank holen */
-        rsSpeicher = new RundenSchuetzenSpeicher(this);
+        /* Daten aus der Datenbank holen */
+        RundenSchuetzenSpeicher rsSpeicher = new RundenSchuetzenSpeicher(this);
         rs = rsSpeicher.getParcourAvg(mSchuetzenGId);
         if (rs == null || rs.length < 1){
             finish();
             return;
         }
 
-        /**
-         * pro Parcour den Durchschnittlichen Punktestand anzeigen
-         * BarChart initialisieren
+        /*
+          pro Parcour den Durchschnittlichen Punktestand anzeigen
+          BarChart initialisieren
          */
         chart = (BarChart) findViewById(R.id.chart);
         getXAxisValuesChart();

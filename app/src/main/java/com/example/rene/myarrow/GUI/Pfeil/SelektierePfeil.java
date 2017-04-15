@@ -55,9 +55,6 @@ public class SelektierePfeil extends ListActivity implements LoaderManager.Loade
     private static final int LOADER_ID_PFEIL = 1;
 
     /** */
-    private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks;
-
-    /** */
     private SimpleCursorAdapter mPfeilAdapter;
 
     /**
@@ -83,7 +80,7 @@ public class SelektierePfeil extends ListActivity implements LoaderManager.Loade
         listView.setAdapter(mPfeilAdapter);
 
         // Eine Überschrift hinzufügen
-        /**
+        /*
 
          LayoutInflater lf;
          View headerView;
@@ -97,7 +94,8 @@ public class SelektierePfeil extends ListActivity implements LoaderManager.Loade
         // Referenz auf das Objekt, das sich um die Callbacks nach einer
         // Datenanfrage kuemmert. Ist i.A. die Activity oder das aufrufende
         // Fragment.
-        mLoaderCallbacks = this;
+        /* */
+        LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks = this;
 
         // Registriert einen Loader mit ID LOADER_ID_MOBILLISTE beim LoaderManager.
         // Ab hier uebernimmt der Manager die Kontrolle ueber den Lebenszyklus des Loaders.

@@ -16,9 +16,7 @@ import com.example.rene.myarrow.Database.Schuetzen.SchuetzenSpeicher;
 import com.example.rene.myarrow.Database.Schuetzen.SchuetzenTbl;
 import com.example.rene.myarrow.misc.BerechneErgebnis;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by nily on 15.12.15.
@@ -60,8 +58,6 @@ public class RundenSchuetzenSpeicher {
     /**
      * Legt eine neue Mobilfunknummer in der Datenbank an.
      *
-     * @param rundenid
-     *          Rufnummer des Kontakts.
      * @param zeitstempel
      *      Zeitpunkt des Kontakts.
      * @return Datenbank-Id des neuen Kontakts
@@ -77,8 +73,8 @@ public class RundenSchuetzenSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(RundenSchuetzenTbl.SCHUETZENGID, schuetzengid);
             daten.put(RundenSchuetzenTbl.RUNDENGID, rundengid);
@@ -87,8 +83,8 @@ public class RundenSchuetzenSpeicher {
             daten.put(RundenSchuetzenTbl.ZEITSTEMPEL, zeitstempel);
             final long id = dbCon.insertOrThrow(RundenSchuetzenTbl.TABLE_NAME, null, daten);
 
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -97,8 +93,8 @@ public class RundenSchuetzenSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(RundenSchuetzenTbl.GID, deviceid + "_" + String.valueOf(id));
@@ -156,8 +152,6 @@ public class RundenSchuetzenSpeicher {
     /**
      * Legt eine neue Mobilfunknummer in der Datenbank an.
      *
-     * @param rundengid
-     *          Rufnummer des Kontakts.
      * @param zeitstempel
      *      Zeitpunkt des Kontakts.
      * @return Datenbank-Id des neuen Kontakts
@@ -246,8 +240,6 @@ public class RundenSchuetzenSpeicher {
     /**
      * Entfernt eine Mobilfunknummer aus der Datenbank.
      *
-     * @param id
-     *          Schluessel der gesuchten Mobilfunknummer
      * @return true, wenn Datensatz geloescht wurde.
      */
     public int deleteRundenSchuetzenWithRundenGID(String rundenGID) {
@@ -387,8 +379,6 @@ public class RundenSchuetzenSpeicher {
     /**
      * Nach erfolgreichem übertragen der Daten, Datensatz als "übertragen (transfered=1)" markieren
      *
-     * @param id
-     *      Datensatz ID, welche aktualisiert werden soll.
      * @return
      *      Anzahl der Datensätze, welche aktualisiert wurden. Sollte nur ein Datensatz sein.
      */
@@ -454,10 +444,14 @@ public class RundenSchuetzenSpeicher {
             Log.i(TAG, "anzahlRundenSchuetzen(): Kein RundenSchuetzen gespeichert");
             return 0;
         }
-        return c.getInt(0);
+        int nReturn = c.getInt(0);
+        c.close();
+        return nReturn;
     }
 
     public boolean getNochSchuetze(long id){
+        boolean bReturn = false;
+
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select " + RundenSchuetzenTbl.ID + " from " + RundenSchuetzenTbl.TABLE_NAME +
                         " WHERE " + RundenSchuetzenTbl.SCHUETZENGID + "=" + String.valueOf(id) + ";",
@@ -465,9 +459,12 @@ public class RundenSchuetzenSpeicher {
 
         if (!c.moveToFirst()) {
             Log.d(TAG, "getNochSchuetze(): Kein Eintrag mit der Schuetze-Id " + id + " gefunden");
-            return true;
+            bReturn = true;
         }
-        return false;
+
+        c.close();
+
+        return bReturn;
     }
 
     public int getPunktestand(String rundenGID, String schuetzenGID){
@@ -529,6 +526,7 @@ public class RundenSchuetzenSpeicher {
             returnCursor[n][2] = String.valueOf((float)Math.round(c.getInt(1)*100/c.getInt(2)/be.getErgebnis(1,2)));
             n++;
         } while (c.moveToNext());
+        c.close();
         return returnCursor;
     }
 
@@ -577,6 +575,8 @@ public class RundenSchuetzenSpeicher {
     }
 
     public int getParcourMax(String parcourGId){
+        int nReturn =0;
+
         // max. Summe der erreichten Punkte
         String sqlStatement =
                 "select max(" +
@@ -594,9 +594,12 @@ public class RundenSchuetzenSpeicher {
         final Cursor c = mDb.getReadableDatabase().rawQuery(sqlStatement, null);
         if (!c.moveToFirst() && c.getCount()!=1) {
             Log.d(TAG, "getRundenSchuetzenMax(): Nichts gefunden");
-            return 0;
+            nReturn = 0;
+        } else {
+            nReturn = 1;
         }
-        return c.getInt(0);
+        c.close();
+        return nReturn;
     }
 
     /**
@@ -644,6 +647,7 @@ public class RundenSchuetzenSpeicher {
             returnCursor[n][2] = String.valueOf((float)Math.round(c.getInt(2)*100/c.getInt(3)/be.getErgebnis(1,2)));
             n++;
         } while (c.moveToNext());
+        c.close();
         return returnCursor;
     }
 
@@ -766,6 +770,7 @@ public class RundenSchuetzenSpeicher {
                     .round(c.getInt(2)*100/c.getInt(3)/be.getErgebnis(1,2)));
             n++;
         } while (c.moveToNext());
+        c.close();
         return returnCursor;
     }
 

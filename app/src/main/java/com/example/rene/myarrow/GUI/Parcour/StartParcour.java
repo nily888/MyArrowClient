@@ -104,26 +104,26 @@ public class StartParcour extends Activity implements MultiSpinnerListener{
             return;
         }
 
-        /** Parcour Name und auf transparent setzen */
+        /* Parcour Name und auf transparent setzen */
         final Button fldName = (Button) findViewById(R.id.txt_name);
         fldName.setText(parcourCursor.name);
         fldName.setBackgroundColor(Color.TRANSPARENT);
 
-        /** Anzahl der Ziele */
+        /* Anzahl der Ziele */
         final TextView fldAnzahl = (TextView) findViewById(R.id.txt_anzahl_ziele);
         fldAnzahl.setText(String.valueOf(parcourCursor.anzahl_ziele));
 
-        /** Maximal erreichbare Punktezahl */
+        /* Maximal erreichbare Punktezahl */
         BerechneErgebnis berechnePunkte = new BerechneErgebnis(this);
         final TextView fldPunkte = (TextView) findViewById(R.id.txt_max_punkte);
         fldPunkte.setText(String.valueOf(parcourCursor.anzahl_ziele*berechnePunkte.getErgebnis(1, 2)));
 
-        /** Maximal erreichte Punktezahl */
+        /* Maximal erreichte Punktezahl */
 	    RundenSchuetzenSpeicher rundenSchuetzenSpeicher = new RundenSchuetzenSpeicher(this);
         final TextView fldmaxPunkte = (TextView) findViewById(R.id.txt_maximal_erreichte_punkte);
         fldmaxPunkte.setText(String.valueOf(rundenSchuetzenSpeicher.getParcourMax(mParcourGId)));
 
-        /** Button Hintergrundbild setzen */
+        /* Button Hintergrundbild setzen */
         Button startButton = (Button)findViewById(R.id.los_button);
         Resources res = getResources();
         Drawable d = res.getDrawable(R.mipmap.start_button);
@@ -173,8 +173,8 @@ public class StartParcour extends Activity implements MultiSpinnerListener{
             Toast.makeText(this, "Es wurde kein Schütze ausgewählt", Toast.LENGTH_SHORT).show();
             return;
         }
-        /**
-         * Neue Runde anlegen und Daten entsprechend abspeichern
+        /*
+          Neue Runde anlegen und Daten entsprechend abspeichern
          */
         RundenSpeicher rundenSpeicher = new RundenSpeicher(this);
 
@@ -195,13 +195,13 @@ public class StartParcour extends Activity implements MultiSpinnerListener{
          */
         Spinner WetterSpinner = (Spinner) findViewById(R.id.wetter_spinner);
         String wetterItemText = WetterSpinner.getSelectedItem().toString();
-        /**
-         * Startzeit notieren
+        /*
+          Startzeit notieren
          */
         long tempTimeStamp = new Date().getTime();
 
-        /**
-         * Jetzt die Runde anlegen
+        /*
+          Jetzt die Runde anlegen
          */
         long rundenID = rundenSpeicher.insertRunden(
                 mParcourGId,        // parcourGID
@@ -211,8 +211,8 @@ public class StartParcour extends Activity implements MultiSpinnerListener{
                 0,
                 wetterItemText);
 
-        /**
-         * und jetzt noch die Schuetzen und RundenZiele anlegen
+        /*
+          und jetzt noch die Schuetzen und RundenZiele anlegen
          */
         // Speicher initialisieren
         ZielSpeicher mZiel = new ZielSpeicher(this);
@@ -237,8 +237,8 @@ public class StartParcour extends Activity implements MultiSpinnerListener{
             }
         }
 
-        /**
-         * und jetzt zur nächsten Seite und dem ersten Ziel
+        /*
+          und jetzt zur nächsten Seite und dem ersten Ziel
          */
         final Intent i = new Intent(this, ErgebnisAmZiel.class);
         i.putExtra(Konstante.OUT_PARAM_PARCOUR_GID, mParcourGId);

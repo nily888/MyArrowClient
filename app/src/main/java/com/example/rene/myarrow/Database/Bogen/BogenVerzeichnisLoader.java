@@ -20,9 +20,6 @@ public class BogenVerzeichnisLoader extends AbstractCursorLoader {
     /** */
     private BogenSpeicher mDao;
 
-    /** */
-    private CharSequence mNamensFilter;
-
     public BogenVerzeichnisLoader(Context context) {
         super(context);
         mDao = new BogenSpeicher(context);
@@ -38,7 +35,8 @@ public class BogenVerzeichnisLoader extends AbstractCursorLoader {
         super(context);
         Log.d(TAG, "BogenVerzeichnisLoader(): Start");
         mDao = dao;
-        mNamensFilter = namensFilter;
+        /* */
+        CharSequence mNamensFilter = namensFilter;
         Log.d(TAG, "BogenVerzeichnisLoader(): End");
     }
 

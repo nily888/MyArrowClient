@@ -133,8 +133,8 @@ public class BearbeiteSchuetze extends AppCompatActivity {
         Log.d(TAG, "zeigeDetails(): Schuetze Name - findViewById");
         EditText fldSchuetzeName = (EditText) findViewById(R.id.edt_schuetzenname);
         fldSchuetzeName.setText(mSchuetze.name);
-        /**
-         *  Wenn ein Bild existiert anzeigen
+        /*
+           Wenn ein Bild existiert anzeigen
          */
         if (mSchuetze.dateiname!=null && !mSchuetze.dateiname.equals("")) {
             /* *
@@ -154,8 +154,8 @@ public class BearbeiteSchuetze extends AppCompatActivity {
          */
         Log.d(TAG, "onClickStoreSchuetzen(): Schuetze Name - findViewById");
         EditText fldSchuetzeName = (EditText) findViewById(R.id.edt_schuetzenname);
-        /**
-         * Update Schuetze in der Datenbank speichern
+        /*
+          Update Schuetze in der Datenbank speichern
          */
         Log.d(TAG, "onClickStoreSchuetzen(): updateSchuetzen");
 	    long mid = mSchuetzenSpeicher.updateSchuetzen(
@@ -200,7 +200,7 @@ public class BearbeiteSchuetze extends AppCompatActivity {
                 if (mExtras!=null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                     String mDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
                     Log.d(TAG, "onActivityResult(): Aufruf mit Dateiname " + mDateiname);
-                    /** Bild, falls vorhanden, anzeigen */
+                    /* Bild, falls vorhanden, anzeigen */
                     if (mDateiname!=null && !mDateiname.equals("")) {
                         Button imageButton = (Button)findViewById(R.id.imageButton);
                         new setPic(this, imageButton, mDateiname);

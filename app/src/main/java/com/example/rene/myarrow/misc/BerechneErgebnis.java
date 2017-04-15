@@ -22,17 +22,17 @@ public class BerechneErgebnis {
 
 	public int getErgebnis(int schuss, int kill) {
 
-        /** initialisieren */
+        /* initialisieren */
 		int summe;
 
-		/** man hat getroffen */
+		/* man hat getroffen */
 		if (schuss < 1 || schuss > 3) {
 			summe = 0;
 		} else {
 			 summe = startwert - (abzug*(schuss -1));
 		}
 
-		/** und sogar das Kill */
+		/* und sogar das Kill */
 		switch (kill) {
 			case 1:
 				summe = summe + bonus;

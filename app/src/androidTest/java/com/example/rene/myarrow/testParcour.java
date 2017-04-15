@@ -29,8 +29,8 @@ public class testParcour {
         mRotate = mrotate;    }
 
     public void testParcour(int newTargets){
-        /**
-         * Los geht's und Default-Parcour aussuchen
+        /*
+          Los geht's und Default-Parcour aussuchen
          */
         Log.i(TAG, "testParcour(): Start");
         assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
@@ -38,8 +38,8 @@ public class testParcour {
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
         tm.doRotate(mRotate);
 
-        /**
-         * Sollen neue Ziele hinzukommen?
+        /*
+          Sollen neue Ziele hinzukommen?
          */
         if (newTargets > 0) {
             for (int n=1; n<=newTargets; n++) {
@@ -70,8 +70,8 @@ public class testParcour {
     public void testStartParcour() {
         String[] mCheck;
 
-        /**
-         * Los geht's und Default-Parcour aussuchen
+        /*
+          Los geht's und Default-Parcour aussuchen
          */
         Log.i(TAG, "testParcour(): Start");
         assertTrue("Los geht's => nicht gefunden !!", mSimulator.searchText("Los geht's"));
@@ -79,8 +79,8 @@ public class testParcour {
         assertTrue("SelectParcour wird nicht angezeigt", mSimulator.searchText("Default-Parcour"));
         tm.doRotate(mRotate);
 
-        /**
-         * Default-Parcour auswählen
+        /*
+          Default-Parcour auswählen
          */
         mCheck = new String[]{"Default-Parcour"};
         mSimulator.clickOnText(mCheck[0]);

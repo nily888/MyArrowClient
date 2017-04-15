@@ -162,8 +162,8 @@ public class BearbeiteZiel extends AppCompatActivity{
         TextView fldZielDateiname = (TextView) findViewById(R.id.txt_zieldateiname);
         fldZielDateiname.setText(mZiel.dateiname);
 
-        /**
-         * Ziel Image auslesen
+        /*
+          Ziel Image auslesen
          */
         Button fotoButton = (Button) findViewById(R.id.zielbild_button);
         new setPic(this, fotoButton, mZiel.dateiname);
@@ -182,7 +182,7 @@ public class BearbeiteZiel extends AppCompatActivity{
     }
 
     public void onClickZielBild(View v) {
-        /** Wenn schon ein Bild existiert anzeigen, sonst aufnehmen */
+        /* Wenn schon ein Bild existiert anzeigen, sonst aufnehmen */
         if (mZiel.dateiname != null && !mZiel.dateiname.equals("")) {
             BildAnzeigen bildAnzeigen = new BildAnzeigen(this, mZiel.dateiname);
             bildAnzeigen.show();
@@ -221,8 +221,8 @@ public class BearbeiteZiel extends AppCompatActivity{
         Log.d(TAG, "onClickUpdateZiel(): Dateiname - findViewById");
         TextView fldZielDateiname = (TextView) findViewById(R.id.txt_zieldateiname);
 
-        /**
-         * Update Ziel in der Datenbank speichern
+        /*
+          Update Ziel in der Datenbank speichern
          */
         Log.d(TAG, "onClickUpdateZiel(): updateZiel");
 	    long mid = mZielSpeicher.updateZiel(
@@ -250,12 +250,12 @@ public class BearbeiteZiel extends AppCompatActivity{
                     if (mExtras!=null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                         String mZielBildDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
                         Log.d(TAG, "onActivityResult(): Aufruf mit Dateiname " + mZielBildDateiname);
-                        /** Bild, falls vorhanden, anzeigen */
+                        /* Bild, falls vorhanden, anzeigen */
                         if (mZielBildDateiname != null && !mZielBildDateiname.equals("")) {
-                            /** Bild als Button Hintergrund setzen */
+                            /* Bild als Button Hintergrund setzen */
                             Button zielBildButton = (Button) findViewById(R.id.zielbild_button);
                             new setPic(this, zielBildButton, mZielBildDateiname);
-                            /** Bild Dateiname abspeichern */
+                            /* Bild Dateiname abspeichern */
                             mZiel.dateiname = mZielBildDateiname;
                         }
                     } else {

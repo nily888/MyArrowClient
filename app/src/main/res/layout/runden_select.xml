@@ -9,14 +9,12 @@
     android:background="@mipmap/ergebnis_am_ziel" >
 
     <ListView
-        android:id="@+id/android:list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
         android:layout_gravity="center_horizontal" />
 
     <TextView
-        android:id="@+id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="20sp"

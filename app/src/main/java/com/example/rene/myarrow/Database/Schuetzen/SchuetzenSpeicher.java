@@ -68,8 +68,8 @@ public class SchuetzenSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(SchuetzenTbl.NAME, name);
             daten.put(SchuetzenTbl.DATEINAME, dateiname);
@@ -78,8 +78,8 @@ public class SchuetzenSpeicher {
             final long id = dbCon.insertOrThrow(SchuetzenTbl.TABLE_NAME, null,
                     daten);
 
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -88,8 +88,8 @@ public class SchuetzenSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(SchuetzenTbl.GID, deviceid + "_" + String.valueOf(id));
@@ -325,8 +325,6 @@ public class SchuetzenSpeicher {
     /**
      * Nach erfolgreichem übertragen der Daten, Datensatz als "übertragen (transfered=1)" markieren
      *
-     * @param id
-     *      Datensatz ID, welche aktualisiert werden soll.
      * @return
      *      Anzahl der Datensätze, welche aktualisiert wurden. Sollte nur ein Datensatz sein.
      */
@@ -392,14 +390,18 @@ public class SchuetzenSpeicher {
      * @return Anzahl der Kontakte.
      */
     public int anzahlSchuetzen() {
+        int nReturn = 0;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select count(*) from " + SchuetzenTbl.TABLE_NAME,
                 null);
         if (!c.moveToFirst()) {
             Log.d(TAG, "anzahlSchuetzen(): Kein Schuetzen gespeichert");
-            return 0;
+            nReturn = 0;
+        } else {
+            nReturn = c.getInt(0);
         }
-        return c.getInt(0);
+        c.close();
+        return nReturn;
     }
 
     /**

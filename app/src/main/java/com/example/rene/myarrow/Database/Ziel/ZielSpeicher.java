@@ -56,8 +56,6 @@ public class ZielSpeicher {
      *
      * @param nummer
      *          Rufnummer des Kontakts.
-     * @param zeitstempel
-     *      Zeitpunkt des Kontakts.
      * @param name
      *      Text der SMS.
      * @return Datenbank-Id des neuen Kontakts
@@ -74,8 +72,8 @@ public class ZielSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(ZielTbl.PARCOURGID, parcourgid);
             daten.put(ZielTbl.NUMMER, nummer);
@@ -88,8 +86,8 @@ public class ZielSpeicher {
             final long id = dbCon.insertOrThrow(ZielTbl.TABLE_NAME, null,
                     daten);
 
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -98,8 +96,8 @@ public class ZielSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(ZielTbl.GID, deviceid + "_" + String.valueOf(id));
@@ -447,14 +445,18 @@ public class ZielSpeicher {
      * @return Anzahl der Kontakte.
      */
     public int anzahlZiele() {
+        int nReturn = 0;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select count(*) from " + ZielTbl.TABLE_NAME,
                 null);
         if (!c.moveToFirst()) {
             Log.d(TAG, "anzahlZiele(): Kein Ziel gespeichert");
-            return 0;
+            nReturn = 0;
+        } else {
+            nReturn = c.getInt(0);
         }
-        return c.getInt(0);
+        c.close();
+        return nReturn;
     }
 
     public String getZielGID(String parcourGID, int nummer) {

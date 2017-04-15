@@ -30,57 +30,54 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testMainActivity() throws Exception {
 
-        /**
-         * Default Orientation PORTRAIT
+        /*
+          Default Orientation PORTRAIT
          */
         mSimulator.setActivityOrientation(Solo.PORTRAIT);
 
-        /**
-         * Aus dem Tools Menu etwas testen / benutzen
+        /*
+          Aus dem Tools Menu etwas testen / benutzen
          */
         new testTools(mSimulator, sleepTime).testToolMenu();
 
-        /**
-         * Parcour auswählen, kein Ziel hinzufügen
+        /*
+          Parcour auswählen, kein Ziel hinzufügen
          */
         new testParcour(mSimulator, sleepTime, mRotate).testParcour(0);
 
-        /**
-         * n neue Runden eingeben, 2 Ziele
+        /*
+          n neue Runden eingeben, 2 Ziele
          */
         for (int n=0; n<mRunden; n++ ){
             Log.d(TAG, "testMainActivity(): Runde = " + (n+1));
-            new testParcour(mSimulator, sleepTime, mRotate).testStartParcour();
             new testRunde(mSimulator, sleepTime, mRotate).testRunde(2);
         }
 
-        /**
-         * Parcour auswählen, zwei Ziele hinzufügen
+        /*
+          Parcour auswählen, zwei Ziele hinzufügen
          */
         new testParcour(mSimulator, sleepTime, mRotate).testParcour(2);
 
-        /**
-         * n neue Runden eingeben, yy Ziele
+        /*
+          n neue Runden eingeben, yy Ziele
          */
         for (int n=0; n<mRunden; n++ ){
             Log.d(TAG, "testMainActivity(): Runde = " + (n+1));
-            new testParcour(mSimulator, sleepTime, mRotate).testStartParcour();
             new testRunde(mSimulator, sleepTime, mRotate).testRunde(4);
         }
 
-        /**
-         * Parcour Sub-Menu testen (lange drücken)
+        /*
+          Parcour Sub-Menu testen (lange drücken)
          */
         new testParcour(mSimulator, sleepTime, mRotate).testParcourSubMenu();
-        new testParcour(mSimulator, sleepTime, mRotate).testParcourSubMenu();
 
-        /**
-         * Einstellungen überprüfen
+        /*
+          Einstellungen überprüfen
          */
         new testEinstellungen(mSimulator, sleepTime).testEinstellungen(mJahr);
 
-        /**
-         * wenn man bis hierher gekommen ist, war es erfolgreich
+        /*
+          wenn man bis hierher gekommen ist, war es erfolgreich
          */
         Log.d(TAG, "!!!!!!!!!!!! Prüfung erfolgreich abgeschlossen !!!!!!!!!!!!");
 

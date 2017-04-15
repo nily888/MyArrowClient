@@ -11,7 +11,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Alle Parcoure"
-        android:id="@+id/txt_alle_parcours"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/button_bg_transparent"
         android:onClick="onClickAlleParcoure" />
@@ -21,7 +20,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Alle Schuetzen"
-        android:id="@+id/txt_alle_schuetzen"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/button_bg_transparent"
         android:onClick="onClickAlleSchuetzen" />

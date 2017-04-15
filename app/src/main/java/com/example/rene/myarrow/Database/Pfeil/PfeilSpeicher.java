@@ -93,8 +93,8 @@ public class PfeilSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(PfeilTbl.NAME, name);
             daten.put(PfeilTbl.STANDARD, standard);
@@ -105,8 +105,8 @@ public class PfeilSpeicher {
                     daten);
             Log.i(TAG, "insertPfeil-1(): Pfeil mit id=" + id + " erzeugt.");
 
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -115,8 +115,8 @@ public class PfeilSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(PfeilTbl.GID, deviceid + "_" + String.valueOf(id));
@@ -368,8 +368,6 @@ public class PfeilSpeicher {
     /**
      * Nach erfolgreichem übertragen der Daten, Datensatz als "übertragen (transfered=1)" markieren
      *
-     * @param id
-     *      Datensatz ID, welche aktualisiert werden soll.
      * @return
      *      Anzahl der Datensätze, welche aktualisiert wurden. Sollte nur ein Datensatz sein.
      */
@@ -447,8 +445,10 @@ public class PfeilSpeicher {
             Log.d(TAG, "anzahlPfeil(): Kein Pfeil gespeichert");
             return 0;
         }
-        Log.d(TAG, "anzahlPfeil(): Anzahl gespeicherten Pfeile - " + c.getInt(0));
-        return c.getInt(0);
+        int nReturn =c.getInt(0);
+        c.close();
+        Log.d(TAG, "anzahlPfeil(): Anzahl gespeicherten Pfeile - " + nReturn);
+        return nReturn;
     }
 
     /**

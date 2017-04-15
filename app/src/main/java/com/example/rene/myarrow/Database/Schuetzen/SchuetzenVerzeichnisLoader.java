@@ -18,9 +18,6 @@ public class SchuetzenVerzeichnisLoader extends AbstractCursorLoader {
     /** */
     private SchuetzenSpeicher mDao;
 
-    /** */
-    private CharSequence mNamensFilter;
-
     public SchuetzenVerzeichnisLoader(Context context) {
         super(context);
         mDao = new SchuetzenSpeicher(context);
@@ -36,7 +33,8 @@ public class SchuetzenVerzeichnisLoader extends AbstractCursorLoader {
         super(context);
         Log.d(TAG, "SchuetzenVerzeichnisLoader(): Start");
         mDao = dao;
-        mNamensFilter = namensFilter;
+        /* */
+        CharSequence mNamensFilter = namensFilter;
         Log.d(TAG, "SchuetzenVerzeichnisLoader(): End");
     }
 

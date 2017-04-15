@@ -36,8 +36,6 @@ public class ChartEinParcourAlleSchuetzen  extends AppCompatActivity implements 
     /** Kuerzel fuers Logging. */
     private static final String TAG = ChartEinParcourAlleSchuetzen.class.getSimpleName();
 
-    /** */
-    private RundenSchuetzenSpeicher rzSpeicher;
     private String[][] rz;
     private String mParcourGId;
     ArrayList<String> xAxis = new ArrayList<>();
@@ -70,16 +68,17 @@ public class ChartEinParcourAlleSchuetzen  extends AppCompatActivity implements 
         // Daten aus der Datenbank holen
         //
         Log.d(TAG, "onCreate(): Daten aus der Datenbak holen");
-        rzSpeicher = new RundenSchuetzenSpeicher(this);
+        /* */
+        RundenSchuetzenSpeicher rzSpeicher = new RundenSchuetzenSpeicher(this);
         rz = rzSpeicher.getParcourSchuetzenMax(mParcourGId);
         if (rz.length < 1){
             finish();
             return;
         }
 
-        /**
-         * pro Parcour den Durchschnittlichen Punktestand anzeigen
-         * BarChart initialisieren
+        /*
+          pro Parcour den Durchschnittlichen Punktestand anzeigen
+          BarChart initialisieren
          */
         Log.d(TAG, "onCreate(): BarChart aufbauen");
         chart = (BarChart) findViewById(R.id.chart);
@@ -197,8 +196,8 @@ public class ChartEinParcourAlleSchuetzen  extends AppCompatActivity implements 
         //
         //
         saveChart();
-        /**
-         * Show share dialog BOTH image and text
+        /*
+          Show share dialog BOTH image and text
          */
         File imageFile = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM), "MyArrow");

@@ -30,38 +30,38 @@ public class testEinstellungen {
 
         Log.d(TAG, "testEinstellung(): started");
 
-        /**
-         * Review Parcour testen
+        /*
+          Review Parcour testen
          */
         testGoToEinstellungen();
         new testReviewParcour(mSimulator, sleepTime, mJahr).testReviewParcour();
 
-        /**
-         * Bögen testen
+        /*
+          Bögen testen
          */
         testGoToEinstellungen();
         new testBogen(mSimulator, sleepTime).testBoegen();
 
-        /**
-         * Pfeile testen
+        /*
+          Pfeile testen
          */
         testGoToEinstellungen();
         new testPfeil(mSimulator, sleepTime).testPfeile();
 
-        /**
-         * Ziele testen
+        /*
+          Ziele testen
          */
         testGoToEinstellungen();
         new testZiel(mSimulator, sleepTime).testZiele();
 
-        /**
-         * Berechnungen testen
+        /*
+          Berechnungen testen
          */
         testGoToEinstellungen();
         new testBerechnung(mSimulator, sleepTime).testBerechnungen();
 
-        /**
-         * Schützen testen
+        /*
+          Schützen testen
          */
         testGoToEinstellungen();
         new testSchuetze(mSimulator, sleepTime).testSchuetzen();

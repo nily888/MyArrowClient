@@ -42,9 +42,6 @@ public class SelectRundenZiele extends ListActivity implements LoaderManager.Loa
     private static final int LOADER_ID_RUNDENZIEL = 4;
 
     /** */
-    private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks;
-
-    /** */
     private SimpleCursorAdapter mRundenZielAdapter;
 
     /** Schnittstelle zum persistenten Speicher. */
@@ -78,7 +75,8 @@ public class SelectRundenZiele extends ListActivity implements LoaderManager.Loa
         // Referenz auf das Objekt, das sich um die Callbacks nach einer
         // Datenanfrage kuemmert. Ist i.A. die Activity oder das aufrufende
         // Fragment.
-        mLoaderCallbacks = this;
+        /* */
+        LoaderManager.LoaderCallbacks<Cursor> mLoaderCallbacks = this;
 
         //
         // Registriert einen Loader mit ID LOADER_ID_MOBILLISTE beim LoaderManager.

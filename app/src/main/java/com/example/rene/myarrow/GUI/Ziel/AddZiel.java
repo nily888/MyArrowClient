@@ -166,8 +166,8 @@ public class AddZiel extends AppCompatActivity{
         TextView fldZielDateiname = (TextView) findViewById(R.id.txt_zieldateiname);
         fldZielDateiname.setText(mZiel.dateiname);
 
-        /**
-         * Ziel Image auslesen
+        /*
+          Ziel Image auslesen
          */
         Button fotoButton = (Button) findViewById(R.id.zielbild_button);
         new setPic(this, fotoButton, mZiel.dateiname);
@@ -186,7 +186,7 @@ public class AddZiel extends AppCompatActivity{
     }
 
     public void onClickZielBild(View v) {
-        /** Wenn schon ein Bild existiert anzeigen, sonst aufnehmen */
+        /* Wenn schon ein Bild existiert anzeigen, sonst aufnehmen */
         if (mZiel.dateiname != null && !mZiel.dateiname.equals("")) {
             BildAnzeigen bildAnzeigen = new BildAnzeigen(this, mZiel.dateiname);
             bildAnzeigen.show();
@@ -206,8 +206,8 @@ public class AddZiel extends AppCompatActivity{
         EditText fldZielNummer = (EditText) findViewById(R.id.edt_zielnummer);
         int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());
 
-        /**
-         * Passt die Zielnummer? Darf nur um eins höher sein als die aktuelle Anzahl von Zielen
+        /*
+          Passt die Zielnummer? Darf nur um eins höher sein als die aktuelle Anzahl von Zielen
          */
         Log.d(TAG, "onClickAddZiel(): Anzahl Ziele / neueZielnummer: "
                 + String.valueOf(mParcour.anzahl_ziele) + " / " + String.valueOf(nZielNummer));
@@ -260,9 +260,9 @@ public class AddZiel extends AppCompatActivity{
                 TextView fldZielDateiname = (TextView) findViewById(R.id.txt_zieldateiname);
                 String strZielDateiname = fldZielDateiname.getText().toString();
 
-                /**
-                 * Add Ziel zur Datenbank hinzu
-                 * zunächst alle Zielnummern aber neuem Ziel um einen erhöhen
+                /*
+                  Add Ziel zur Datenbank hinzu
+                  zunächst alle Zielnummern aber neuem Ziel um einen erhöhen
                  */
                 long mid;
                 for (int n=mParcour.anzahl_ziele; (n>(nZielNummer-1)); n--){
@@ -271,8 +271,8 @@ public class AddZiel extends AppCompatActivity{
                     // TODO Null Updates it hier ein Problem
                     Log.d(TAG, "onClickAddZiel(): updateZiel - Anzahl Updates: " + mid);
                 }
-                /**
-                 * jetzt neues Ziel hinzufügen
+                /*
+                  jetzt neues Ziel hinzufügen
                  */
                 Log.d(TAG, "onClickAddZiel(): insertZiel");
                 mid = mZielSpeicher.insertZiel(
@@ -283,8 +283,8 @@ public class AddZiel extends AppCompatActivity{
                         strLon,              // Lon Koordinate
                         strZielDateiname);   // Dateiname
                 Log.d(TAG, "onClickAddZiel(): insertZiel - ID: " + mid);
-                /**
-                 * Anzahl der Ziele wird um Eins erhöht
+                /*
+                  Anzahl der Ziele wird um Eins erhöht
                  */
                 Log.d(TAG, "onClickAddZiel(): updateAnzahlZieleParcour");
                 mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele+1);
@@ -319,12 +319,12 @@ public class AddZiel extends AppCompatActivity{
                     if (mExtras!=null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                         String mZielBildDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
                         Log.d(TAG, "onActivityResult(): Aufruf mit Dateiname " + mZielBildDateiname);
-                        /** Bild, falls vorhanden, anzeigen */
+                        /* Bild, falls vorhanden, anzeigen */
                         if (mZielBildDateiname != null && !mZielBildDateiname.equals("")) {
-                            /** Bild als Button Hintergrund setzen */
+                            /* Bild als Button Hintergrund setzen */
                             Button zielBildButton = (Button) findViewById(R.id.zielbild_button);
                             new setPic(this, zielBildButton, mZielBildDateiname);
-                            /** Bild Dateiname abspeichern */
+                            /* Bild Dateiname abspeichern */
                             mZiel.dateiname = mZielBildDateiname;
                         }
                     } else {

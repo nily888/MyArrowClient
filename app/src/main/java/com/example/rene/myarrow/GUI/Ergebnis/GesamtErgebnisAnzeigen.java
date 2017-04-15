@@ -56,7 +56,7 @@ public class GesamtErgebnisAnzeigen extends Activity {
         ciaoButton.setTypeface(null, Typeface.BOLD);
         ciaoButton.setTextColor(Color.BLACK);
 
-        /** */
+        /* */
         final Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey(Konstante.IN_PARAM_PARCOUR_GID)) {
             mParcourGID = extras.getString(Konstante.IN_PARAM_PARCOUR_GID);
@@ -69,11 +69,11 @@ public class GesamtErgebnisAnzeigen extends Activity {
             Log.w(TAG, "oncreate(): Keine Runden-Id übergeben");
         }
 
-        /** Parcour Details laden*/
+        /* Parcour Details laden*/
         ParcourSpeicher pS= new ParcourSpeicher(this);
         mParcour = pS.loadParcourDetails(mParcourGID);
 
-        /** Runden Details laden*/
+        /* Runden Details laden*/
         RundenSpeicher rS= new RundenSpeicher(this);
         mRunden = rS.loadRunden(mRundenGID);
 
@@ -90,16 +90,16 @@ public class GesamtErgebnisAnzeigen extends Activity {
      * GeoKontakts aus der Datenbank.
      */
     private void zeigeDetails() {
-        /**
-         * Parcour Name anzeigen
-         *
-         * */
+        /*
+          Parcour Name anzeigen
+
+          */
         final TextView fldName = (TextView) findViewById(R.id.txt_name);
         fldName.setText(mParcour.name);
 
-        /**
-         * Runden Startzeit anzeigen
-         *
+        /*
+          Runden Startzeit anzeigen
+
          */
         final TextView fldStart = (TextView) findViewById(R.id.txt_startzeit);
         if (mRunden.startzeit > 0) {
@@ -110,9 +110,9 @@ public class GesamtErgebnisAnzeigen extends Activity {
             fldStart.setText("unbekannt");
         }
 
-        /**
-         * Runden Endzeit anzeigen
-         *
+        /*
+          Runden Endzeit anzeigen
+
          */
         final TextView fldEnd = (TextView) findViewById(R.id.txt_endzeit);
         if (mRunden.endzeit > 0) {
@@ -123,9 +123,9 @@ public class GesamtErgebnisAnzeigen extends Activity {
             fldEnd.setText("unbekannt");
         }
 
-        /**
-         * Runden Dauer anzeigen
-         *
+        /*
+          Runden Dauer anzeigen
+
          */
         final TextView fldDauer = (TextView) findViewById(R.id.txt_dauer);
         fldDauer.setText(String.valueOf(((mRunden.endzeit-mRunden.startzeit)/1000/60)));
@@ -144,10 +144,10 @@ public class GesamtErgebnisAnzeigen extends Activity {
         final Button fldGesamt = (Button) findViewById(R.id.txt_gesamtergebnis);
         fldGesamt.setText(String.valueOf(max));
 
-        /**
-         * Parcour Name anzeigen
-         *
-         * */
+        /*
+          Parcour Name anzeigen
+
+          */
         final TextView fldAnmerkung = (TextView) findViewById(R.id.txt_anmerkungen);
         fldAnmerkung.setText("noch nicht implementiert!");
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.rene.myarrow.Database.Bogen.Bogen;
 import com.example.rene.myarrow.Database.Bogen.BogenSpeicher;
@@ -57,8 +56,8 @@ public class EmpfangeDatenService {
     public EmpfangeDatenService(Context context) {
         this.context = context;
         httpRequest = new ToolsDatenService();
-        /**
-         * zunächst Device-Id (z.B. IMEI) auslesen
+        /*
+          zunächst Device-Id (z.B. IMEI) auslesen
          */
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         deviceid = tm.getDeviceId();
@@ -72,8 +71,8 @@ public class EmpfangeDatenService {
         Log.d(TAG, "empfangeDaten(): Start");
         String response = null;
 
-        /**
-         * action=getdata & deviceid=
+        /*
+          action=getdata & deviceid=
          */
         Uri.Builder builder = new Uri.Builder()
                 .appendQueryParameter("action", "getdata")
@@ -92,8 +91,8 @@ public class EmpfangeDatenService {
                 got = erhalteDaten();
             }
 
-            /**
-             * man hat leider nicht erhalten, was man erwartet hat
+            /*
+              man hat leider nicht erhalten, was man erwartet hat
              */
             if (data != got) {
                 Log.e(TAG, "empfangeDaten(): Fehler - Anzahl erwartet=" + data + " und Anzahl erhalten=" + got);
@@ -119,24 +118,24 @@ public class EmpfangeDatenService {
         int got = 0;
 
 
-        /**
-         * action=getdata
-         *     => anzahl=xxxx
-         * action=o.k.
-         *     => table=......
-         *     => done=done
-         * action=updatemobile
-         *
-         * action=getdata
-         *     => anzahl=xxxx
-         *
-         * action=o.k.
-         *     => table=......
-         *     => done=done
-         * action=update
-         *     => table=updatemobile
-         * action=done
-         *
+        /*
+          action=getdata
+              => anzahl=xxxx
+          action=o.k.
+              => table=......
+              => done=done
+          action=updatemobile
+
+          action=getdata
+              => anzahl=xxxx
+
+          action=o.k.
+              => table=......
+              => done=done
+          action=update
+              => table=updatemobile
+          action=done
+
          */
         Uri.Builder builder = new Uri.Builder()
                 .appendQueryParameter("action", "o.k.")
@@ -154,7 +153,6 @@ public class EmpfangeDatenService {
                 Log.d(TAG, "erhalteDaten(): DATA = " + data);
                 if (tag.equals("table")) {
                     got++;
-                    // TODO warum kann ich doppelte abspeichern
                     switch (data) {
                         case "ziel":
                             speichereZiel(response);
@@ -200,15 +198,15 @@ public class EmpfangeDatenService {
                     }
 
                 } else if (record.equals("done=done")) {
-                    /**
-                     * Es wurden alle Table Update erfolgreich aktualisiert
+                    /*
+                      Es wurden alle Table Update erfolgreich aktualisiert
                      */
                     builder = new Uri.Builder().appendQueryParameter("action", "updatemobile");
                     httpRequest.sendeHttpRequest_temp(builder.build().getEncodedQuery());
 
                 } else if (record.equals("updatemobile=done")) {
-                    /**
-                     * Es wurden alle GIDs wurden erfolgreich aktualisiert
+                    /*
+                      Es wurden alle GIDs wurden erfolgreich aktualisiert
                      */
                     builder = new Uri.Builder().appendQueryParameter("action", "done");
                     httpRequest.sendeHttpRequest_temp(builder.build().getEncodedQuery());
@@ -259,7 +257,7 @@ public class EmpfangeDatenService {
                     break;
 
                 case BogenTbl.STANDARD:
-                    bogen.standard = (data == "1" ? true : false);
+                    bogen.standard = (data == "1");
                     break;
 
                 case BogenTbl.ZEITSTEMPEL:
@@ -339,7 +337,7 @@ public class EmpfangeDatenService {
                     break;
 
                 case ParcourTbl.STANDARD:
-                    parcour.standard = (data.equals("1") ? true : false);
+                    parcour.standard = (data.equals("1"));
                     break;
 
                 case ParcourTbl.TRANSFERED:
@@ -389,7 +387,7 @@ public class EmpfangeDatenService {
                     break;
 
                 case PfeilTbl.STANDARD:
-                    pfeil.standard = (data.equals("1") ? true : false);
+                    pfeil.standard = (data.equals("1"));
                     break;
 
                 case PfeilTbl.DATEINAME:
@@ -581,23 +579,23 @@ public class EmpfangeDatenService {
                     break;
 
                 case RundenZielTbl.EINS:
-                    rundenziel.eins = (data.equals("1") ? true : false);
+                    rundenziel.eins = (data.equals("1"));
                     break;
 
                 case RundenZielTbl.ZWEI:
-                    rundenziel.zwei = (data.equals("1") ? true : false);
+                    rundenziel.zwei = (data.equals("1"));
                     break;
 
                 case RundenZielTbl.DREI:
-                    rundenziel.drei = (data.equals("1") ? true : false);
+                    rundenziel.drei = (data.equals("1"));
                     break;
 
                 case "kills":
-                    rundenziel.kill = (data.equals("1") ? true : false);
+                    rundenziel.kill = (data.equals("1"));
                     break;
 
                 case RundenZielTbl.KILLKILL:
-                    rundenziel.killkill = (data.equals("1") ? true : false);
+                    rundenziel.killkill = (data.equals("1"));
                     break;
 
                 case RundenZielTbl.PUNKTE:
@@ -769,8 +767,8 @@ public class EmpfangeDatenService {
                 data = daten[n].split("=")[1];
             }
 
-            /**
-             * Mappen der erhalenen Informationen auf Felder
+            /*
+              Mappen der erhalenen Informationen auf Felder
              */
             switch (tag) {
                 case "table":
@@ -797,8 +795,8 @@ public class EmpfangeDatenService {
 
             }
         }
-        /**
-         * Änderung der GID durchführen
+        /*
+          Änderung der GID durchführen
          */
         if (!dataSet[0].isEmpty() & !dataSet[1].isEmpty() & !dataSet[2].isEmpty() & !dataSet[3].isEmpty()){
             MyArrowDB mDb = MyArrowDB.getInstance(context);

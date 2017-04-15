@@ -97,8 +97,8 @@ public class GetPicture extends Activity {
 
     private void galleryAddPic() {
         Log.d(TAG, "galleryAddPic(): Start");
-        /**
-         * copy current image to Galerry
+        /*
+          copy current image to Galerry
          */
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(currentImageUri);
@@ -131,13 +131,9 @@ public class GetPicture extends Activity {
                         isCamera = true;
                     } else {
                         final String action = data.getAction();
-                        if (action == null) {
-                            // getAction hat nichts zurückgemeldet, also wurde die Kamera NICHT benutzt
-                            isCamera = false;
-                        } else {
-                            // keine Ahnung.....
-                            isCamera = action.equals(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        }
+                        // getAction hat nichts zurückgemeldet, also wurde die Kamera NICHT benutzt
+                        isCamera = action != null && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
+// keine Ahnung.....
                     }
                     // Path- und Dateinamen auslesen
                     String selectedImage;

@@ -12,9 +12,7 @@ import com.example.rene.myarrow.Database.MyArrowDB;
 import com.example.rene.myarrow.Database.Parcour.ParcourSpeicher;
 import com.example.rene.myarrow.Database.Pfeil.PfeilSpeicher;
 import com.example.rene.myarrow.Database.Runden.RundenSpeicher;
-import com.example.rene.myarrow.Database.RundenSchuetzen.RundenSchuetzen;
 import com.example.rene.myarrow.Database.RundenSchuetzen.RundenSchuetzenSpeicher;
-import com.example.rene.myarrow.Database.RundenZiel.RundenZiel;
 import com.example.rene.myarrow.Database.RundenZiel.RundenZielSpeicher;
 import com.example.rene.myarrow.Database.Schuetzen.SchuetzenSpeicher;
 import com.example.rene.myarrow.Database.Ziel.ZielSpeicher;
@@ -43,15 +41,15 @@ public class Tools extends Activity {
     }
 
     public void onClickBackupDB(View v) {
-        /**
-         * Export der Datenbank ins MyArrow Standardverzeichnis.
+        /*
+          Export der Datenbank ins MyArrow Standardverzeichnis.
          */
         MyArrowDB.getInstance(this).exportDB();
     }
 
     public void onClickRestoreDB(View v) {
-        /**
-         * Import der Datenbank aus dem MyArrow Standardverzeichnis.
+        /*
+          Import der Datenbank aus dem MyArrow Standardverzeichnis.
          */
         MyArrowDB.getInstance(this).restoreDB();
     }

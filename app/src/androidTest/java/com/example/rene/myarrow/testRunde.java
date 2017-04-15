@@ -1,11 +1,9 @@
 package com.example.rene.myarrow;
 
-import android.content.res.Resources;
 import android.util.Log;
 
 import com.robotium.solo.Solo;
 
-import static java.security.AccessController.getContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
@@ -37,8 +35,13 @@ public class testRunde {
     public void testRunde(int mTargets) {
         String[] mCheck;
 
-        /**
-         * Anzahl der Ziele ausgeben
+        /*
+
+         */
+        new testParcour(mSimulator, sleepTime, mRotate).testStartParcour();
+
+        /*
+          Anzahl der Ziele ausgeben
          */
         Log.i(TAG, "testRunde(): Anzahl der Runden " + String.valueOf(mTargets));
 
@@ -67,26 +70,26 @@ public class testRunde {
                 mSimulator.searchText("0/" + String.valueOf(mTargets*20).trim()));
         tm.doRotate(mRotate);
 
-        /**
-         * Jetzt die einzelnen Runden eintragen
+        /*
+          Jetzt die einzelnen Runden eintragen
          */
         for (int n=1; n<=mTargets;n++){
-            /**
-             * Ergebnis eintargen
+            /*
+              Ergebnis eintargen
              */
             mCheck = new String[]{"Default-Schuetze " + String.valueOf(n).trim(), "im 2ten Schuss", "+10 Punkte"};
             testErgebnisEintragen(mCheck);
 
             if (n == mTargets) {
-                /**
-                 * Mit weiter jetzt zur Gesamtuebersicht
+                /*
+                  Mit weiter jetzt zur Gesamtuebersicht
                  */
                 Log.d(TAG, "Weiter geht es zur Gesamtuebersicht");
                 mSimulator.clickOnText("weiter");
                 assertTrue("Zusammenfassung der Runde wird nicht angezeigt", mSimulator.searchText("Parcourname"));
             } else {
-                /**
-                 * und jetzt zum nächsten Ziel
+                /*
+                  und jetzt zum nächsten Ziel
                  */
                 mCheck = new String[]{"10 - nächstes Ziel (1)",
                         String.valueOf(n+1).trim() + "/" + String.valueOf(mTargets).trim(),
@@ -99,8 +102,8 @@ public class testRunde {
                         String.valueOf((n-1)*10).trim() + "/" + String.valueOf((mTargets*20)-((n-1)*10)).trim()};
                 tm.testClickOnZurueck(mCheck);
 
-                /**
-                 * und jetzt zum nächsten Ziel
+                /*
+                  und jetzt zum nächsten Ziel
                  */
                 mCheck = new String[]{"10 - nächstes Ziel (2)",
                         String.valueOf(n+1).trim() + "/" + String.valueOf(mTargets).trim(),

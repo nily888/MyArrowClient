@@ -43,8 +43,6 @@ public class ChartEinSchuetzeAlleRunden  extends AppCompatActivity implements On
     /** Kuerzel fuers Logging. */
     private static final String TAG = ChartEinSchuetzeAlleRunden.class.getSimpleName();
 
-    /** */
-    private RundenSchuetzenSpeicher rSpeicher;
     private Cursor rs;
     private String mParcourGId;
     private String mSchuetzenGId;
@@ -86,8 +84,9 @@ public class ChartEinSchuetzeAlleRunden  extends AppCompatActivity implements On
         setTitle(mSchuetzenName);
 
 
-        /** Daten aus der Datenbank holen */
-        rSpeicher = new RundenSchuetzenSpeicher(this);
+        /* Daten aus der Datenbank holen */
+        /* */
+        RundenSchuetzenSpeicher rSpeicher = new RundenSchuetzenSpeicher(this);
         rs = rSpeicher.getRundenPunkte(mParcourGId, mSchuetzenGId);
         if (rs.getCount() < 1){
             rs.close();
@@ -95,9 +94,9 @@ public class ChartEinSchuetzeAlleRunden  extends AppCompatActivity implements On
             return;
         }
 
-        /**
-         * pro Parcour den Durchschnittlichen Punktestand anzeigen
-         * BarChart initialisieren
+        /*
+          pro Parcour den Durchschnittlichen Punktestand anzeigen
+          BarChart initialisieren
          */
         chart = (BarChart) findViewById(R.id.chart);
         getXAxisValuesChart();
@@ -220,8 +219,8 @@ public class ChartEinSchuetzeAlleRunden  extends AppCompatActivity implements On
         //
         //
         saveChart();
-        /**
-         * Show share dialog BOTH image and text
+        /*
+          Show share dialog BOTH image and text
          */
         File imageFile = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM), "MyArrow");

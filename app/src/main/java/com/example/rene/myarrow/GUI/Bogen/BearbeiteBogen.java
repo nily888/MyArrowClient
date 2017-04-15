@@ -118,8 +118,8 @@ public class BearbeiteBogen extends AppCompatActivity {
          */
         CheckBox fldStandard = (CheckBox) findViewById(R.id.txt_standard);
         fldStandard.setEnabled(mBogen.standard);
-        /**
-         *  Wenn ein Bild existiert anzeigen
+        /*
+           Wenn ein Bild existiert anzeigen
          */
         if (mBogen.dateiname != null && !mBogen.dateiname.equals("")) {
             //
@@ -139,8 +139,8 @@ public class BearbeiteBogen extends AppCompatActivity {
          * Standard auslesen
          */
         CheckBox fldStandard = (CheckBox) findViewById(R.id.txt_standard);
-        /**
-         * Update Bogen in der Datenbank speichern
+        /*
+          Update Bogen in der Datenbank speichern
          */
 	    mBogenSpeicher.updateBogen(
                 mBogenGID,
@@ -178,7 +178,7 @@ public class BearbeiteBogen extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (mExtras != null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                     String mDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
-                    /** Bild, falls vorhanden, anzeigen */
+                    /* Bild, falls vorhanden, anzeigen */
                     if (mDateiname != null && !mDateiname.equals("")) {
                         Button imageButton = (Button) findViewById(R.id.imageButton);
                         new setPic(this, imageButton, mDateiname, Konstante.MY_TRANSPARENT50);

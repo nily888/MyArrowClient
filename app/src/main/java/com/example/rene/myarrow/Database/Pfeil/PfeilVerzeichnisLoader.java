@@ -19,9 +19,6 @@ public class PfeilVerzeichnisLoader extends AbstractCursorLoader {
     /** */
     private PfeilSpeicher mDao;
 
-    /** */
-    private CharSequence mNamensFilter;
-
     public PfeilVerzeichnisLoader(Context context) {
         super(context);
         mDao = new PfeilSpeicher(context);
@@ -37,7 +34,8 @@ public class PfeilVerzeichnisLoader extends AbstractCursorLoader {
         super(context);
         Log.d(TAG, "PfeilVerzeichnisLoader(): Start");
         mDao = dao;
-        mNamensFilter = namensFilter;
+        /* */
+        CharSequence mNamensFilter = namensFilter;
         Log.d(TAG, "PfeilVerzeichnisLoader(): End");
     }
 

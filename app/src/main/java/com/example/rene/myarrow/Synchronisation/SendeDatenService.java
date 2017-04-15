@@ -58,48 +58,48 @@ public class SendeDatenService {
     }
 
     public void selektiereDaten(Context context) {
-        /**
-         * setze den Sessionkontext
+        /*
+          setze den Sessionkontext
          */
         this.context = context;
 
-        /**
-         * Synchronisiere die Tabelle "Schuetzen"
+        /*
+          Synchronisiere die Tabelle "Schuetzen"
          */
         synchronisiereSchuetzen();
 
-        /**
-         * Synchronisiere die Tabelle "Parcour"
+        /*
+          Synchronisiere die Tabelle "Parcour"
          */
         synchronisiereParcour();
 
-        /**
-         * Synchronisiere die Tabelle "Ziel"
+        /*
+          Synchronisiere die Tabelle "Ziel"
          */
         synchronisiereZiel();
 
-        /**
-         * Synchronisiere die Tabelle "Bogen"
+        /*
+          Synchronisiere die Tabelle "Bogen"
          */
         synchronisiereBogen();
 
-        /**
-         * Synchronisiere die Tabelle "Pfeil"
+        /*
+          Synchronisiere die Tabelle "Pfeil"
          */
         synchronisierePfeil();
 
-        /**
-         * Synchronisiere die Tabelle "Runden"
+        /*
+          Synchronisiere die Tabelle "Runden"
          */
         synchronisiereRunden();
 
-        /**
-         * Synchronisiere die Tabelle "RundenSchuetzen"
+        /*
+          Synchronisiere die Tabelle "RundenSchuetzen"
          */
         synchronisiereRundenSchuetzen();
 
-        /**
-         * Synchronisiere die Tabelle "RundenZiel"
+        /*
+          Synchronisiere die Tabelle "RundenZiel"
          */
         synchronisiereRundenZiel();
 
@@ -109,14 +109,14 @@ public class SendeDatenService {
      * Update der Tabelle "Schuetzen" an den Server schicken
      */
     private void synchronisiereSchuetzen(){
-        /**
-         * Liste der zu transferierenden Schützen erstellen
+        /*
+          Liste der zu transferierenden Schützen erstellen
          */
         SchuetzenSpeicher schuetzenSpeicher = new SchuetzenSpeicher(context);
         Cursor transferListe = schuetzenSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisiereSchuetzen(): " + transferListe.getCount());
 
@@ -125,22 +125,22 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * Schuetzen-Datensatz mit der ID laden
+                /*
+                  Schuetzen-Datensatz mit der ID laden
                  */
                 Schuetzen mSchuetzen = schuetzenSpeicher.loadSchuetzenDetails(transferListe.getString(0));
                 Log.d(TAG, "synchronisiereSchuetzen(): " + mSchuetzen.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mSchuetzen.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     schuetzenSpeicher.transferUpdate(mSchuetzen.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }
@@ -151,14 +151,14 @@ public class SendeDatenService {
      * Synchronisation der Tabelle "Parcour"
      */
     private void synchronisiereParcour(){
-        /**
-         * Liste der zu transferierenden Parcoure erstellen
+        /*
+          Liste der zu transferierenden Parcoure erstellen
          */
         ParcourSpeicher parcourSpeicher = new ParcourSpeicher(context);
         Cursor transferListe = parcourSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisiereParcour(): " + transferListe.getCount());
 
@@ -167,22 +167,22 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * Schuetzen-Datensatz mit der ID laden
+                /*
+                  Schuetzen-Datensatz mit der ID laden
                  */
                 Parcour mParcour = parcourSpeicher.loadParcourDetails(transferListe.getString(0));
                 Log.d(TAG, "synchronisiereParcour(): " + mParcour.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mParcour.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     parcourSpeicher.transferUpdate(mParcour.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }
@@ -193,14 +193,14 @@ public class SendeDatenService {
      * Synchronisation der Tabelle "Bogen"
      */
     private void synchronisiereBogen(){
-        /**
-         * Liste der zu transferierenden Bogen erstellen
+        /*
+          Liste der zu transferierenden Bogen erstellen
          */
         BogenSpeicher bogenSpeicher = new BogenSpeicher(context);
         Cursor transferListe = bogenSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisiereParcour(): " + transferListe.getCount());
 
@@ -209,22 +209,22 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * Schuetzen-Datensatz mit der ID laden
+                /*
+                  Schuetzen-Datensatz mit der ID laden
                  */
                 Bogen mBogen = bogenSpeicher.loadBogenDetails(transferListe.getString(0));
                 Log.d(TAG, "synchronisiereParcour(): " + mBogen.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mBogen.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     bogenSpeicher.transferUpdate(mBogen.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }
@@ -235,14 +235,14 @@ public class SendeDatenService {
      * Synchronisation der Tabelle "Pfeil"
      */
     private void synchronisierePfeil(){
-        /**
-         * Liste der zu transferierenden Pfeile erstellen
+        /*
+          Liste der zu transferierenden Pfeile erstellen
          */
         PfeilSpeicher pfeilSpeicher = new PfeilSpeicher(context);
         Cursor transferListe = pfeilSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisierePfeil(): " + transferListe.getCount());
 
@@ -251,22 +251,22 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * Pfeil-Datensatz mit der ID laden
+                /*
+                  Pfeil-Datensatz mit der ID laden
                  */
                 Pfeil mPfeil = pfeilSpeicher.loadPfeilDetails(transferListe.getString(0));
                 Log.d(TAG, "synchronisierePfeil(): " + mPfeil.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mPfeil.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     pfeilSpeicher.transferUpdate(mPfeil.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }
@@ -277,14 +277,14 @@ public class SendeDatenService {
      * Synchronisation der Tabelle "Runden"
      */
     private void synchronisiereRunden(){
-        /**
-         * Liste der zu transferierenden Runden erstellen
+        /*
+          Liste der zu transferierenden Runden erstellen
          */
         RundenSpeicher rundenSpeicher = new RundenSpeicher(context);
         Cursor transferListe = rundenSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisiereRunden(): " + transferListe.getCount());
 
@@ -293,22 +293,22 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * Runden-Datensatz mit der ID laden
+                /*
+                  Runden-Datensatz mit der ID laden
                  */
                 Runden mRunden = rundenSpeicher.loadRunden(transferListe.getString(0));
                 Log.d(TAG, "synchronisiereRunden(): " + mRunden.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mRunden.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     rundenSpeicher.transferUpdate(mRunden.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }
@@ -319,14 +319,14 @@ public class SendeDatenService {
      * Synchronisation der Tabelle "RundenSchuetzen"
      */
     private void synchronisiereRundenSchuetzen(){
-        /**
-         * Liste der zu transferierenden Parcoure erstellen
+        /*
+          Liste der zu transferierenden Parcoure erstellen
          */
         final RundenSchuetzenSpeicher rundenSchuetzenSpeicher = new RundenSchuetzenSpeicher(context);
         final Cursor transferListe = rundenSchuetzenSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisiereRundenSchuetzen(): " + transferListe.getCount());
 
@@ -335,23 +335,23 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * RundenSchuetzen-Datensatz mit der ID laden
+                /*
+                  RundenSchuetzen-Datensatz mit der ID laden
                  */
                 RundenSchuetzen mRundenSchuetzen = rundenSchuetzenSpeicher.loadRundenSchuetzenGID(
                                 transferListe.getString(transferListe.getColumnIndex(RundenSchuetzenTbl.GID)));
                 Log.d(TAG, "synchronisiereRundenSchuetzen(): " + mRundenSchuetzen.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mRundenSchuetzen.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     rundenSchuetzenSpeicher.transferUpdate(mRundenSchuetzen.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }
@@ -363,14 +363,14 @@ public class SendeDatenService {
      * Synchronisation der Tabelle "RundenZiel"
      */
     private void synchronisiereRundenZiel(){
-        /**
-         * Liste der zu transferierenden RundenZiele erstellen
+        /*
+          Liste der zu transferierenden RundenZiele erstellen
          */
         RundenZielSpeicher rundenZielSpeicher = new RundenZielSpeicher(context);
         Cursor transferListe = rundenZielSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisiereRundenZiel(): " + transferListe.getCount());
 
@@ -379,22 +379,22 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * RundenZiel-Datensatz mit der ID laden
+                /*
+                  RundenZiel-Datensatz mit der ID laden
                  */
                 RundenZiel mRundenZiel = rundenZielSpeicher.loadRundenZiel(transferListe.getString(0));
                 Log.d(TAG, "synchronisiereRundenZiel(): " + mRundenZiel.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mRundenZiel.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     rundenZielSpeicher.transferUpdate(mRundenZiel.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }
@@ -405,14 +405,14 @@ public class SendeDatenService {
      * Synchronisation der Tabelle "Ziel"
      */
     private void synchronisiereZiel(){
-        /**
-         * Liste der zu transferierenden Parcoure erstellen
+        /*
+          Liste der zu transferierenden Parcoure erstellen
          */
         ZielSpeicher zielSpeicher = new ZielSpeicher(context);
         Cursor transferListe = zielSpeicher.transferListe();
 
-        /**
-         * Wieviele Records wurden selektiert
+        /*
+          Wieviele Records wurden selektiert
          */
         Log.d(TAG, "synchronisiereZiel(): " + transferListe.getCount());
 
@@ -421,22 +421,22 @@ public class SendeDatenService {
          */
         if (transferListe.moveToFirst()) {
             do {
-                /**
-                 * Ziel-Datensatz mit der ID laden
+                /*
+                  Ziel-Datensatz mit der ID laden
                  */
                 Ziel mZiel = zielSpeicher.loadZiel(transferListe.getString(0));
                 Log.d(TAG, "synchronisiereZiel(): " + mZiel.toString());
-                /**
-                 * Datensatz zum Server schicken
+                /*
+                  Datensatz zum Server schicken
                  */
                 if (httpRequest.sendeHttpRequest(mZiel.toBuilder())){
-                    /**
-                     * Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
+                    /*
+                      Wenn die richtige Antwort zurückgekommen ist, Datensatz auf "transfered=1" setzen
                      */
                     zielSpeicher.transferUpdate(mZiel.gid);
                 }
-                /**
-                 * und zum nächsten Datensatz
+                /*
+                  und zum nächsten Datensatz
                  */
             } while (transferListe.moveToNext());
         }

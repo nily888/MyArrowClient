@@ -117,8 +117,8 @@ public class BearbeitePfeil extends AppCompatActivity {
          */
         CheckBox fldStandard = (CheckBox) findViewById(R.id.txt_standard);
         fldStandard.setEnabled(mPfeil.standard);
-        /**
-         *  Wenn ein Bild existiert anzeigen
+        /*
+           Wenn ein Bild existiert anzeigen
          */
         if (mPfeil.dateiname!=null && !mPfeil.dateiname.equals("")) {
             /* *
@@ -138,8 +138,8 @@ public class BearbeitePfeil extends AppCompatActivity {
          * Standard auslesen
          */
         CheckBox fldStandard = (CheckBox) findViewById(R.id.txt_standard);
-        /**
-         * Update Pfeil in der Datenbank speichern
+        /*
+          Update Pfeil in der Datenbank speichern
          */
 	    mPfeilSpeicher.updatePfeil(
                 mPfeilGID,
@@ -177,7 +177,7 @@ public class BearbeitePfeil extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (mExtras!=null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                     String mDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
-                    /** Bild, falls vorhanden, anzeigen */
+                    /* Bild, falls vorhanden, anzeigen */
                     if (mDateiname!=null && !mDateiname.equals("")) {
                         Button imageButton = (Button)findViewById(R.id.imageButton);
                         new setPic(this, imageButton, mDateiname, Konstante.MY_TRANSPARENT50);

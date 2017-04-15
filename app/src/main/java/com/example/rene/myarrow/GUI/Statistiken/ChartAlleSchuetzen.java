@@ -38,8 +38,6 @@ public class ChartAlleSchuetzen extends AppCompatActivity implements OnChartValu
     /** Kuerzel fuers Logging. */
     private static final String TAG = ChartAlleSchuetzen.class.getSimpleName();
 
-    /** */
-    private RundenSchuetzenSpeicher rsSpeicher;
     private String[][] rs;
     ArrayList<String> xAxis = new ArrayList<>();
     BarChart chart;
@@ -52,17 +50,18 @@ public class ChartAlleSchuetzen extends AppCompatActivity implements OnChartValu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chart_anzeigen);
 
-        /** Daten aus der Datenbank holen */
-        rsSpeicher = new RundenSchuetzenSpeicher(this);
+        /* Daten aus der Datenbank holen */
+        /* */
+        RundenSchuetzenSpeicher rsSpeicher = new RundenSchuetzenSpeicher(this);
         rs = rsSpeicher.getSchuetzenAvg();
         if (rs == null || rs.length < 1){
             finish();
             return;
         }
 
-        /**
-         * pro Parcour den Durchschnittlichen Punktestand anzeigen
-	     * BarChart initialisieren
+        /*
+          pro Parcour den Durchschnittlichen Punktestand anzeigen
+	      BarChart initialisieren
          */
         chart = (BarChart) findViewById(R.id.chart);
         getXAxisValuesChart();
@@ -176,8 +175,8 @@ public class ChartAlleSchuetzen extends AppCompatActivity implements OnChartValu
         //
         //
         saveChart();
-        /**
-         * Show share dialog BOTH image and text
+        /*
+          Show share dialog BOTH image and text
          */
         File imageFile = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM), "MyArrow");

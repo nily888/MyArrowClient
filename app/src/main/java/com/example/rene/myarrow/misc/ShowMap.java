@@ -1,9 +1,12 @@
 package com.example.rene.myarrow.misc;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.location.Location;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,24 +30,23 @@ public class ShowMap extends FragmentActivity implements OnMapReadyCallback {
     /** Kuerzel fuers Logging. */
     private static final String TAG = ShowMap.class.getSimpleName();
 
-    private GoogleMap mMap;
-    private String[][] zielListe=null;
+    private String[][] zielListe = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_map);
-        /** Hole Übergabeparameter ab */
+        /* Hole Übergabeparameter ab */
         Object[] objectArray = (Object[]) getIntent().getExtras().getSerializable(Konstante.IN_PARAM_GPS_ZIELE);
-        if(objectArray!=null){
+        if (objectArray != null) {
             zielListe = new String[objectArray.length][];
-            for(int i=0;i<objectArray.length;i++){
-                zielListe[i]=(String[]) objectArray[i];
+            for (int i = 0; i < objectArray.length; i++) {
+                zielListe[i] = (String[]) objectArray[i];
             }
         }
 
-        if (zielListe == null || zielListe.length<1) {
+        if (zielListe == null || zielListe.length < 1) {
             finish();
             return;
         }
@@ -64,8 +66,18 @@ public class ShowMap extends FragmentActivity implements OnMapReadyCallback {
         Location currLocation = new Location("bis");
         float totalDistance = 0;
         // Marker fuer den Parcour setze und auf Strassenlevel zoomen
-        mMap = googleMap;
+        GoogleMap mMap = googleMap;
         // Meinen Standpunkt anzeigen
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mMap.setMyLocationEnabled(true);
         // Ziele auf der Karte markieren
         for (int n = 0; (n < zielListe.length); n++) {

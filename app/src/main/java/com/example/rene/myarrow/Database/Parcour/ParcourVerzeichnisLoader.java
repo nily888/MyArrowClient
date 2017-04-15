@@ -19,9 +19,6 @@ public class ParcourVerzeichnisLoader extends AbstractCursorLoader {
     /** */
     private ParcourSpeicher mDao;
 
-    /** */
-    private CharSequence mNamensFilter;
-
     public ParcourVerzeichnisLoader(Context context) {
         super(context);
         mDao = new ParcourSpeicher(context);
@@ -37,7 +34,8 @@ public class ParcourVerzeichnisLoader extends AbstractCursorLoader {
         super(context);
         Log.d(TAG, "ParcourVerzeichnisLoader(): Start");
         mDao = dao;
-        mNamensFilter = namensFilter;
+        /* */
+        CharSequence mNamensFilter = namensFilter;
         Log.d(TAG, "ParcourVerzeichnisLoader(): End");
     }
 

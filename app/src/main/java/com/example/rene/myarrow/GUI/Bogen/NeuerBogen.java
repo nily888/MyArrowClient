@@ -69,8 +69,8 @@ public class NeuerBogen extends Activity {
          * Bogen Name auslesen
          */
         EditText fldBogenName = (EditText) findViewById(R.id.edt_bogenname);
-	    /**
- 	     * Standard auslesen
+	    /*
+ 	      Standard auslesen
 	     */
         CheckBox mStandard = (CheckBox) findViewById(R.id.txt_standard);
         //
@@ -104,7 +104,7 @@ public class NeuerBogen extends Activity {
             if (resultCode == Activity.RESULT_OK) {
                 if (mExtras!=null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                     mDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
-                    /** Bild, falls vorhanden, anzeigen */
+                    /* Bild, falls vorhanden, anzeigen */
                     if (mDateiname!=null && !mDateiname.equals("")) {
                         Button imageButton = (Button)findViewById(R.id.imageButton);
                         new setPic(this, imageButton, mDateiname, Konstante.MY_TRANSPARENT50);

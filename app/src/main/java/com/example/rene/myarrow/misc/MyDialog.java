@@ -27,7 +27,7 @@ public class MyDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Log.d(TAG, "onCreateDialog(): Start");
-        /** example pulling of arguments */
+        /* example pulling of arguments */
         Bundle bundle = getArguments();
         if (bundle!=null) {
             bundle.get(DIALOG_ARGUMENTS);

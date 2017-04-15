@@ -27,7 +27,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/opt_review"
         android:orderInCategory="100"
         android:title="Review parcour"
         app:showAsAction="never" />

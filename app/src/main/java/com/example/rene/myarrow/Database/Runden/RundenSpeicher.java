@@ -80,8 +80,8 @@ public class RundenSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(RundenTbl.PARCOURGID, parcourgid);
             daten.put(RundenTbl.BOGENGID, bogengid);
@@ -93,8 +93,8 @@ public class RundenSpeicher {
             daten.put(RundenTbl.TRANSFERED, 0);
             final long id = dbCon.insertOrThrow(RundenTbl.TABLE_NAME, null, daten);
 
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -103,8 +103,8 @@ public class RundenSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(RundenTbl.GID, deviceid + "_" + String.valueOf(id));
@@ -195,7 +195,7 @@ public class RundenSpeicher {
     public int deleteRundenWithParcourID(String parcourGID) {
         RundenZielSpeicher rundenzielSpeicher = new RundenZielSpeicher(mContext);
 
-        /** alle Runden zur PacourID selektieren */
+        /* alle Runden zur PacourID selektieren */
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select " + RundenTbl.GID +
                         " from "  + RundenTbl.TABLE_NAME +
@@ -330,18 +330,23 @@ public class RundenSpeicher {
      * @return Anzahl der Kontakte.
      */
     public int anzahlRunden() {
+        int nReturn = 0;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select count(*) from " + RundenTbl.TABLE_NAME,
                 null);
         if (!c.moveToFirst()) {
             Log.e(TAG, "anzahlRunden(): Kein Runden gespeichert");
-            return 0;
+            nReturn = 0;
+        } else {
+            nReturn = c.getInt(0);
         }
-        return c.getInt(0);
+        c.close();
+        return nReturn;
     }
 
 
     public int getPunktestand(long rundenID){
+        int nReturn = 0;
        final Cursor c = mDb.getReadableDatabase().rawQuery(
          "select "+ RundenTbl.PUNKTESTAND + " from " + RundenTbl.TABLE_NAME + 
         " WHERE " + RundenTbl.ID +"="+String.valueOf(rundenID)+";",
@@ -349,9 +354,12 @@ public class RundenSpeicher {
 
         if (!c.moveToFirst()) {
             Log.d(TAG, "getPunktestand(): Kein Eintrag mit der RUNDENID " + rundenID + " gefunden");
-            return 0;
+            nReturn = 0;
+        } else {
+            nReturn = c.getInt(0);
         }
-       return c.getInt(0);
+        c.close();
+       return nReturn;
     }
 
     public long updatePunkteStand(long mRundenID, int mGesamt){
@@ -386,8 +394,6 @@ public class RundenSpeicher {
     /**
      * Nach erfolgreichem übertragen der Daten, Datensatz als "übertragen (transfered=1)" markieren
      *
-     * @param id
-     *      Datensatz ID, welche aktualisiert werden soll.
      * @return
      *      Anzahl der Datensätze, welche aktualisiert wurden. Sollte nur ein Datensatz sein.
      */
@@ -425,6 +431,7 @@ public class RundenSpeicher {
     }
 
     public int getMaxPunktestand(long parcourID) {
+        int nReturn = 0;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
             "select max("+ RundenTbl.PUNKTESTAND + ") from " + RundenTbl.TABLE_NAME +
             " WHERE " + RundenTbl.PARCOURID + "=" + String.valueOf(parcourID) + ";",
@@ -432,9 +439,12 @@ public class RundenSpeicher {
 
         if (!c.moveToFirst()) {
             Log.d(TAG, "getMaxPunktestand(): Kein Eintrag mit der PARCOURID " + parcourID + " gefunden");
-            return 0;
+            nReturn =  0;
+        } else {
+            nReturn = c.getInt(0);
         }
-        return c.getInt(0);
+        c.close();
+        return nReturn;
     }
 
     /**
@@ -538,10 +548,10 @@ public class RundenSpeicher {
 
     /**
      *
-     * @param id
      * @return
      */
     public boolean getNochPfeile(String gid){
+        boolean bReturn = false;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select " + RundenTbl.ID + " from " + RundenTbl.TABLE_NAME +
                         " WHERE " + RundenTbl.PFEILGID + "='" + gid + "';",
@@ -549,17 +559,20 @@ public class RundenSpeicher {
 
         if (!c.moveToFirst()) {
             Log.d(TAG, "getNochPfeile(): Kein Eintrag mit der Pfeil-GId " + gid + " gefunden");
-            return true;
+            bReturn = true;
+        } else {
+            bReturn = false;
         }
-        return (c.getInt(0)==0);
+        c.close();
+        return bReturn;
     }
 
     /**
      *
-     * @param id
      * @return
      */
     public boolean getNochBogen(String gid){
+        boolean bReturn = false;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select " + RundenTbl.ID + " from " + RundenTbl.TABLE_NAME +
                         " WHERE " + RundenTbl.BOGENGID + "='" + gid + "';",
@@ -567,9 +580,12 @@ public class RundenSpeicher {
 
         if (!c.moveToFirst()) {
             Log.d(TAG, "getNochBogen(): Kein Eintrag mit der Bogen-GId " + gid + " gefunden");
-            return true;
+            bReturn = true;
+        } else {
+            bReturn = false;
         }
-        return (c.getInt(0)==0);
+        c.close();
+        return bReturn;
     }
 
     public long updateEndzeit(String rundenGID) {
@@ -627,6 +643,7 @@ public class RundenSpeicher {
     }
 
     public long getRundenIdWithParcourId(long id){
+        long nReturn = 0;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select " + RundenTbl.ID + " from " + RundenTbl.TABLE_NAME +
                         " WHERE " + RundenTbl.PARCOURID + "=" + String.valueOf(id) + ";",
@@ -634,10 +651,12 @@ public class RundenSpeicher {
 
         if (!c.moveToFirst()) {
             Log.d(TAG, "RundenIdWithParcourId(): Kein Eintrag mit Parcour-Id " + id + " gefunden");
-            return 0;
+            nReturn = 0;
+        } else {
+            nReturn = Long.valueOf(c.getInt(0));
         }
-
-        return Long.valueOf(c.getInt(0));
+        c.close();
+        return nReturn;
     }
 
     public String getRundenIdWithParcourId(String parcourGID){

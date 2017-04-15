@@ -38,14 +38,14 @@ public class NetworkReceiver extends BroadcastReceiver {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-        /**
-         * O.K., gibt es eine WiFi Verbindung?
+        /*
+          O.K., gibt es eine WiFi Verbindung?
          */
         if (wifi.isAvailable()) {
             Log.d(TAG, "onReceive(): Network Available, start Thread");
 
-            /**
-             * Bin ich im richtgen Netzwerk => 192.168.178......
+            /*
+              Bin ich im richtgen Netzwerk => 192.168.178......
              */
             WifiManager myWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             WifiInfo myWifiInfo = myWifiManager.getConnectionInfo();
@@ -56,8 +56,8 @@ public class NetworkReceiver extends BroadcastReceiver {
 
             if (ipAddress.startsWith(NetzwerkKonfigurator.SERVER_IP.substring(0,10))) {
                 Log.d(TAG, "onReceive(): Richtiger Nummernbereich......");
-                /**
-                 * Ja ich bin im richtigen Netz, starte jetzt den Upload....
+                /*
+                  Ja ich bin im richtigen Netz, starte jetzt den Upload....
                  */
                 new Thread() {
                     public void run() {

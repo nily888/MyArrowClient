@@ -5,7 +5,6 @@ import android.content.Context;
 
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
@@ -49,8 +48,8 @@ public class BogenSpeicher {
         Log.d(TAG, "BogenSpeicher(): Start");
         mContext = context;
         mDb = MyArrowDB.getInstance(context);
-        /**
-         * Datenbank öffnen
+        /*
+          Datenbank öffnen
          */
         oeffnen();
         Log.d(TAG, "BogenSpeicher(): End - BogenSpeicher angelegt.");
@@ -83,8 +82,8 @@ public class BogenSpeicher {
 
         Log.d(TAG, "insertBogen-1(): Start");
 
-        /**
-         * neuer Standard wir gesetzt, daher zunächst alle anderen auf FALSE setzen
+        /*
+          neuer Standard wir gesetzt, daher zunächst alle anderen auf FALSE setzen
          */
         if (standard) {
             Log.d(TAG, "insertBogen-1(): Standard auf FALSE setzen");
@@ -101,8 +100,8 @@ public class BogenSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(BogenTbl.NAME, name);
             daten.put(BogenTbl.STANDARD, standard);
@@ -112,8 +111,8 @@ public class BogenSpeicher {
             final long id = dbCon.insertOrThrow(BogenTbl.TABLE_NAME, null,
                     daten);
             Log.i(TAG, "insertBogen-1(): Bogen mit id=" + id + " erzeugt.");
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -122,8 +121,8 @@ public class BogenSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(BogenTbl.GID, deviceid + "_" + String.valueOf(id));

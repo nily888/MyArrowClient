@@ -192,12 +192,12 @@ public class ErgebnisAmZiel extends FragmentActivity {
 
     @Override
     public void onStart() {
-        /**
-         * Super Methode aufrufen
+        /*
+          Super Methode aufrufen
          */
         super.onStart();
-        /**
-         * Jetzt alle Felder / Details anzeigen => leere View wird ausgefüllt
+        /*
+          Jetzt alle Felder / Details anzeigen => leere View wird ausgefüllt
          */
         zeigeDetails();
     }
@@ -226,21 +226,21 @@ public class ErgebnisAmZiel extends FragmentActivity {
         for (int index=0;(index<rundenschuetzenArray.length); index++) {
             Fragment newFragment = new TrefferAmZiel();
             Bundle bundle = new Bundle();
-            /**
-             * Submit rundenGID
+            /*
+              Submit rundenGID
              */
             bundle.putString(Konstante.OUT_PARAM_RUNDEN_GID, mRundenGID);
-            /**
-             * Submit all rundenschuetzen GIDs (Array)
+            /*
+              Submit all rundenschuetzen GIDs (Array)
              */
             bundle.putString(Konstante.OUT_PARAM_RUNDENSCHUETZEN_GID, rundenschuetzenArray[index][1]);
-            /**
-             * Submit the current Target
+            /*
+              Submit the current Target
              */
             bundle.putInt(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, mAktuellesZiel);
-            /**
-             * TODO Why and when -1
-             * OUT_PARAM_ZIEL_GID = -1 means
+            /*
+              TODO Why and when -1
+              OUT_PARAM_ZIEL_GID = -1 means
              */
             bundle.putString(Konstante.OUT_PARAM_ZIEL_GID, "-1");
             bundle.putString("schuetzenname", rundenschuetzenArray[index][2]);
@@ -252,19 +252,19 @@ public class ErgebnisAmZiel extends FragmentActivity {
     }
 
     private void zeigeDetails() {
-        /**
-         * Prüfen, ob die Parameter passen
+        /*
+          Prüfen, ob die Parameter passen
          */
         if (mAnzahlZiele < 1) {
             Log.d(TAG, "zeigeDetails(): Hier ist wohl etwas schief gegangen!!");
             return;
         }
-        /**
-         * aktuelle Zielnummer und Anzahl der Ziele in dieser Runden anzeigen
+        /*
+          aktuelle Zielnummer und Anzahl der Ziele in dieser Runden anzeigen
          */
         sMyOptions[0] = String.valueOf(mAktuellesZiel) + "/" + String.valueOf(mAnzahlZiele);
-        /**
-         * Wenn vorhanden, Ergebnisbild anzeigen
+        /*
+          Wenn vorhanden, Ergebnisbild anzeigen
          */
         RundenZielSpeicher rzSpeicher = new RundenZielSpeicher(this);
         String mDateiname = rzSpeicher.getDateiname(mRundenGID, mAktuellesZiel);
@@ -278,8 +278,8 @@ public class ErgebnisAmZiel extends FragmentActivity {
     }
 
     private void loadTrefferAmZiel(){
-        /**
-         * Swipe vorbereiten
+        /*
+          Swipe vorbereiten
          */
         mFragments = new ArrayList<Fragment>();
         mFragments = loadMyFragments();
@@ -315,8 +315,8 @@ public class ErgebnisAmZiel extends FragmentActivity {
     }
 
     public void onClickZurueck(View v) {
-        /**
-         * wollen Sie wirklich zurück?
+        /*
+          wollen Sie wirklich zurück?
          */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Zurück");
@@ -326,8 +326,8 @@ public class ErgebnisAmZiel extends FragmentActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (mAktuellesZiel > 1) {
-                    /**
-                     * und jetzt zur vorherigen Seite / Ziel
+                    /*
+                      und jetzt zur vorherigen Seite / Ziel
                      */
                     final Intent i = new Intent(mContext, ErgebnisAmZiel.class);
                     i.putExtra(Konstante.OUT_PARAM_PARCOUR_GID, mParcourGID);
@@ -338,8 +338,8 @@ public class ErgebnisAmZiel extends FragmentActivity {
                     startActivity(i);
                     finish();
                 } else {
-                    /**
-                     * es soll der Parcour abgebrochen werden
+                    /*
+                      es soll der Parcour abgebrochen werden
                      */
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setTitle("Abbrechen");
@@ -409,8 +409,8 @@ public class ErgebnisAmZiel extends FragmentActivity {
         // Daten sichern
         //
         datenSpeichern();
-        /**
-         * und jetzt zur nächsten Seite / Ziel oder es ist zu Ende
+        /*
+          und jetzt zur nächsten Seite / Ziel oder es ist zu Ende
          */
         if (mAktuellesZiel == mAnzahlZiele) {
             // Ende...
@@ -435,25 +435,25 @@ public class ErgebnisAmZiel extends FragmentActivity {
     }
 
     private void datenSpeichern() {
-        /**
-         * letzte Daten abspeichern
+        /*
+          letzte Daten abspeichern
          */
         punkteSpeichern(mFragments.get(viewPager.getCurrentItem()).getView());
-        /**
-         * Variable initialisieren
+        /*
+          Variable initialisieren
          */
         RundenZiel rz;
         int mSchuss;
         int mKill;
         BerechneErgebnis berechnePunkte = new BerechneErgebnis(this);
-        /**
-         * Daten auslesen
+        /*
+          Daten auslesen
           */
         for (int n=0; n<(rundenschuetzenArray.length); n++) {
             rz = new RundenZielSpeicher(this).loadRundenZiel(mRundenGID,
                     rundenschuetzenArray[n][1], mAktuellesZiel);
-            /**
-             * wie gut wurde getroffen
+            /*
+              wie gut wurde getroffen
              */
             mSchuss=0;
             mKill=0;
@@ -463,13 +463,13 @@ public class ErgebnisAmZiel extends FragmentActivity {
             if (rz.kill) mKill = 1;
             if (rz.killkill) mKill = 2;
             rz.punkte = berechnePunkte.getErgebnis(mSchuss, mKill);
-            /**
-             * Update der Daten im Runden Ziel
+            /*
+              Update der Daten im Runden Ziel
              */
             RundenZielSpeicher rzSpeicher = new RundenZielSpeicher(this);
             rzSpeicher.updateRundenziel(rz);
-            /**
-             *  Gesamtpunkte aktualisieren
+            /*
+               Gesamtpunkte aktualisieren
              */
             RundenSchuetzenSpeicher mRundenSchuetzenSpeicher = new RundenSchuetzenSpeicher(this);
             mRundenSchuetzenSpeicher.updateGesamtergebnis(mRundenGID,
@@ -525,20 +525,20 @@ public class ErgebnisAmZiel extends FragmentActivity {
         toggleDisplay = (ToggleButton) myView.findViewById(R.id.killkill_schuss);
         rz.killkill = toggleDisplay.isChecked();
 
-        /**
-         * Zeitstempel abspeichern
+        /*
+          Zeitstempel abspeichern
          */
         rz.zeitstempel = new Date().getTime();
 
-        /**
-         * Update der Daten im Runden Ziel
+        /*
+          Update der Daten im Runden Ziel
          */
         new RundenZielSpeicher(this).updatePunkteRundenziel(rz);
 
     }
 
     protected void getÜbergabeparameter() {
-        /** Hole Übergabeparameter ab */
+        /* Hole Übergabeparameter ab */
         final Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey(Konstante.IN_PARAM_PARCOUR_GID)) {
             mParcourGID = extras.getString(Konstante.IN_PARAM_PARCOUR_GID);
@@ -580,7 +580,7 @@ public class ErgebnisAmZiel extends FragmentActivity {
                 if (mExtras != null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                     String mDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
                     new RundenZielSpeicher(this).updateDateiname(mRundenGID, mAktuellesZiel, mDateiname, new Date().getTime());
-                    /** Bild, falls vorhanden, anzeigen */
+                    /* Bild, falls vorhanden, anzeigen */
                     if (mDateiname != null && !mDateiname.equals("")) {
                         Button fotoButton2 = (Button)findViewById(R.id.foto_button);
                         new setPic(this, fotoButton2, mDateiname);

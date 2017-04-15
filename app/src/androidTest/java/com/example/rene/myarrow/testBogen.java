@@ -1,7 +1,7 @@
 package com.example.rene.myarrow;
 
-/**
- * Created by rene on 4/3/17.
+/*
+  Created by rene on 4/3/17.
  */
 
 import com.robotium.solo.Solo;

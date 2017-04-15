@@ -67,8 +67,8 @@ public class RundenZielSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(RundenZielTbl.RUNDENGID, rundengid);
             daten.put(RundenZielTbl.ZIELGID, zielgid);
@@ -87,8 +87,8 @@ public class RundenZielSpeicher {
             final long id = dbCon.insertOrThrow(RundenZielTbl.TABLE_NAME, null,
                     daten);
 
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -97,8 +97,8 @@ public class RundenZielSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(RundenZielTbl.GID, deviceid + "_" + String.valueOf(id));
@@ -457,14 +457,18 @@ public class RundenZielSpeicher {
     public int anzahlRundenziel() {
         // TODO: eine Seite aufsetzen mit Informationen zur Datenbank
         // TODO: Anzahl der Einträge pro Tabelle
+        int nReturn = 0;
         final Cursor c = mDb.getReadableDatabase().rawQuery(
                 "select count(*) from " + RundenZielTbl.TABLE_NAME,
                 null);
         if (!c.moveToFirst()) {
             Log.d(TAG, "anzahlRundenziel(): Kein Rundenziel gespeichert");
-            return 0;
+            nReturn = 0;
+        } else {
+            nReturn = c.getInt(0);
         }
-        return c.getInt(0);
+        c.close();
+        return nReturn;
     }
 
     public int summeRundenPunkte(String mRundenGID, String rundenschuetzenGID) {
@@ -567,6 +571,7 @@ public class RundenZielSpeicher {
 
     public String getDateiname(String rundenGID, String rundenschuetzenGID, int nummer) {
         // TODO: WHERE Klausel später anpassen, keine rawQuery
+        String sReturn = "";
         String sqlStatement =
                 "select " +
                         RundenZielTbl.DATEINAME + ", " +
@@ -582,9 +587,12 @@ public class RundenZielSpeicher {
                 null);
         if (!c.moveToFirst()) {
             Log.d(TAG, "getDateiname(): Keine Ziele gespeichert");
-            return null;
+            sReturn = null;
+        } else {
+            sReturn = c.getString(0);
         }
-        return c.getString(0);
+        c.close();
+        return sReturn;
     }
 
     public String getDateiname(String rundenGID, int nummer) {

@@ -94,13 +94,13 @@ public class NeuerSchuetze extends Activity {
          */
         Log.d(TAG, "onClickStoreSchuetzen(): Schuetzen Name - findViewById");
         EditText fldSchuetzenName = (EditText) findViewById(R.id.edt_schuetzenname);
-        /**
- 	     * Standard auslesen
+        /*
+ 	      Standard auslesen
 	     */
         // Log.d(TAG, "onClickStoreSchuetzen(): Standard - findViewById");
         // CheckBox mStandard = (CheckBox) findViewById(R.id.txt_standard);
-        /**
-         * Neuer Schuetzen in der Datenbank abspeichern
+        /*
+          Neuer Schuetzen in der Datenbank abspeichern
           */
         Log.d(TAG, "onClickStoreSchuetzen(): insertSchuetzen");
         mSchuetzenSpeicher.insertSchuetzen(
@@ -140,7 +140,7 @@ public class NeuerSchuetze extends Activity {
                 if (mExtras!=null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                     mDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
                     Log.d(TAG, "onActivityResult(): Aufruf mit Dateiname " + mDateiname);
-                    /** Bild, falls vorhanden, anzeigen */
+                    /* Bild, falls vorhanden, anzeigen */
                     if (mDateiname!=null && !mDateiname.equals("")) {
                         Button imageButton = (Button)findViewById(R.id.imageButton);
                         new setPic(this, imageButton, mDateiname);

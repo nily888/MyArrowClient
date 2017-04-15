@@ -184,7 +184,7 @@ public class ToolsDatenService {
             conn.connect();
 
             Log.d(TAG, "sendeHttpRequest(): End");
-            return (conn.getResponseCode() == HttpURLConnection.HTTP_OK)?true:false;
+            return (conn.getResponseCode() == HttpURLConnection.HTTP_OK);
 
         } catch (ClientProtocolException e1) {
             Log.e(TAG, "sendeHttpRequest(): ClientProtocolException: " + e1.toString());

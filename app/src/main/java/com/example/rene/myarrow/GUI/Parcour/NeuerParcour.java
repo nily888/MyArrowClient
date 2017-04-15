@@ -49,8 +49,8 @@ public class NeuerParcour extends AppCompatActivity {
     public void onClickCreateParcour(View v) {
 
 
-        /**
-         * Neue Runde anlegen und Daten entsprechend abspeichern
+        /*
+          Neue Runde anlegen und Daten entsprechend abspeichern
          */
         // RundenSpeicher rundenSpeicher = new RundenSpeicher(this);
 
@@ -94,8 +94,8 @@ public class NeuerParcour extends AppCompatActivity {
          */
         EditText fldAnmerkung = (EditText) findViewById(R.id.txt_anmerkungen);
 
-        /**
-         * Startzeit notieren
+        /*
+          Startzeit notieren
          */
         long tempTimeStamp = new Date().getTime();
 
@@ -107,8 +107,8 @@ public class NeuerParcour extends AppCompatActivity {
             return;
         }
 
-        /**
-         * Parcour in der Datenbank speichern
+        /*
+          Parcour in der Datenbank speichern
          */
 	    String mParcourGID = mParcourSpeicher.insertParcour(
 			fldParcourName.getText().toString(),
@@ -122,8 +122,8 @@ public class NeuerParcour extends AppCompatActivity {
 			false,
 			tempTimeStamp);
 
-	    /**
- 	     * Entsprechende Ziele in einer Schleife anlegen
+	    /*
+ 	      Entsprechende Ziele in einer Schleife anlegen
 	     */
         // ZielSpeicher initialisieren
         ZielSpeicher mZielSpeicher = new ZielSpeicher(this);

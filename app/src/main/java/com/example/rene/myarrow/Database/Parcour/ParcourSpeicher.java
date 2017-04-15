@@ -5,7 +5,6 @@ import android.content.Context;
 
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
@@ -91,8 +90,8 @@ public class ParcourSpeicher {
         final ContentValues daten = new ContentValues();
         final SQLiteDatabase dbCon = mDb.getWritableDatabase();
         try {
-            /**
-             * Daten einfügen
+            /*
+              Daten einfügen
              */
             daten.put(ParcourTbl.NAME, name);
             daten.put(ParcourTbl.ANZAHL_ZIELE, anzahl_ziele);
@@ -109,8 +108,8 @@ public class ParcourSpeicher {
                     daten);
             Log.i(TAG, "insertSMS()-1: SMS mit id=" + id + " erzeugt.");
 
-            /**
-             * zunächst Device-Id (z.B. IMEI) auslesen
+            /*
+              zunächst Device-Id (z.B. IMEI) auslesen
              */
             TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
             String deviceid = tm.getDeviceId();
@@ -119,8 +118,8 @@ public class ParcourSpeicher {
                 deviceid="000000000000000";
             }
 
-            /**
-             * Globale ID aktualisieren
+            /*
+              Globale ID aktualisieren
              */
             daten.clear();
             daten.put(ParcourTbl.GID, deviceid + "_" + String.valueOf(id));
@@ -181,17 +180,17 @@ public class ParcourSpeicher {
         RundenSpeicher rundenSpeicher = new RundenSpeicher(mContext);
         RundenSchuetzenSpeicher rundenSchuetzenSpeicher = new RundenSchuetzenSpeicher(mContext);
         RundenZielSpeicher rundenZielSpeicher = new RundenZielSpeicher(mContext);
-        /** Runden-Id auslösen */
+        /* Runden-Id auslösen */
         String mrundenGID = rundenSpeicher.getRundenIdWithParcourId(gid);
-        /** RundenSchuetzen löschen */
+        /* RundenSchuetzen löschen */
         Log.i(TAG, "deleteParcour(): RundenSchuetzen löschen");
         rundenSchuetzenSpeicher.deleteRundenSchuetzenWithRundenGID(mrundenGID);
         rundenSchuetzenSpeicher.schliessen();
-        /** RundenZiel löschen */
+        /* RundenZiel löschen */
         Log.i(TAG, "deleteParcour(): RundenZiel löschen");
         rundenZielSpeicher.deleteRundenzielWithRundenID(mrundenGID);
         rundenZielSpeicher.schliessen();
-        /** Runden löschen */
+        /* Runden löschen */
         Log.i(TAG, "deleteParcour(): Runden löschen");
         rundenSpeicher.deleteRundenWithParcourID(gid);
         rundenSpeicher.schliessen();

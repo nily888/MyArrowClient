@@ -23,7 +23,8 @@
         android:theme="@style/AppTheme"
         android:versionCode="1"
         android:versionName="1.0"
-        android:name="android.support.multidex.MultiDexApplication">
+        android:name="android.support.multidex.MultiDexApplication"
+        android:fullBackupContent="@xml/backup_descriptor">
 
         <meta-data
             android:name="com.google.android.gms.version"

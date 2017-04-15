@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -106,7 +105,7 @@ public class MyArrowDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        /** Tabellen erstellen */
+        /* Tabellen erstellen */
         db.execSQL(BogenTbl.SQL_CREATE);
         db.execSQL(PfeilTbl.SQL_CREATE);
         db.execSQL(ZielTbl.SQL_CREATE);
@@ -116,7 +115,7 @@ public class MyArrowDB extends SQLiteOpenHelper {
         db.execSQL(SchuetzenTbl.SQL_CREATE);
         db.execSQL(RundenSchuetzenTbl.SQL_CREATE);
 
-        /** Testdaten einspielen */
+        /* Testdaten einspielen */
         defaultBefüllung(db);
 
     }
@@ -139,18 +138,18 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 + oldVersion + " to " + newVersion
                 + ", which will destroy all old data");
 
-        /**
-         * Vorsichtshalber machen wir mal ein Backup....
+        /*
+          Vorsichtshalber machen wir mal ein Backup....
          */
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.GERMAN).format(new Date());
         exportDB(timeStamp + "_myarrow_backup.db");
         Log.i(TAG, "onUpgrade(): Backup erstellt = " + timeStamp + "_myarrow_backup.db");
 
-        /**
-         * jetzt geht's los mt den Upgrades....
+        /*
+          jetzt geht's los mt den Upgrades....
          */
         if (newVersion==1) {
-            /** Alle tabellen löschen */
+            /* Alle tabellen löschen */
             db.execSQL(BogenTbl.SQL_DROP);
             db.execSQL(PfeilTbl.SQL_DROP);
             db.execSQL(ZielTbl.SQL_DROP);
@@ -159,7 +158,7 @@ public class MyArrowDB extends SQLiteOpenHelper {
             db.execSQL(RundenZielTbl.SQL_DROP);
             db.execSQL(SchuetzenTbl.SQL_DROP);
             db.execSQL(RundenSchuetzenTbl.SQL_DROP);
-            /** Tabellen wieder anlegen und Defaultbefüllung ausführen */
+            /* Tabellen wieder anlegen und Defaultbefüllung ausführen */
             onCreate(db);
         }
         if (oldVersion<2 ) { Upgrade1to2(db);  }
@@ -176,15 +175,15 @@ public class MyArrowDB extends SQLiteOpenHelper {
     }
 
     private void Upgrade1to2(SQLiteDatabase db) {
-        /**
-         * Hinzufügen der beiden Felder für die Location im Parcour
+        /*
+          Hinzufügen der beiden Felder für die Location im Parcour
          */
         db.execSQL("ALTER TABLE " + ParcourTbl.TABLE_NAME + " ADD COLUMN "
                 + ParcourTbl.GPS_LAT_KOORDINATEN + " TEXT;");
         db.execSQL("ALTER TABLE " + ParcourTbl.TABLE_NAME + " ADD COLUMN "
                 + ParcourTbl.GPS_LON_KOORDINATEN + " TEXT;");
-        /**
-         * Löschen des alten Feldes in der Tabelle Parcour
+        /*
+          Löschen des alten Feldes in der Tabelle Parcour
          */
         try {
             dropColumn(db, ParcourTbl.SQL_CREATE, ParcourTbl.TABLE_NAME, new String[]{"gps_koordinaten"});
@@ -212,9 +211,9 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void Upgrade4to5(SQLiteDatabase db) {
         Log.d(TAG, "upgrade4to5(): started");
-        /**
-         * Schuetzen Tabelle für das Synchronisieren erweitern,
-         * Default Wert 0 = noch nicht transferiert
+        /*
+          Schuetzen Tabelle für das Synchronisieren erweitern,
+          Default Wert 0 = noch nicht transferiert
          */
         db.execSQL("ALTER TABLE " + SchuetzenTbl.TABLE_NAME + " ADD COLUMN "
                 + SchuetzenTbl.TRANSFERED + " INTEGER DEFAULT 0;");
@@ -223,22 +222,22 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void Upgrade5to6(SQLiteDatabase db) {
         Log.d(TAG, "upgrade5to6(): started");
-        /**
-         * Schuetzen Tabelle um die globale ID erweitern,
+        /*
+          Schuetzen Tabelle um die globale ID erweitern,
          */
         db.execSQL("ALTER TABLE " + SchuetzenTbl.TABLE_NAME + " ADD COLUMN "
                 + SchuetzenTbl.GID + " TEXT;");
 
-        /**
-         * Initialbefüllung für die GID
-         *
-         * zunächst Device-Id auslesen
+        /*
+          Initialbefüllung für die GID
+
+          zunächst Device-Id auslesen
          */
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceid = tm.getDeviceId();
 
-        /**
-         * Schuetzen-IDs auslesen
+        /*
+          Schuetzen-IDs auslesen
          */
         final Cursor c = db.rawQuery(
                 "select " + SchuetzenTbl.ID +
@@ -246,8 +245,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " where " + SchuetzenTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         *
+        /*
+
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -264,20 +263,20 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void Upgrade6to7(SQLiteDatabase db) {
         Log.d(TAG, "upgrade6to7(): started");
-        /**
-         * Parcour Tabelle um die globale ID erweitern
+        /*
+          Parcour Tabelle um die globale ID erweitern
          */
         db.execSQL("ALTER TABLE " + ParcourTbl.TABLE_NAME + " ADD COLUMN "
                 + ParcourTbl.GID + " TEXT;");
 
-        /**
-         * zunächst Device-Id (z.B. IMEI) auslesen
+        /*
+          zunächst Device-Id (z.B. IMEI) auslesen
          */
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceid = tm.getDeviceId();
 
-        /**
-         * Parcour-IDs auslesen
+        /*
+          Parcour-IDs auslesen
          */
         final Cursor c = db.rawQuery(
                 "select " + ParcourTbl.ID +
@@ -285,8 +284,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " where " + ParcourTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -303,9 +302,9 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void Upgrade7to8(SQLiteDatabase db) {
         Log.d(TAG, "upgrade7to8(): started");
-        /**
-         * Parcour Tabelle für das Synchronisieren erweitern,
-         * Default Wert 0 = noch nicht transferiert
+        /*
+          Parcour Tabelle für das Synchronisieren erweitern,
+          Default Wert 0 = noch nicht transferiert
          */
         db.execSQL("ALTER TABLE " + ParcourTbl.TABLE_NAME + " ADD COLUMN "
                 + ParcourTbl.TRANSFERED + " INTEGER DEFAULT 0;");
@@ -314,9 +313,9 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void Upgrade8to9(SQLiteDatabase db) {
         Log.d(TAG, "upgrade8to9(): started");
-        /**
-         * Ziel, Bogen, Pfeil, Runden, RundenSchuetzen, RundenZiel Tabellen für das Synchronisieren erweitern,
-         * Default Wert 0 = noch nicht transferiert
+        /*
+          Ziel, Bogen, Pfeil, Runden, RundenSchuetzen, RundenZiel Tabellen für das Synchronisieren erweitern,
+          Default Wert 0 = noch nicht transferiert
          */
         db.execSQL("ALTER TABLE " + ZielTbl.TABLE_NAME + " ADD COLUMN "
                 + ZielTbl.TRANSFERED + " INTEGER DEFAULT 0;");
@@ -331,20 +330,20 @@ public class MyArrowDB extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE " + RundenZielTbl.TABLE_NAME + " ADD COLUMN "
                 + RundenZielTbl.TRANSFERED + " INTEGER DEFAULT 0;");
 
-        /**
-         * zunächst Device-Id (z.B. IMEI) auslesen
+        /*
+          zunächst Device-Id (z.B. IMEI) auslesen
          */
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceid = tm.getDeviceId();
         Cursor c;
-        /**
-         * Bogen Tabelle um die globale ID erweitern
+        /*
+          Bogen Tabelle um die globale ID erweitern
          */
         db.execSQL("ALTER TABLE " + BogenTbl.TABLE_NAME + " ADD COLUMN "
                 + BogenTbl.GID + " TEXT;");
 
-        /**
-         * Bogen-IDs auslesen
+        /*
+          Bogen-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + BogenTbl.ID +
@@ -352,8 +351,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " where " + BogenTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -367,14 +366,14 @@ public class MyArrowDB extends SQLiteOpenHelper {
         }
         c.close();
 
-        /**
-         * Ziel Tabelle um die globale ID erweitern
+        /*
+          Ziel Tabelle um die globale ID erweitern
          */
         db.execSQL("ALTER TABLE " + ZielTbl.TABLE_NAME + " ADD COLUMN "
                 + ZielTbl.GID + " TEXT;");
 
-        /**
-         * Ziel-IDs auslesen
+        /*
+          Ziel-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + ZielTbl.ID +
@@ -382,8 +381,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " where " + ZielTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -397,14 +396,14 @@ public class MyArrowDB extends SQLiteOpenHelper {
         }
         c.close();
 
-        /**
-         * Pfeil Tabelle um die globale ID erweitern
+        /*
+          Pfeil Tabelle um die globale ID erweitern
          */
         db.execSQL("ALTER TABLE " + PfeilTbl.TABLE_NAME + " ADD COLUMN "
                 + PfeilTbl.GID + " TEXT;");
 
-        /**
-         * Pfeil-IDs auslesen
+        /*
+          Pfeil-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + PfeilTbl.ID +
@@ -412,8 +411,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " where " + PfeilTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -427,14 +426,14 @@ public class MyArrowDB extends SQLiteOpenHelper {
         }
         c.close();
 
-        /**
-         * Runden Tabelle um die globale ID erweitern
+        /*
+          Runden Tabelle um die globale ID erweitern
          */
         db.execSQL("ALTER TABLE " + RundenTbl.TABLE_NAME + " ADD COLUMN "
                 + RundenTbl.GID + " TEXT;");
 
-        /**
-         * Runden-IDs auslesen
+        /*
+          Runden-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenTbl.ID +
@@ -442,8 +441,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " where " + RundenTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -457,14 +456,14 @@ public class MyArrowDB extends SQLiteOpenHelper {
         }
         c.close();
 
-        /**
-         * RundenSchuetzen Tabelle um die globale ID erweitern
+        /*
+          RundenSchuetzen Tabelle um die globale ID erweitern
          */
         db.execSQL("ALTER TABLE " + RundenSchuetzenTbl.TABLE_NAME + " ADD COLUMN "
                 + RundenSchuetzenTbl.GID + " TEXT;");
 
-        /**
-         * RundenSchuetzen-IDs auslesen
+        /*
+          RundenSchuetzen-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenSchuetzenTbl.ID +
@@ -472,8 +471,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " where " + RundenSchuetzenTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -487,14 +486,14 @@ public class MyArrowDB extends SQLiteOpenHelper {
         }
         c.close();
 
-        /**
-         * RundenZiel Tabelle um die globale ID erweitern
+        /*
+          RundenZiel Tabelle um die globale ID erweitern
          */
         db.execSQL("ALTER TABLE " + RundenZielTbl.TABLE_NAME + " ADD COLUMN "
                 + RundenZielTbl.GID + " TEXT;");
 
-        /**
-         * RundenZiel-IDs auslesen
+        /*
+          RundenZiel-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenZielTbl.ID +
@@ -502,8 +501,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " where " + RundenZielTbl.GID + " IS NULL ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -521,15 +520,15 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void Upgrade9to10(SQLiteDatabase db) {
         Log.d(TAG, "upgrade9to10(): started");
-        /**
-         * zunächst Device-Id (z.B. IMEI) auslesen
+        /*
+          zunächst Device-Id (z.B. IMEI) auslesen
          */
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceid = tm.getDeviceId();
         Cursor c;
 
-        /**
-         * Globale Forgein Key bei RUNDEN hinzufügen
+        /*
+          Globale Forgein Key bei RUNDEN hinzufügen
          */
         db.execSQL("ALTER TABLE " + RundenTbl.TABLE_NAME +
                 " ADD COLUMN " + RundenTbl.PARCOURGID + " TEXT NOT NULL DEFAULT \"\";");
@@ -538,8 +537,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE " + RundenTbl.TABLE_NAME +
                 " ADD COLUMN " + RundenTbl.PFEILGID   + " TEXT NOT NULL DEFAULT \"\";");
 
-        /**
-         * Runden-IDs auslesen
+        /*
+          Runden-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenTbl.ID        + ", "
@@ -550,8 +549,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -568,16 +567,16 @@ public class MyArrowDB extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         c.close();
-        /**
-         * Globale Forgein Key bei RUNDENSCHUETZEN hinzufügen
+        /*
+          Globale Forgein Key bei RUNDENSCHUETZEN hinzufügen
          */
         db.execSQL("ALTER TABLE " + RundenSchuetzenTbl.TABLE_NAME +
                 " ADD COLUMN " + RundenSchuetzenTbl.SCHUETZENGID + " TEXT NOT NULL DEFAULT \"\";");
         db.execSQL("ALTER TABLE " + RundenSchuetzenTbl.TABLE_NAME +
                 " ADD COLUMN " + RundenSchuetzenTbl.RUNDENGID    + " TEXT NOT NULL DEFAULT \"\";");
 
-        /**
-         * RundenSchuetzen-IDs auslesen
+        /*
+          RundenSchuetzen-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenSchuetzenTbl.ID          + ", "
@@ -587,8 +586,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -604,8 +603,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
         }
         c.close();
 
-        /**
-         * Globale Forgein Key bei RUNDENZIEL hinzufügen
+        /*
+          Globale Forgein Key bei RUNDENZIEL hinzufügen
          */
         db.execSQL("ALTER TABLE " + RundenZielTbl.TABLE_NAME +
                 " ADD COLUMN " + RundenZielTbl.RUNDENSCHUETZENGID + " TEXT NOT NULL DEFAULT \"\";");
@@ -614,8 +613,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE " + RundenZielTbl.TABLE_NAME +
                 " ADD COLUMN " + RundenZielTbl.ZIELGID            + " TEXT NOT NULL DEFAULT \"\";");
 
-        /**
-         * RundenZiel-IDs auslesen
+        /*
+          RundenZiel-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenZielTbl.ID                + ", "
@@ -626,8 +625,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -645,14 +644,14 @@ public class MyArrowDB extends SQLiteOpenHelper {
         }
         c.close();
 
-        /**
-         * Globale Forgein Key bei ZIEL hinzufügen
+        /*
+          Globale Forgein Key bei ZIEL hinzufügen
          */
         db.execSQL("ALTER TABLE " + ZielTbl.TABLE_NAME +
                 " ADD COLUMN " + ZielTbl.PARCOURGID + " TEXT NOT NULL DEFAULT \"\";");
 
-        /**
-         * Ziel-IDs auslesen
+        /*
+          Ziel-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + ZielTbl.ID        + ", "
@@ -661,8 +660,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " ;",
                 null);
 
-        /**
-         * Initialbefüllung für die GID
+        /*
+          Initialbefüllung für die GID
          */
         if (c.moveToFirst()) {
             ContentValues dataToInsert = new ContentValues();
@@ -681,8 +680,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void Upgrade10to11(SQLiteDatabase db) {
         Log.d(TAG, "upgrade10to11(): started");
-        /**
-         * Kontrollieren, ob die Felder korrekt migiert wurden
+        /*
+          Kontrollieren, ob die Felder korrekt migiert wurden
          */
         if (!checkGID(db))
         {
@@ -690,27 +689,27 @@ public class MyArrowDB extends SQLiteOpenHelper {
             return;
         }
 
-        /**
-         * Löschen des alten Feldes in der Tabelle Parcour
+        /*
+          Löschen des alten Feldes in der Tabelle Parcour
          */
         try {
-            /**
-             * Tabelle "Runden" aufräumen
+            /*
+              Tabelle "Runden" aufräumen
              */
             dropColumn(db, RundenTbl.SQL_CREATE, RundenTbl.TABLE_NAME, new String[]{
                     "parcourid",
                     "bogenid",
                     "pfeilid"
             });
-            /**
-             * Tabelle "RundenSchuetzen" aufräumen
+            /*
+              Tabelle "RundenSchuetzen" aufräumen
              */
             dropColumn(db, RundenSchuetzenTbl.SQL_CREATE, RundenSchuetzenTbl.TABLE_NAME, new String[]{
                 "schuetzenid",
                 "rundenid"
             });
-            /**
-             * Tabelle "RundenZiel" aufräumen
+            /*
+              Tabelle "RundenZiel" aufräumen
              */
             dropColumn(db, RundenZielTbl.SQL_CREATE, RundenZielTbl.TABLE_NAME, new String[]{
                 "rundenid",
@@ -718,8 +717,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 "rundenschuetzenid",
                 "gpskoordinaten"
             });
-            /**
-             * Tabelle "Ziel" aufräumen
+            /*
+              Tabelle "Ziel" aufräumen
              */
             dropColumn(db, ZielTbl.SQL_CREATE, ZielTbl.TABLE_NAME, new String[]{
                     "parcourid"
@@ -734,8 +733,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private void Upgrade11to12(SQLiteDatabase db) {
         Log.d(TAG, "upgrade11to12(): started");
 
-        /**
-         * Kontrollieren, ob die in der Tabelle Parcour das Feld GID angelegt ist
+        /*
+          Kontrollieren, ob die in der Tabelle Parcour das Feld GID angelegt ist
          */
         Cursor c = db.rawQuery("pragma table_info(parcour);", null);
         Boolean found = false;
@@ -745,8 +744,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
             }
         }
         c.close();
-        /**
-         * Feld "gid" nicht gefunden
+        /*
+          Feld "gid" nicht gefunden
          */
         if (!found)  Upgrade6to7(db);
 
@@ -779,8 +778,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
 
     private void defaultBefüllung(SQLiteDatabase db) {
 
-        /**
-         * zunächst Device-Id (z.B. IMEI) auslesen
+        /*
+          zunächst Device-Id (z.B. IMEI) auslesen
          */
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceid;
@@ -810,35 +809,35 @@ public class MyArrowDB extends SQLiteOpenHelper {
         db.insert(BogenTbl.TABLE_NAME, null, daten);
         daten.clear();
 
-        /**
-         * 01 Keiler
-         * 02 Spinne
-         * 03 Raten und Eichhörnchen
-         * 04 Osterhase
-         * 05 Luxs
-         * 06 Dachs
-         * 07 Geier
-         * 08 Gemse
-         * 09 Rehe
-         * 10 Uhu
-         * 11 Biene
-         * 12 Hirschbulle
-         * 13 Geier
-         * 14 2 Bären
-         * 15 stehender Steinbock
-         * 16 liegender Steinbock
-         * 17 Truthahn
-         * 18 2 Pilse
-         * 19 liegender Eber
-         * 20 2 Füchse
-         * 21 Biber, Hase und Pilz
-         * 22 stehender Bär
-         * 23 2 Rehe
-         * 24 fliegender Eber
-         * 25 Wolf
-         * 26 Ente
-         * 27 Frosch
-         * 28 Luxs und Vogelfiecher
+        /*
+          01 Keiler
+          02 Spinne
+          03 Raten und Eichhörnchen
+          04 Osterhase
+          05 Luxs
+          06 Dachs
+          07 Geier
+          08 Gemse
+          09 Rehe
+          10 Uhu
+          11 Biene
+          12 Hirschbulle
+          13 Geier
+          14 2 Bären
+          15 stehender Steinbock
+          16 liegender Steinbock
+          17 Truthahn
+          18 2 Pilse
+          19 liegender Eber
+          20 2 Füchse
+          21 Biber, Hase und Pilz
+          22 stehender Bär
+          23 2 Rehe
+          24 fliegender Eber
+          25 Wolf
+          26 Ente
+          27 Frosch
+          28 Luxs und Vogelfiecher
          */
         // Default-Ziel-1 anlegen
 
@@ -996,22 +995,22 @@ public class MyArrowDB extends SQLiteOpenHelper {
     public boolean checkGID(SQLiteDatabase db){
 
         Log.d(TAG, "checkGID(): started");
-        /**
-         * zunächst Device-Id (z.B. IMEI) auslesen
+        /*
+          zunächst Device-Id (z.B. IMEI) auslesen
          */
         TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceid = tm.getDeviceId();
 
-        /**
-         * Tabellen nur mit Primary-Key
+        /*
+          Tabellen nur mit Primary-Key
          */
         if (!checkBogenGID(db, deviceid)) return false;
         if (!checkPfeilGID(db, deviceid)) return false;
         if (!checkSchuetzenGID(db, deviceid)) return false;
         if (!checkParcourGID(db, deviceid)) return false;
 
-        /**
-         * Tabellen mit Primary-Key und Forgein-Keys
+        /*
+          Tabellen mit Primary-Key und Forgein-Keys
          */
         if (!checkRundenGID(db, deviceid)) return false;
         if (!checkRundenSchuetzenGID(db, deviceid)) return false;
@@ -1037,8 +1036,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkRundenGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Runden-IDs auslesen
+        /*
+          Runden-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenTbl.ID + ", "
@@ -1053,8 +1052,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {
@@ -1101,8 +1100,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkRundenSchuetzenGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Runden-IDs auslesen
+        /*
+          Runden-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenSchuetzenTbl.ID + ", "
@@ -1115,8 +1114,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {
@@ -1156,8 +1155,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkRundenZielGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Runden-IDs auslesen
+        /*
+          Runden-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + RundenZielTbl.ID + ", "
@@ -1172,8 +1171,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {
@@ -1220,8 +1219,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkZielGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Runden-IDs auslesen
+        /*
+          Runden-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + ZielTbl.ID + ", "
@@ -1232,8 +1231,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {
@@ -1266,8 +1265,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkBogenGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Bogen-IDs auslesen
+        /*
+          Bogen-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + BogenTbl.ID + ", "
@@ -1276,8 +1275,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {
@@ -1303,8 +1302,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkPfeilGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Pfeil-IDs auslesen
+        /*
+          Pfeil-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + PfeilTbl.ID + ", "
@@ -1313,8 +1312,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {
@@ -1340,8 +1339,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkParcourGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Parcour-IDs auslesen
+        /*
+          Parcour-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + ParcourTbl.ID + ", "
@@ -1350,8 +1349,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                 " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {
@@ -1377,8 +1376,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
     private boolean checkSchuetzenGID(SQLiteDatabase db, String deviceid) {
         Cursor c;
 
-        /**
-         * Schuetzen-IDs auslesen
+        /*
+          Schuetzen-IDs auslesen
          */
         c = db.rawQuery(
                 "select " + SchuetzenTbl.ID + ", "
@@ -1387,8 +1386,8 @@ public class MyArrowDB extends SQLiteOpenHelper {
                         " ;",
                 null);
 
-        /**
-         * GID kontrollieren
+        /*
+          GID kontrollieren
          */
         if (c.moveToFirst()) {
             do {

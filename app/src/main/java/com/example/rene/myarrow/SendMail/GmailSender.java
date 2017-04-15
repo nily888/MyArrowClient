@@ -1,6 +1,5 @@
 package com.example.rene.myarrow.SendMail;
 
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -135,14 +134,14 @@ public class GmailSender extends javax.mail.Authenticator{
 
 			// Email Text und Anhaenge
             if (!body.isEmpty()) {
-				/**
-				 * Zunächst den Textbody anhängen
+				/*
+				  Zunächst den Textbody anhängen
 				 */
                 MimeBodyPart mbp1 = new MimeBodyPart();
                 mbp1.setText(body);
                 mp.addBodyPart(mbp1);
-				/**
-				 * Anhang anhängen, falls vorhanden
+				/*
+				  Anhang anhängen, falls vorhanden
 				 */
                 if (attachment != null) {
                 	MimeBodyPart mbp2 = new MimeBodyPart();
@@ -151,8 +150,8 @@ public class GmailSender extends javax.mail.Authenticator{
                     mbp2.setFileName(fds.getName());
                     mp.addBodyPart(mbp2);
 				}
-				/**
-				 * Beides an die Email anhängen
+				/*
+				  Beides an die Email anhängen
 				 */
                 message.setContent(mp);
 			}

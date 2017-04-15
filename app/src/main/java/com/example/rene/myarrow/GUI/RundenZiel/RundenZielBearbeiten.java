@@ -48,13 +48,9 @@ public class RundenZielBearbeiten extends FragmentActivity {
     private String              mRundenZielGID;
     private Ziel                mZiel;
     private RundenZiel          mRundenZiel;
-    private RundenSchuetzen     mRundenSchuetzen;
     private Schuetzen           mSchuetzen;
     private ViewPager           viewPager;
     private ArrayList<Fragment> mFragments;
-    private TabsPagerAdapter    mAdapter;
-    private String[]            sMyOptions;
-    private Context             mContext;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -67,7 +63,7 @@ public class RundenZielBearbeiten extends FragmentActivity {
         // Hole Übergabeparameter ab
         //
         getÜbergabeparameter();
-        mContext = this;
+        Context mContext = this;
 
         //
         // View laden
@@ -105,7 +101,7 @@ public class RundenZielBearbeiten extends FragmentActivity {
         //
         // Runden-Schuetzen laden
         //
-        mRundenSchuetzen = new RundenSchuetzenSpeicher(this).loadRundenSchuetzenSchuetzenGID(mRundenZiel.rundenschuetzengid);
+        RundenSchuetzen mRundenSchuetzen = new RundenSchuetzenSpeicher(this).loadRundenSchuetzenSchuetzenGID(mRundenZiel.rundenschuetzengid);
 
         //
         // Schuetzen laden
@@ -131,13 +127,13 @@ public class RundenZielBearbeiten extends FragmentActivity {
         mFragments = new ArrayList<Fragment>();
         mFragments.add(newFragment);
         viewPager = (ViewPager) findViewById(R.id.pager);
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager(), mFragments);
+        TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(mAdapter);
 
         //
         //
         //
-        sMyOptions = getResources().getStringArray(R.array.my_options);
+        String[] sMyOptions = getResources().getStringArray(R.array.my_options);
         final Spinner spinnerMyOptions = (Spinner) findViewById(R.id.but_ziel_button);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.my_options_liste,
                 R.id.txt_options, sMyOptions);
@@ -147,12 +143,12 @@ public class RundenZielBearbeiten extends FragmentActivity {
 
     @Override
     protected void onStart() {
-        /**
-         * Super Methode aufrufen
+        /*
+          Super Methode aufrufen
          */
         super.onStart();
-        /**
-         * Jetzt alle Felder / Details anzeigen => leere View wird ausgefüllt
+        /*
+          Jetzt alle Felder / Details anzeigen => leere View wird ausgefüllt
          */
         zeigeDetails();
     }
@@ -309,20 +305,20 @@ public class RundenZielBearbeiten extends FragmentActivity {
         toggleDisplay = (ToggleButton) myView.findViewById(R.id.killkill_schuss);
         mRundenZiel.killkill = toggleDisplay.isChecked();
 
-        /**
-         * Zeitstempel abspeichern
+        /*
+          Zeitstempel abspeichern
          */
         mRundenZiel.zeitstempel = new Date().getTime();
 
-        /**
-         * Update der Daten im Runden Ziel
+        /*
+          Update der Daten im Runden Ziel
          */
         new RundenZielSpeicher(this).updatePunkteRundenziel(mRundenZiel);
 
     }
 
     protected void getÜbergabeparameter() {
-        /** Hole Übergabeparameter ab */
+        /* Hole Übergabeparameter ab */
         final Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey(Konstante.IN_PARAM_RUNDENZIEL_GID)) {
             mRundenZielGID = extras.getString(Konstante.IN_PARAM_RUNDENZIEL_GID);
@@ -344,7 +340,7 @@ public class RundenZielBearbeiten extends FragmentActivity {
                 if (mExtras != null && mExtras.containsKey(Konstante.IN_PARAM_DATEINAME_ID)) {
                     String mDateiname = mExtras.getString(Konstante.IN_PARAM_DATEINAME_ID);
                     new RundenZielSpeicher(this).updateDateiname(mRundenZiel.rundengid, mZiel.nummer, mDateiname, new Date().getTime());
-                    /** Bild, falls vorhanden, anzeigen */
+                    /* Bild, falls vorhanden, anzeigen */
                     if (mDateiname != null && !mDateiname.equals("")) {
                         Button fotoButton2 = (Button)findViewById(R.id.foto_button);
                         new setPic(this, fotoButton2, mDateiname);
