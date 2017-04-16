@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -74,8 +75,7 @@ public class RundenZielBearbeiten extends FragmentActivity {
         // WeiterButton Bild laden und Text setzen
         //
         Button weiterButton = (Button) findViewById(R.id.weiter_button);
-        Resources res = getResources();
-        Drawable d = res.getDrawable(R.mipmap.start_button);
+        Drawable d = ResourcesCompat.getDrawable(getResources(), R.mipmap.start_button, null);
         d.setAlpha(Konstante.MY_TRANSPARENT30);
         weiterButton.setBackground(d);
         weiterButton.setTypeface(null, Typeface.BOLD);

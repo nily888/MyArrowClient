@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -125,8 +126,7 @@ public class StartParcour extends Activity implements MultiSpinnerListener{
 
         /* Button Hintergrundbild setzen */
         Button startButton = (Button)findViewById(R.id.los_button);
-        Resources res = getResources();
-        Drawable d = res.getDrawable(R.mipmap.start_button);
+        Drawable d = ResourcesCompat.getDrawable(getResources(), R.mipmap.start_button, null);
         d.setAlpha(Konstante.MY_TRANSPARENT30);
         startButton.setBackground(d);
         startButton.setTypeface(null, Typeface.BOLD);

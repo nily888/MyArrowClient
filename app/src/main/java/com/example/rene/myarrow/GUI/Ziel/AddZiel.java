@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -176,8 +177,7 @@ public class AddZiel extends AppCompatActivity{
         // UpdateButton
         //
         Button updateButton = (Button)findViewById(R.id.update_button);
-        Resources res = getResources();
-        Drawable d = res.getDrawable(R.mipmap.start_button);
+        Drawable d = ResourcesCompat.getDrawable(getResources(), R.mipmap.start_button, null);
         d.setAlpha(Konstante.MY_TRANSPARENT30);
         updateButton.setBackground(d);
         updateButton.setTypeface(null, Typeface.BOLD);

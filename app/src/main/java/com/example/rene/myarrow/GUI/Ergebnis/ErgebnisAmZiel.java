@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -87,8 +88,7 @@ public class ErgebnisAmZiel extends FragmentActivity {
         // WeiterButton Bild laden
         //
         Button weiterButton = (Button) findViewById(R.id.weiter_button);
-        Resources res = getResources();
-        Drawable d = res.getDrawable(R.mipmap.start_button);
+        Drawable d = ResourcesCompat.getDrawable(getResources(), R.mipmap.start_button, null);
         d.setAlpha(Konstante.MY_TRANSPARENT30);
         weiterButton.setBackground(d);
         weiterButton.setTypeface(null, Typeface.BOLD);
@@ -239,7 +239,6 @@ public class ErgebnisAmZiel extends FragmentActivity {
              */
             bundle.putInt(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, mAktuellesZiel);
             /*
-              TODO Why and when -1
               OUT_PARAM_ZIEL_GID = -1 means
              */
             bundle.putString(Konstante.OUT_PARAM_ZIEL_GID, "-1");

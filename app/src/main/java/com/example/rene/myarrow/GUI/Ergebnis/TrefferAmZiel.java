@@ -106,12 +106,10 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
         Log.d(TAG, "zeigeDetails(): mAktuellesZiel = " + mAktuellesZiel);
         Log.d(TAG, "zeigeDetails(): mZielGID       = " + mZielGID);
         /*
-
           mAktuallesZiel = -1 means
           mZielGID = -1 means
-
          */
-        // TODO to be filled out
+
         if (mAktuellesZiel>-1 && mZielGID.equals("-1")) {
             rz = new RundenZielSpeicher(mContext)
                     .loadRundenZiel(mRundenGID, mRundenSchuetzenGID, mAktuellesZiel);

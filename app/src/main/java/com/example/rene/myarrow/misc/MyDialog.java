@@ -17,6 +17,7 @@ public class MyDialog extends DialogFragment {
     public static String DIALOG_ARGUMENTS = "not_ready_dialog_fragment_arguments";
 
     Context _context;
+    Activity activity;
     String mMessage;
     String mTitle;
 
@@ -62,10 +63,11 @@ public class MyDialog extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context context) {
         Log.d(TAG, "onAttach(): Start");
-        super.onAttach(activity);
-        _context = activity;
+        super.onAttach(context);
+        activity = getActivity();
+        _context = context;
         Log.d(TAG, "onAttach(): End");
     }
 

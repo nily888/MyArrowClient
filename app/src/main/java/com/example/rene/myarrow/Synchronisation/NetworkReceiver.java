@@ -36,12 +36,12 @@ public class NetworkReceiver extends BroadcastReceiver {
 
         final ConnectivityManager connMgr = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        final NetworkInfo wifi = connMgr.getActiveNetworkInfo();
 
         /*
           O.K., gibt es eine WiFi Verbindung?
          */
-        if (wifi.isAvailable()) {
+        if (wifi.getType() == ConnectivityManager.TYPE_WIFI) {
             Log.d(TAG, "onReceive(): Network Available, start Thread");
 
             /*
