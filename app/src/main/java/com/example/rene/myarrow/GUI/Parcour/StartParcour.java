@@ -2,7 +2,6 @@ package com.example.rene.myarrow.GUI.Parcour;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;

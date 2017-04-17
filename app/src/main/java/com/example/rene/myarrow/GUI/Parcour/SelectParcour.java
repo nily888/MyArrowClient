@@ -22,9 +22,9 @@ import com.example.rene.myarrow.Database.Ziel.ZielSpeicher;
 import com.example.rene.myarrow.Database.Ziel.ZielTbl;
 import com.example.rene.myarrow.GUI.Statistiken.ChartEinParcourAlleSchuetzen;
 import com.example.rene.myarrow.GUI.Ziel.AddZiel;
-import com.example.rene.myarrow.R;
 import com.example.rene.myarrow.misc.Konstante;
 import com.example.rene.myarrow.misc.ShowMap;
+import com.example.rene.myarrow.R;
 
 
 /**

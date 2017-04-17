@@ -88,8 +88,10 @@ public class testParcour {
         assertTrue(mCheck[0] + " wird nicht angezeigt", mSimulator.searchText("max. erreichte Punkte"));
         tm.doRotate(mRotate);
 
-        // Schützen auswählen
-        mCheck = new String[]{"Default-Schuetze 1"};
+        /*
+          Schützen auswählen
+         */
+        mCheck = new String[]{"Default-Schuetze 1", "Default-Schuetze 2"};
         testSchuetzenAuswählen(mCheck);
     }
 
@@ -97,18 +99,28 @@ public class testParcour {
 
     /**
      * Schuetzen aus der Combo Box auswaehlen
-     * @param mCheck
+     * @param mCheck Arry enthält die Namen der Schützen
      */
     public void testSchuetzenAuswählen (String[] mCheck){
-        // Schützen auswählen
+
+        /*
+          Schützen auswählen
+         */
         Log.d(TAG, "Click on Schützen");
         mSimulator.clickOnText("Schützen");
-        Log.d(TAG, "getLocalClassName:   " + mSimulator.getCurrentActivity().getLocalClassName());
         assertTrue("Default-Schuetze 1 wird in der Schützenliste nicht angezeigt!!", mSimulator.searchText("Default-Schuetze 1"));
         assertTrue("Default-Schuetze 2 wird in der Schützenliste nicht angezeigt!!", mSimulator.searchText("Default-Schuetze 2"));
+
+        /*
+          Jetzt die Schützen selektieren
+         */
         for (int n = 0; (n < mCheck.length); n++) {
             mSimulator.clickOnText(mCheck[n]);
         }
+
+        /*
+          Alle Schützen ausgesucht
+         */
         mSimulator.clickOnText("OK");
         assertTrue("StartParcour wird nicht angezeigt", mSimulator.searchText("max. erreichte Punkte"));
     }

@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'mykeystore'
             keyPassword 'satelindo'
-            storeFile file('/home/rene/Documents/MyProjects/MyArrowClient/Rene Dueber Keystore.jks')
+            storeFile file('/home/rene/Dokumente/Projects/MyArrowClient/Rene Dueber Keystore.jks')
             storePassword 'satelindo'
         }
     }

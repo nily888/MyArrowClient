@@ -9,12 +9,14 @@
     android:background="@mipmap/ergebnis_am_ziel">
 
     <ListView
+        android:id="@+id/android:list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
         android:layout_gravity="center_horizontal" />
 
     <TextView
+        android:id="@+id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Kein Pfeil vorhanden"/>
@@ -24,6 +26,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Neuer Pfeil"
+        android:id="@+id/neuer_pfeil_button"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/button_bg_transparent"
         android:onClick="onClickNeuerPfeil" />

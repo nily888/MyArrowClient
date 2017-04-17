@@ -65,9 +65,9 @@ public class MultiSpinner extends Spinner implements
                 spinnerText = defaultText;
             }
             Log.d(TAG, "onCancel(): spinnerText - " + spinnerText);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                     android.R.layout.simple_spinner_item,
-                    new String[] { spinnerText });
+                    new String[]{spinnerText});
             Log.d(TAG, "onCancel(): setAdapter");
             setAdapter(adapter);
             Log.d(TAG, "onCancel(): selected - " + selected.length);
@@ -107,8 +107,8 @@ public class MultiSpinner extends Spinner implements
                 selected[i] = false;
 
             // all text on the spinner
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                    android.R.layout.simple_spinner_item, new String[] { allText });
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                    android.R.layout.simple_spinner_item, new String[]{allText});
             setAdapter(adapter);
         }
 

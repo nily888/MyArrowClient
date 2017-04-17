@@ -56,14 +56,14 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         /*
           Parcour auswählen, zwei Ziele hinzufügen
          */
-        new testParcour(mSimulator, sleepTime, mRotate).testParcour(2);
+        // new testParcour(mSimulator, sleepTime, mRotate).testParcour(2);
 
         /*
           n neue Runden eingeben, yy Ziele
          */
         for (int n=0; n<mRunden; n++ ){
             Log.d(TAG, "testMainActivity(): Runde = " + (n+1));
-            new testRunde(mSimulator, sleepTime, mRotate).testRunde(4);
+            new testRunde(mSimulator, sleepTime, mRotate).testRunde(2);
         }
 
         /*

@@ -3,7 +3,6 @@ package com.example.rene.myarrow.GUI.Ergebnis;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -127,7 +126,7 @@ public class ErgebnisAmZiel extends FragmentActivity {
         //
         sMyOptions = getResources().getStringArray(R.array.my_options);
         final Spinner spinnerMyOptions = (Spinner) findViewById(R.id.but_ziel_button);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.my_options_liste,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.my_options_liste,
                 R.id.txt_options, sMyOptions);
         spinnerMyOptions.setAdapter(adapter);
         spinnerMyOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -280,7 +279,7 @@ public class ErgebnisAmZiel extends FragmentActivity {
         /*
           Swipe vorbereiten
          */
-        mFragments = new ArrayList<Fragment>();
+        mFragments = new ArrayList<>();
         mFragments = loadMyFragments();
         viewPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager(), mFragments);

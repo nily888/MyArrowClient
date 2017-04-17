@@ -924,7 +924,7 @@ public class MyArrowDB extends SQLiteOpenHelper {
     }
 
     private List<String> getTableColumns(SQLiteDatabase db, String tableName) {
-        ArrayList<String> columns = new ArrayList<String>();
+        ArrayList<String> columns = new ArrayList<>();
         String cmd = "pragma table_info(" + tableName + ");";
         Cursor cur = db.rawQuery(cmd, null);
 

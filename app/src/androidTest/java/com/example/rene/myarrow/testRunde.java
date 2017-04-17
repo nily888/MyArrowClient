@@ -36,7 +36,7 @@ public class testRunde {
         String[] mCheck;
 
         /*
-
+          Den Parcour starten
          */
         new testParcour(mSimulator, sleepTime, mRotate).testStartParcour();
 
@@ -45,7 +45,9 @@ public class testRunde {
          */
         Log.i(TAG, "testRunde(): Anzahl der Runden " + String.valueOf(mTargets));
 
-        // und jetzt geht es los.....
+        /*
+         und jetzt geht es los.....
+        */
         Log.i(TAG, "testRunde(): Click on Jetzt geht es los...");
 
         if (!mSimulator.searchText("Jetzt geht es los...")) {
@@ -77,6 +79,8 @@ public class testRunde {
             /*
               Ergebnis eintargen
              */
+            Log.d(TAG, n + "tes Ergebnis eintragen");
+            // TODO n ist nicht gleich n
             mCheck = new String[]{"Default-Schuetze " + String.valueOf(n).trim(), "im 2ten Schuss", "+10 Punkte"};
             testErgebnisEintragen(mCheck);
 
