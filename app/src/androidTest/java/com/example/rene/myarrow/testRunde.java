@@ -81,7 +81,10 @@ public class testRunde {
              */
             Log.d(TAG, n + "tes Ergebnis eintragen");
             // TODO n ist nicht gleich n
-            mCheck = new String[]{"Default-Schuetze " + String.valueOf(n).trim(), "im 2ten Schuss", "+10 Punkte"};
+            mCheck = new String[]{
+                    "Default-Schuetze " + String.valueOf(1).trim(), "im 2ten Schuss", "+10 Punkte",
+                    "Default-Schuetze " + String.valueOf(2).trim(), "im 1ten Schuss", "+16 Punkte"
+            };
             testErgebnisEintragen(mCheck);
 
             if (n == mTargets) {
@@ -136,9 +139,23 @@ public class testRunde {
      * @param mCheck
      */
     private void testErgebnisEintragen(String[] mCheck) {
-        assertEquals("Toggle Button " + mCheck[1] + " not found", true, mSimulator.searchToggleButton(mCheck[1]));
-        mSimulator.clickOnToggleButton(mCheck[1]);
-        assertEquals("Toggle Button is NOT " + mCheck[2], true, mSimulator.isToggleButtonChecked(mCheck[2]));
+        for (int n=0; n<mCheck.length/3; n++) {
+            assertEquals(mCheck[(3*n)+0] + " not found", true, mSimulator.searchText(mCheck[(3*n)+0]));
+            assertEquals("Toggle Button " + mCheck[(3*n)+1] + " not found", true, mSimulator.searchToggleButton(mCheck[(3*n)+1]));
+            mSimulator.clickOnToggleButton(mCheck[(3*n)+1]);
+            if (!mSimulator.isToggleButtonChecked(mCheck[(3*n)+2])) {
+                Log.i(TAG, "Noch einmal auf den Text drücken...");
+                mSimulator.clickOnText(mCheck[(3*n)+1]);
+            }
+            if (!mSimulator.isToggleButtonChecked(mCheck[(3*n)+2])) {
+                Log.i(TAG, "Noch einmal auf den Button drücken...");
+                mSimulator.clickOnButton(mCheck[(3*n)+1]);
+            }
+
+            assertEquals("Toggle Button is NOT " + mCheck[(3*n)+2], true, mSimulator.isToggleButtonChecked(mCheck[(3*n)+2]));
+            Log.i(TAG, "Nach rechts bitte...." + n + " " + (mCheck.length/3));
+            tm.SlideToRight();
+        }
     }
 
 }

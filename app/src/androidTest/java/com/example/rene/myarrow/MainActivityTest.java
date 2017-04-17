@@ -102,4 +102,5 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mSimulator.goBack();
         assertTrue("Ergebnis wird nicht angezeigt", mSimulator.searchText("Default-Schuetze 1"));
     }
+
 }
