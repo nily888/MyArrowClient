@@ -16,7 +16,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     private String[] mCheck;
     private static final boolean mRotate=false;
     private static final int sleepTime=200;
-    private static final int mRunden=1;
+    private static final int mRunden=2;
     private static final String mJahr = "/17 ";
     private static final String TAG = MainActivityTest.class.getSimpleName();
 

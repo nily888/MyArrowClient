@@ -155,14 +155,27 @@ public class TrefferAmZiel extends Fragment implements View.OnClickListener{
         /*
           aktuellen Punktestand anzeigen
          */
-        int mAktuellePunkte = new RundenSchuetzenSpeicher(mContext)
-                .getPunktestand(mRundenGID, mRundenSchuetzenGID);
-        int mNochErreichbar = (
-                new ParcourSpeicher(mContext).getAnzahlZiele(
-                        new RundenSpeicher(mContext).getParcourGID(mRundenGID))
-                - mAktuellesZiel + 1
-                )*berechnePunkte.maxPunkte() +
-                mAktuellePunkte;
+        int mAktuellePunkte = 0;
+        int mNochErreichbar=0;
+        if (mAktuellesZiel>-1 && mZielGID.equals("-1")) {
+
+            mAktuellePunkte = new RundenSchuetzenSpeicher(mContext)
+                    .getPunktestand(mRundenGID, mRundenSchuetzenGID);
+
+            mNochErreichbar = (
+                    new ParcourSpeicher(mContext).getAnzahlZiele(
+                            new RundenSpeicher(mContext).getParcourGID(mRundenGID))
+                            - mAktuellesZiel + 1
+            ) * berechnePunkte.maxPunkte() +
+                    mAktuellePunkte;
+
+        } else {
+
+            mAktuellePunkte = rz.punkte;
+            mNochErreichbar = new RundenSchuetzenSpeicher(mContext)
+                    .getPunktestand(mRundenGID, mRundenSchuetzenGID);
+
+        }
         String mPunkteStand = String.valueOf(mAktuellePunkte) + "/" + String.valueOf(mNochErreichbar);
         TextView fldaktuellePunkte = (TextView) rootView.findViewById(R.id.txt_aktuellerpunktestand);
         fldaktuellePunkte.setText(mPunkteStand);

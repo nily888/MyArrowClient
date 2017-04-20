@@ -117,9 +117,8 @@ public class RundenZielBearbeiten extends FragmentActivity {
         Log.d(TAG,"oncreate(): ZIEL_GID            - " + mRundenZiel.zielgid);
         bundle.putString(Konstante.OUT_PARAM_RUNDEN_GID, mRundenZiel.rundengid);
         bundle.putString(Konstante.OUT_PARAM_RUNDENSCHUETZEN_GID, mRundenSchuetzen.schuetzengid);
-        bundle.putInt(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, -1); // mZiel.nummer
+        bundle.putInt(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, -1);
         bundle.putString(Konstante.OUT_PARAM_ZIEL_GID, mRundenZiel.gid);
-        //        zielgid);
         bundle.putString("schuetzenname", mSchuetzen.name);
         newFragment.setArguments(bundle);
         newFragment.setRetainInstance(true);

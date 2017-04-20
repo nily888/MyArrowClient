@@ -17,7 +17,7 @@ public final class NetzwerkKonfigurator {
      */
     // public static final String SERVER_IP = "192.168.178.47";
     // public static final String SERVER_IP = "192.168.178.20";
-    public static final String SERVER_IP = "192.168.1.13";
+    public static final String SERVER_IP = "192.168.178.20";
     // public static final String SERVER_IP = "192.168.178.43";
     // public static final String SERVER_IP = "192.168.43.142";
 

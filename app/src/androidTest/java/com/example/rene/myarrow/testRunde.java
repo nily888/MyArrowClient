@@ -82,8 +82,8 @@ public class testRunde {
             Log.d(TAG, n + "tes Ergebnis eintragen");
             // TODO n ist nicht gleich n
             mCheck = new String[]{
-                    "Default-Schuetze " + String.valueOf(1).trim(), "im 2ten Schuss", "+10 Punkte",
-                    "Default-Schuetze " + String.valueOf(2).trim(), "im 1ten Schuss", "+16 Punkte"
+                    "Default-Schuetze " + String.valueOf(1).trim(), "im 2ten Schuss", "+10 Punkte"
+            //        "Default-Schuetze " + String.valueOf(2).trim(), "im 1ten Schuss", "im 1ten Schuss"
             };
             testErgebnisEintragen(mCheck);
 
@@ -154,7 +154,7 @@ public class testRunde {
 
             assertEquals("Toggle Button is NOT " + mCheck[(3*n)+2], true, mSimulator.isToggleButtonChecked(mCheck[(3*n)+2]));
             Log.i(TAG, "Nach rechts bitte...." + n + " " + (mCheck.length/3));
-            tm.SlideToRight();
+            // tm.SlideToRight();
         }
     }
 
