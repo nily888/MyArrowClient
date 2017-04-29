@@ -47,6 +47,7 @@ public class AddZiel extends AppCompatActivity{
     /** Die DB Id des ausgewählten Kontaktes. */
     private String mParcourGID;
     private int mZielNummer;
+    private boolean bAktiveRunde = false;
     private Ziel mZiel;
     private Parcour mParcour;
 
@@ -69,6 +70,7 @@ public class AddZiel extends AppCompatActivity{
         if (extras != null && extras.containsKey(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID)) {
             mZielNummer = extras.getInt(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID);
             Log.d(TAG, "oncreate(): Aufruf mit Zielnummer " + mZielNummer);
+            if (mZielNummer>0) bAktiveRunde = true;
         } else {
             Log.w(TAG, "Keine Zielnummer wurde übergeben");
         }
@@ -211,7 +213,8 @@ public class AddZiel extends AppCompatActivity{
 
     public void onClickAddZiel(View v) {
         Log.d(TAG, "onClickAddZiel(): Start");
-        /* *
+
+        /*
          * Ziel Nummer auslesen
          */
         Log.d(TAG, "onClickAddZiel(): Ziel Nummer - findViewById");
@@ -239,26 +242,29 @@ public class AddZiel extends AppCompatActivity{
         builder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                /* *
+
+                /*
                  * Ziel Nummer auslesen
                  */
                 Log.d(TAG, "onClickAddZiel(): Ziel Nummer - findViewById");
                 EditText fldZielNummer = (EditText) findViewById(R.id.edt_zielnummer);
-                int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());                /* *
+                int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());
+
+                /*
                  * Ziel Name auslesen
                  */
                 Log.d(TAG, "onClickAddZiel(): Ziel Name - findViewById");
                 EditText fldZielName = (EditText) findViewById(R.id.edt_zielname);
                 String strZielName = fldZielName.getText().toString();
 
-                /* *
+                /*
                  * GPS-Lat Koordinate auslesen
                  */
                 Log.d(TAG, "onClickAddZiel(): GPS-Lat Koordinate - findViewById");
                 Button fldgps_lat_koordinate = (Button) findViewById(R.id.txt_gps_lat_koordinaten);
                 String strLat = fldgps_lat_koordinate.getText().toString();
 
-                /* *
+                /*
                  * GPS-Lon Koordinate auslesen
                  */
                 Log.d(TAG, "onClickAddZiel(): GPS-Lat Koordinate - findViewById");
@@ -273,8 +279,8 @@ public class AddZiel extends AppCompatActivity{
                 String strZielDateiname = fldZielDateiname.getText().toString();
 
                 /*
-                  Add Ziel zur Datenbank hinzu
-                  zunächst alle Zielnummern aber neuem Ziel um einen erhöhen
+                 * Add Ziel zur Datenbank hinzu
+                 * zunächst alle Zielnummern aber neuem Ziel um einen erhöhen
                  */
                 long mid;
                 for (int n=mParcour.anzahl_ziele; (n>(nZielNummer-1)); n--){
@@ -283,8 +289,9 @@ public class AddZiel extends AppCompatActivity{
                     // TODO Null Updates it hier ein Problem
                     Log.d(TAG, "onClickAddZiel(): updateZiel - Anzahl Updates: " + mid);
                 }
+
                 /*
-                  jetzt neues Ziel hinzufügen
+                 * jetzt neues Ziel hinzufügen
                  */
                 Log.d(TAG, "onClickAddZiel(): insertZiel");
                 mid = mZielSpeicher.insertZiel(
@@ -295,12 +302,17 @@ public class AddZiel extends AppCompatActivity{
                         strLon,              // Lon Koordinate
                         strZielDateiname);   // Dateiname
                 Log.d(TAG, "onClickAddZiel(): insertZiel - ID: " + mid);
+
                 /*
-                  Anzahl der Ziele wird um Eins erhöht
+                 * Anzahl der Ziele wird um Eins erhöht
                  */
                 Log.d(TAG, "onClickAddZiel(): updateAnzahlZieleParcour");
                 mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele+1);
                 Log.d(TAG, "onClickAddZiel(): End - " + mid);
+
+                /*
+                 * Dialog schließen
+                 */
                 dialog.dismiss();
                 finish();
             }
