@@ -46,6 +46,7 @@ public class AddZiel extends AppCompatActivity{
 
     /** Die DB Id des ausgewählten Kontaktes. */
     private String mParcourGID;
+    private int mZielNummer;
     private Ziel mZiel;
     private Parcour mParcour;
 
@@ -65,12 +66,20 @@ public class AddZiel extends AppCompatActivity{
         } else {
             Log.w(TAG, "Keine Parcour-ID übergeben");
         }
+        if (extras != null && extras.containsKey(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID)) {
+            mZielNummer = extras.getInt(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID);
+            Log.d(TAG, "oncreate(): Aufruf mit Zielnummer " + mZielNummer);
+        } else {
+            Log.w(TAG, "Keine Zielnummer wurde übergeben");
+        }
 
         // ParcourSpeicher und Parcour initialisieren
         mParcourSpeicher = new ParcourSpeicher(this);
         mParcour = mParcourSpeicher.loadParcourDetails(mParcourGID);
 
-        // ZielSpeicher initialisieren
+        /*
+         * ZielSpeicher initialisieren
+         */
         mZielSpeicher = new ZielSpeicher(this);
         mZiel = new Ziel();
 
@@ -136,11 +145,15 @@ public class AddZiel extends AppCompatActivity{
     }
 
     private void zeigeDetails() {
-        /* *
-         * Ziel Nummer auslesen
+        /*
+         * Ziel Nummer auslesen, sollte es wäre eines aktiven Runde aufgerufen werden ist die Zielnummer größer Null
          */
         EditText fldZielNummer = (EditText) findViewById(R.id.edt_zielnummer);
-        fldZielNummer.setText(String.valueOf(mZiel.nummer));
+        if (mZielNummer > 0) {
+            fldZielNummer.setText(String.valueOf(mZielNummer));
+        } else {
+            fldZielNummer.setText(String.valueOf(mZiel.nummer));
+        }
 
         /* *
          * Ziel Name auslesen
@@ -172,9 +185,9 @@ public class AddZiel extends AppCompatActivity{
         Button fotoButton = (Button) findViewById(R.id.zielbild_button);
         new setPic(this, fotoButton, mZiel.dateiname);
 
-        //
-        // UpdateButton
-        //
+        /*
+         * UpdateButton
+         */
         Button updateButton = (Button)findViewById(R.id.update_button);
         Drawable d = ResourcesCompat.getDrawable(getResources(), R.mipmap.start_button, null);
         d.setAlpha(Konstante.MY_TRANSPARENT30);
@@ -216,9 +229,9 @@ public class AddZiel extends AppCompatActivity{
             return;
         }
 
-        //
-        // wollen Sie wirklich ein Ziel hinzufügen?
-        //
+        /*
+         * wollen Sie wirklich ein Ziel hinzufügen?
+         */
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("Weiter");
         builder2.setMessage("Sind Sie sicher ? Empfehlung wäre neuen Parcour anzulegen!");
@@ -252,7 +265,7 @@ public class AddZiel extends AppCompatActivity{
                 Button fldgps_lon_koordinate = (Button) findViewById(R.id.txt_gps_lon_koordinaten);
                 String strLon = fldgps_lon_koordinate.getText().toString();
 
-                /* *
+                /*
                  * Ziel Dateinamen auslesen
                  */
                 Log.d(TAG, "onClickAddZiel(): Dateiname - findViewById");

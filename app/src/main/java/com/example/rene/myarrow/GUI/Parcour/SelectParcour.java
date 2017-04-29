@@ -169,6 +169,7 @@ public class SelectParcour extends ListActivity implements LoaderManager.LoaderC
                 i = new Intent(this, AddZiel.class);
                 Log.d(TAG, "onContextItemSelected(): Parcour Add Ziel - Parcour-Id - " + info.id);
                 i.putExtra(Konstante.OUT_PARAM_PARCOUR_GID, mParcourSpeicher.getGID(info.id));
+                i.putExtra(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, -1 );
                 startActivity(i);
                 getLoaderManager().getLoader(LOADER_ID_PARCOUR).onContentChanged();
                 Log.d(TAG, "onContextItemSelected: Parcour Add Ziel End");
