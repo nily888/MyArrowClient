@@ -715,4 +715,36 @@ public class RundenZielSpeicher {
             dbCon.close();
         }
     }
+
+    /**
+     *
+     * @param mRundenGID RundenGID
+     * @param oldNummer alte Zielnummer
+     * @param newNummer neue Zielnummer
+     * @param zeitstempel Datum/Zeit der Änderung
+     * @return Anzahl der aktualisierten Runden
+     */
+    public long updateZielNummer(
+            String mRundenGID,
+            int oldNummer,
+            int newNummer,
+            long zeitstempel){
+
+        final ContentValues daten = new ContentValues();
+        daten.put(RundenZielTbl.NUMMER, newNummer);
+        daten.put(RundenZielTbl.TRANSFERED, 0);
+        daten.put(RundenZielTbl.ZEITSTEMPEL, zeitstempel);
+
+        final SQLiteDatabase dbCon = mDb.getWritableDatabase();
+        try {
+            return dbCon.update(
+                    RundenZielTbl.TABLE_NAME, daten,
+                    RundenZielTbl.WHERE_RUNDENGID_NUMMER_EQUALS,
+                    new String[]{
+                            mRundenGID,
+                            String.valueOf(oldNummer)});
+        } finally {
+            dbCon.close();
+        }
+    }
 }

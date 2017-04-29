@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.rene.myarrow.Database.Parcour.Parcour;
 import com.example.rene.myarrow.Database.Parcour.ParcourSpeicher;
+import com.example.rene.myarrow.Database.RundenZiel.RundenZielSpeicher;
 import com.example.rene.myarrow.Database.Ziel.Ziel;
 import com.example.rene.myarrow.Database.Ziel.ZielSpeicher;
 import com.example.rene.myarrow.R;
@@ -35,17 +36,25 @@ import com.example.rene.myarrow.misc.setPic;
 /**
  * Created by nily on 15.12.15.
  */
-public class AddZiel extends AppCompatActivity{
+public class AddZiel extends AppCompatActivity {
 
-    /** Kuerzel fuers Logging. */
+    /**
+     * Kuerzel fuers Logging.
+     */
     private static final String TAG = AddZiel.class.getSimpleName();
 
-    /** Schnittstelle zur persistenten Speicher. */
+    /**
+     * Schnittstelle zur persistenten Speicher.
+     */
     private ZielSpeicher mZielSpeicher;
     private ParcourSpeicher mParcourSpeicher;
+    private RundenZielSpeicher mRundenZielSpeicher;
 
-    /** Die DB Id des ausgewählten Kontaktes. */
+    /**
+     * Die DB Id des ausgewählten Kontaktes.
+     */
     private String mParcourGID;
+    private String mRundenZielGID;
     private int mZielNummer;
     private boolean bAktiveRunde = false;
     private Ziel mZiel;
@@ -70,14 +79,28 @@ public class AddZiel extends AppCompatActivity{
         if (extras != null && extras.containsKey(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID)) {
             mZielNummer = extras.getInt(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID);
             Log.d(TAG, "oncreate(): Aufruf mit Zielnummer " + mZielNummer);
-            if (mZielNummer>0) bAktiveRunde = true;
+            if (mZielNummer > 0) bAktiveRunde = true;
+        } else {
+            Log.w(TAG, "Keine Zielnummer wurde übergeben");
+        }
+        if (extras != null && extras.containsKey(Konstante.IN_PARAM_RUNDENZIEL_GID)) {
+            mRundenZielGID = extras.getString(Konstante.IN_PARAM_RUNDENZIEL_GID);
+            Log.d(TAG, "oncreate(): Aufruf mit Zielnummer " + mZielNummer);
+            if (mZielNummer > 0) bAktiveRunde = true;
         } else {
             Log.w(TAG, "Keine Zielnummer wurde übergeben");
         }
 
-        // ParcourSpeicher und Parcour initialisieren
+        /*
+         * ParcourSpeicher und Parcour initialisieren
+         */
         mParcourSpeicher = new ParcourSpeicher(this);
         mParcour = mParcourSpeicher.loadParcourDetails(mParcourGID);
+
+        /*
+         * RundenZielSpeicher initialisieren
+         */
+        mRundenZielSpeicher = new RundenZielSpeicher(this);
 
         /*
          * ZielSpeicher initialisieren
@@ -90,7 +113,7 @@ public class AddZiel extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        if (mZiel!= null || mZiel.dateiname==null || mZiel.dateiname.equals("")) {
+        if (mZiel != null || mZiel.dateiname == null || mZiel.dateiname.equals("")) {
             final SharedPreferences prefs = getPreferences(MODE_PRIVATE);
             mZiel.dateiname = prefs.getString("MeinZielBild", null);
         }
@@ -98,7 +121,7 @@ public class AddZiel extends AppCompatActivity{
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         final SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
         editor.putString("MeinZielBild", mZiel.dateiname);
         // editor.commit();
@@ -128,7 +151,7 @@ public class AddZiel extends AppCompatActivity{
 
             case R.id.action_getlocation:
                 String[] tempWo = new WoBinIch(this).getLocation();
-                if (tempWo!=null) {
+                if (tempWo != null) {
                     Button fldGPSLat = (Button) findViewById(R.id.txt_gps_lat_koordinaten);
                     fldGPSLat.setText(tempWo[0]);
                     Button fldGPSLon = (Button) findViewById(R.id.txt_gps_lon_koordinaten);
@@ -190,7 +213,7 @@ public class AddZiel extends AppCompatActivity{
         /*
          * UpdateButton
          */
-        Button updateButton = (Button)findViewById(R.id.update_button);
+        Button updateButton = (Button) findViewById(R.id.update_button);
         Drawable d = ResourcesCompat.getDrawable(getResources(), R.mipmap.start_button, null);
         d.setAlpha(Konstante.MY_TRANSPARENT30);
         updateButton.setBackground(d);
@@ -226,8 +249,8 @@ public class AddZiel extends AppCompatActivity{
          */
         Log.d(TAG, "onClickAddZiel(): Anzahl Ziele / neueZielnummer: "
                 + String.valueOf(mParcour.anzahl_ziele) + " / " + String.valueOf(nZielNummer));
-        if ((mParcour.anzahl_ziele+1) < nZielNummer) {
-            Toast.makeText(this, "Die Zielnummer darf nicht höher als " + String.valueOf(mParcour.anzahl_ziele+1) + " sein!",
+        if ((mParcour.anzahl_ziele + 1) < nZielNummer) {
+            Toast.makeText(this, "Die Zielnummer darf nicht höher als " + String.valueOf(mParcour.anzahl_ziele + 1) + " sein!",
                     Toast.LENGTH_LONG).show();
             return;
         }
@@ -283,9 +306,9 @@ public class AddZiel extends AppCompatActivity{
                  * zunächst alle Zielnummern aber neuem Ziel um einen erhöhen
                  */
                 long mid;
-                for (int n=mParcour.anzahl_ziele; (n>(nZielNummer-1)); n--){
+                for (int n = mParcour.anzahl_ziele; (n > (nZielNummer - 1)); n--) {
                     Log.d(TAG, "onClickAddZiel(): updateZiel - " + mParcourGID + " " + n);
-                    mid = mZielSpeicher.updateZiel(mParcourGID, n, n+1);
+                    mid = mZielSpeicher.updateZiel(mParcourGID, n, n + 1);
                     // TODO Null Updates it hier ein Problem
                     Log.d(TAG, "onClickAddZiel(): updateZiel - Anzahl Updates: " + mid);
                 }
@@ -307,8 +330,16 @@ public class AddZiel extends AppCompatActivity{
                  * Anzahl der Ziele wird um Eins erhöht
                  */
                 Log.d(TAG, "onClickAddZiel(): updateAnzahlZieleParcour");
-                mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele+1);
+                mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele + 1);
                 Log.d(TAG, "onClickAddZiel(): End - " + mid);
+
+                /*
+                 * Ist es während einer aktiven Runde, muss dies Runde auch noch aktualisiert werden
+                 */
+                if (bAktiveRunde) {
+                    Log.d(TAG, "onClickAddZiel(): Man befindet sich in einer aktiven Runde");
+                    insertNeuesZiel();
+                }
 
                 /*
                  * Dialog schließen
@@ -328,6 +359,43 @@ public class AddZiel extends AppCompatActivity{
         });
         AlertDialog alert2 = builder2.create();
         alert2.show();
+    }
+
+    private void insertNeuesZiel() {
+
+        /*
+         * Ziel zur hinzufügen hinzu
+         * zunächst alle Zielnummern (von hinten) bis zum neuen Ziel um einen erhöhen
+         */
+        long mid;
+        for( int n = mParcour.anzahl_ziele; (n>(mZielNummer-1));n--) {
+            Log.d(TAG, "onClickAddZiel(): updateRundenZiel - " + mRundenZielGID + " " + n);
+            mid = mRundenZielSpeicher.updateZielNummer(mRundenZielGID, n, n + 1, 0);
+            // TODO Null Updates it hier ein Problem
+            Log.d(TAG, "onClickAddZiel(): updateZiel - Anzahl Updates: " + mid);
+        }
+
+        // TODO pro Schütze
+        /*
+         * jetzt neues Ziel hinzufügen
+         */
+        Log.d(TAG,"onClickAddZiel(): insertRundenZiel");
+        mid = mRundenZielSpeicher.insertRundenziel(
+                        "", //String rundengid,
+                        "", //String zielgid,
+                        "", //String rundenschuetzengid,
+                        mZielNummer,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        0,
+                        "",
+                        "",
+                        0);
+        Log.d(TAG,"onClickAddZiel(): insertZiel - ID: "+mid);
+
     }
 
     @Override
@@ -385,4 +453,5 @@ public class AddZiel extends AppCompatActivity{
             startActivity(i);
         }
     }
+
 }
