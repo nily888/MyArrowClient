@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.rene.myarrow.Database.Parcour.Parcour;
 import com.example.rene.myarrow.Database.Parcour.ParcourSpeicher;
+import com.example.rene.myarrow.Database.RundenSchuetzen.RundenSchuetzenSpeicher;
+import com.example.rene.myarrow.Database.RundenZiel.RundenZiel;
 import com.example.rene.myarrow.Database.RundenZiel.RundenZielSpeicher;
 import com.example.rene.myarrow.Database.Ziel.Ziel;
 import com.example.rene.myarrow.Database.Ziel.ZielSpeicher;
@@ -32,6 +34,8 @@ import com.example.rene.myarrow.misc.Konstante;
 import com.example.rene.myarrow.misc.ShowMap;
 import com.example.rene.myarrow.misc.WoBinIch;
 import com.example.rene.myarrow.misc.setPic;
+
+import java.util.Date;
 
 /**
  * Created by nily on 15.12.15.
@@ -49,16 +53,13 @@ public class AddZiel extends AppCompatActivity {
     private ZielSpeicher mZielSpeicher;
     private ParcourSpeicher mParcourSpeicher;
     private RundenZielSpeicher mRundenZielSpeicher;
-
-    /**
-     * Die DB Id des ausgewählten Kontaktes.
-     */
     private String mParcourGID;
-    private String mRundenZielGID;
+    private String mRundenGID;
     private int mZielNummer;
     private boolean bAktiveRunde = false;
     private Ziel mZiel;
     private Parcour mParcour;
+    private RundenZiel mRundenZiel;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -74,7 +75,7 @@ public class AddZiel extends AppCompatActivity {
             mParcourGID = extras.getString(Konstante.IN_PARAM_PARCOUR_GID);
             Log.d(TAG, "oncreate(): Aufruf mit Parcour-ID " + mParcourGID);
         } else {
-            Log.w(TAG, "Keine Parcour-ID übergeben");
+            Log.w(TAG, "Keine Parcour-loadRundenZielID übergeben");
         }
         if (extras != null && extras.containsKey(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID)) {
             mZielNummer = extras.getInt(Konstante.IN_PARAM_AKTUELLES_ZIEL_ID);
@@ -83,10 +84,9 @@ public class AddZiel extends AppCompatActivity {
         } else {
             Log.w(TAG, "Keine Zielnummer wurde übergeben");
         }
-        if (extras != null && extras.containsKey(Konstante.IN_PARAM_RUNDENZIEL_GID)) {
-            mRundenZielGID = extras.getString(Konstante.IN_PARAM_RUNDENZIEL_GID);
-            Log.d(TAG, "oncreate(): Aufruf mit Zielnummer " + mZielNummer);
-            if (mZielNummer > 0) bAktiveRunde = true;
+        if (extras != null && extras.containsKey(Konstante.IN_PARAM_RUNDEN_GID)) {
+            mRundenGID = extras.getString(Konstante.IN_PARAM_RUNDEN_GID);
+            Log.d(TAG, "oncreate(): Aufruf mit Runden-GID " + mRundenGID);
         } else {
             Log.w(TAG, "Keine Zielnummer wurde übergeben");
         }
@@ -100,7 +100,8 @@ public class AddZiel extends AppCompatActivity {
         /*
          * RundenZielSpeicher initialisieren
          */
-        mRundenZielSpeicher = new RundenZielSpeicher(this);
+        // mRundenZielSpeicher = new RundenZielSpeicher(this);
+        // mRundenZiel = mRundenZielSpeicher.loadRundenZiel(mRundenZielGID);
 
         /*
          * ZielSpeicher initialisieren
@@ -363,39 +364,62 @@ public class AddZiel extends AppCompatActivity {
 
     private void insertNeuesZiel() {
 
+        ZielSpeicher mZielSpeicher = new ZielSpeicher(this);
+        String mRundenZielGID;
+        String[][] mAlleSchuetzen = new RundenSchuetzenSpeicher(this).loadRundenSchuetzenListe(mRundenGID);
+        long mid = 0;
         /*
          * Ziel zur hinzufügen hinzu
          * zunächst alle Zielnummern (von hinten) bis zum neuen Ziel um einen erhöhen
          */
+        for ( int n=0; n<mAlleSchuetzen.length; n++) {
+            /*
+             * Liste der Schützen mit der RundenGID laden
+             */
+            mRundenZiel = new RundenZielSpeicher(this).loadRundenZiel(mRundenGID, mAlleSchuetzen[n][0], mZielNummer);
+            moveZielNummern(mParcour.anzahl_ziele, mZielNummer, mRundenZiel.gid);
+
+            /*
+             * jetzt neues Ziel hinzufügen
+             */
+            Log.d(TAG, "onClickAddZiel(): insertRundenZiel");
+            mid = mRundenZielSpeicher.insertRundenziel(
+                    mRundenGID,                                         //String rundengid,
+                    mZielSpeicher.getZielGID(mParcourGID, mZielNummer), //String zielgid,
+                    mAlleSchuetzen[n][0],                               //String rundenschuetzengid,
+                    mZielNummer,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    0,
+                    "",
+                    "",
+                    new Date().getTime());
+            /*
+             * Und zum nächsten Kunden....
+             */
+            Log.d(TAG, "onClickAddZiel(): insertZiel - ID: " + mid);
+        }
+    }
+
+    /**
+     * Alle Ziele ab einer gewissen Position um eins erhöhen
+     *
+     * @param mAnzahlZiele     Anzahle der Ziele für den Parcour
+     * @param mZielNummer      Welche Zielnummer soll eingefügt werden
+     * @param mRundenZielGID   Für welchen (Runden)Schützen
+     *
+     */
+    private void moveZielNummern(int mAnzahlZiele, int mZielNummer, String mRundenZielGID){
         long mid;
-        for( int n = mParcour.anzahl_ziele; (n>(mZielNummer-1));n--) {
+        for( int n = mAnzahlZiele; (n>(mZielNummer-1));n--) {
             Log.d(TAG, "onClickAddZiel(): updateRundenZiel - " + mRundenZielGID + " " + n);
             mid = mRundenZielSpeicher.updateZielNummer(mRundenZielGID, n, n + 1, 0);
             // TODO Null Updates it hier ein Problem
             Log.d(TAG, "onClickAddZiel(): updateZiel - Anzahl Updates: " + mid);
         }
-
-        // TODO pro Schütze
-        /*
-         * jetzt neues Ziel hinzufügen
-         */
-        Log.d(TAG,"onClickAddZiel(): insertRundenZiel");
-        mid = mRundenZielSpeicher.insertRundenziel(
-                        "", //String rundengid,
-                        "", //String zielgid,
-                        "", //String rundenschuetzengid,
-                        mZielNummer,
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        0,
-                        "",
-                        "",
-                        0);
-        Log.d(TAG,"onClickAddZiel(): insertZiel - ID: "+mid);
-
     }
 
     @Override
