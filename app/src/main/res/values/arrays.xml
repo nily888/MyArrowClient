@@ -14,6 +14,7 @@
         <item>Zielnummer</item>
         <item>Bild</item>
         <item>Map</item>
+        <item>Ziel hinzufügen</item>
     </string-array>
 
 </resources>

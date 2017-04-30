@@ -959,7 +959,7 @@ public class MyArrowDB extends SQLiteOpenHelper {
             gSender.sendMail(
                     "My Arrow Database Backup",
                     "Bitte sicher abspeichern",
-                    backupDB,
+                    currentDB,
                     null, null);
             Toast.makeText(mContext, "DB Exported!", Toast.LENGTH_LONG).show();
         } catch(Exception e) {

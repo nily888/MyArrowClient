@@ -96,19 +96,19 @@ public class RundenZielTbl implements RundenZielColumns {
      */
     public static final String WHERE_RUNDENGID_EQUALS = RUNDENGID + "=?";
 
-    /**
+    /*
      * WHERE-Bedingung fuer aller Ziele einer Runde eines Schuetzen
      */
     public static final String WHERE_RUNDEN_NUMMER_SCHUETZEN_EQUALS =
             RUNDENGID + "=? AND " + NUMMER +"=? AND " + RUNDENSCHUETZENGID +"=?";
 
-    /**
+    /*
      * WHERE-Bedingung fuer aller Ziele einer Runde.
      */
     public static final String WHERE_RUNDENGID_NUMMER_EQUALS =
             RUNDENGID + "=? AND " + NUMMER +"=?";
 
-    /**
+    /*
      * Bildet die Summe über eine Runde
      */
     public static final String WHERE_SUMME_EINE_RUNDE_EIN_SCHUETZE =

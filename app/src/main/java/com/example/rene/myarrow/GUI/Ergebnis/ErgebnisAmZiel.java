@@ -31,6 +31,7 @@ import com.example.rene.myarrow.Database.RundenZiel.RundenZiel;
 import com.example.rene.myarrow.Database.RundenZiel.RundenZielSpeicher;
 import com.example.rene.myarrow.Database.Ziel.Ziel;
 import com.example.rene.myarrow.Database.Ziel.ZielSpeicher;
+import com.example.rene.myarrow.GUI.Ziel.AddZiel;
 import com.example.rene.myarrow.R;
 import com.example.rene.myarrow.misc.BerechneErgebnis;
 import com.example.rene.myarrow.misc.BildAnzeigen;
@@ -39,6 +40,8 @@ import com.example.rene.myarrow.misc.GetPicture;
 import com.example.rene.myarrow.misc.ShowMap;
 import com.example.rene.myarrow.misc.WoBinIch;
 import com.example.rene.myarrow.misc.setPic;
+
+import static android.support.design.R.id.info;
 
 public class ErgebnisAmZiel extends FragmentActivity {
 
@@ -176,6 +179,17 @@ public class ErgebnisAmZiel extends FragmentActivity {
                                 intent.putExtras(mBundle);
                                 startActivity(intent);
                         }
+                        break;
+
+                    case 3:
+                        Log.d(TAG, "onCreate(): Parcour Add Ziel Start");
+                        Intent i = new Intent(mContext, AddZiel.class);
+                        Log.d(TAG, "onCreate(): Parcour Add Ziel - Parcour-Id - " + mParcourGID);
+                        i.putExtra(Konstante.OUT_PARAM_PARCOUR_GID, mParcourGID);
+                        i.putExtra(Konstante.OUT_PARAM_RUNDEN_GID, mRundenGID);
+                        i.putExtra(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, mAktuellesZiel );
+                        startActivity(i);
+                        Log.d(TAG, "onCreate(): Parcour Add Ziel End");
                         break;
                 }
                 // wieder auch den ersten Wert setzen

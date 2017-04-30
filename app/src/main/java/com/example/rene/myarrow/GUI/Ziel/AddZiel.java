@@ -362,21 +362,32 @@ public class AddZiel extends AppCompatActivity {
         alert2.show();
     }
 
+    /**
+     *
+     */
     private void insertNeuesZiel() {
 
         ZielSpeicher mZielSpeicher = new ZielSpeicher(this);
         String mRundenZielGID;
-        String[][] mAlleSchuetzen = new RundenSchuetzenSpeicher(this).loadRundenSchuetzenListe(mRundenGID);
         long mid = 0;
+
         /*
-         * Ziel zur hinzufügen hinzu
-         * zunächst alle Zielnummern (von hinten) bis zum neuen Ziel um einen erhöhen
+         * Alle Schützen laden
          */
+        String[][] mAlleSchuetzen = new RundenSchuetzenSpeicher(this).loadRundenSchuetzenListe(mRundenGID);
+
+        /*
+         * Jetz für alle Schützen....
+         */
+        // TODO sicherstellen, dass man es beim ersten Schützen schon macht
         for ( int n=0; n<mAlleSchuetzen.length; n++) {
             /*
-             * Liste der Schützen mit der RundenGID laden
+             * zunächst alle Zielnummern (von hinten) bis zum neuen Ziel um einen erhöhen
              */
             mRundenZiel = new RundenZielSpeicher(this).loadRundenZiel(mRundenGID, mAlleSchuetzen[n][0], mZielNummer);
+            Log.d(TAG, "insertNeuesZiel(): AnzahlZiele   - " + mParcour.anzahl_ziele);
+            Log.d(TAG, "insertNeuesZiel(): Zielnummer    - " + mZielNummer);
+            Log.d(TAG, "insertNeuesZiel(): RundenZielGID - " + mRundenZiel.gid);
             moveZielNummern(mParcour.anzahl_ziele, mZielNummer, mRundenZiel.gid);
 
             /*
@@ -384,19 +395,19 @@ public class AddZiel extends AppCompatActivity {
              */
             Log.d(TAG, "onClickAddZiel(): insertRundenZiel");
             mid = mRundenZielSpeicher.insertRundenziel(
-                    mRundenGID,                                         //String rundengid,
-                    mZielSpeicher.getZielGID(mParcourGID, mZielNummer), //String zielgid,
-                    mAlleSchuetzen[n][0],                               //String rundenschuetzengid,
-                    mZielNummer,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    0,
+                    mRundenGID,                                         // rundengid,
+                    mZielSpeicher.getZielGID(mParcourGID, mZielNummer), // zielgid,
+                    mAlleSchuetzen[n][0],                               // rundenschuetzengid,
+                    mZielNummer,                                        // Zielnummer
+                    false,                                              // Eins
+                    false,                                              // Zwei
+                    false,                                              // Drei
+                    false,                                              // Kill
+                    false,                                              // SpotKill
+                    0,                                                  // Punkte
                     "",
                     "",
-                    new Date().getTime());
+                    new Date().getTime());                              // Zeitstempel der Änderung
             /*
              * Und zum nächsten Kunden....
              */
