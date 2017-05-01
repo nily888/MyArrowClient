@@ -100,7 +100,7 @@ public class AddZiel extends AppCompatActivity {
         /*
          * RundenZielSpeicher initialisieren
          */
-        // mRundenZielSpeicher = new RundenZielSpeicher(this);
+        mRundenZielSpeicher = new RundenZielSpeicher(this);
         // mRundenZiel = mRundenZielSpeicher.loadRundenZiel(mRundenZielGID);
 
         /*
@@ -331,7 +331,7 @@ public class AddZiel extends AppCompatActivity {
                  * Anzahl der Ziele wird um Eins erhöht
                  */
                 Log.d(TAG, "onClickAddZiel(): updateAnzahlZieleParcour");
-                mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele + 1);
+                mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele++);
                 Log.d(TAG, "onClickAddZiel(): End - " + mid);
 
                 /*
@@ -346,7 +346,14 @@ public class AddZiel extends AppCompatActivity {
                  * Dialog schließen
                  */
                 dialog.dismiss();
-                finish();
+                if (bAktiveRunde) {
+                    final Intent intent = new Intent();
+                    intent.putExtra(Konstante.OUT_PARAM_ANZAHL_ZIELE_ID, mParcour.anzahl_ziele);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                } else {
+                    finish();
+                }
             }
         });
 
@@ -368,7 +375,6 @@ public class AddZiel extends AppCompatActivity {
     private void insertNeuesZiel() {
 
         ZielSpeicher mZielSpeicher = new ZielSpeicher(this);
-        String mRundenZielGID;
         long mid = 0;
 
         /*
@@ -384,10 +390,13 @@ public class AddZiel extends AppCompatActivity {
             /*
              * zunächst alle Zielnummern (von hinten) bis zum neuen Ziel um einen erhöhen
              */
-            mRundenZiel = new RundenZielSpeicher(this).loadRundenZiel(mRundenGID, mAlleSchuetzen[n][0], mZielNummer);
-            Log.d(TAG, "insertNeuesZiel(): AnzahlZiele   - " + mParcour.anzahl_ziele);
-            Log.d(TAG, "insertNeuesZiel(): Zielnummer    - " + mZielNummer);
-            Log.d(TAG, "insertNeuesZiel(): RundenZielGID - " + mRundenZiel.gid);
+            Log.d(TAG, "insertNeuesZiel(): mRundenGID          - " + mRundenGID );
+            Log.d(TAG, "insertNeuesZiel(): mZielNummer         - " + mZielNummer);
+            Log.d(TAG, "insertNeuesZiel(): mRundenSchuetzenGID - " + mAlleSchuetzen[n][1]);
+            mRundenZiel = mRundenZielSpeicher.loadRundenZiel(mRundenGID, mAlleSchuetzen[n][1], mZielNummer);
+            Log.d(TAG, "insertNeuesZiel(): AnzahlZiele         - " + mParcour.anzahl_ziele);
+            Log.d(TAG, "insertNeuesZiel(): Zielnummer          - " + mZielNummer);
+            Log.d(TAG, "insertNeuesZiel(): RundenZielGID       - " + mRundenZiel.gid);
             moveZielNummern(mParcour.anzahl_ziele, mZielNummer, mRundenZiel.gid);
 
             /*
@@ -426,10 +435,10 @@ public class AddZiel extends AppCompatActivity {
     private void moveZielNummern(int mAnzahlZiele, int mZielNummer, String mRundenZielGID){
         long mid;
         for( int n = mAnzahlZiele; (n>(mZielNummer-1));n--) {
-            Log.d(TAG, "onClickAddZiel(): updateRundenZiel - " + mRundenZielGID + " " + n);
-            mid = mRundenZielSpeicher.updateZielNummer(mRundenZielGID, n, n + 1, 0);
+            Log.d(TAG, "moveZielNummern(): updateZielNummer - " + mRundenZielGID + " " + n + " " + mZielNummer + " " + mAnzahlZiele);
+            mid = mRundenZielSpeicher.updateZielNummer(mRundenZielGID, n, (n + 1), (new Date().getTime()));
             // TODO Null Updates it hier ein Problem
-            Log.d(TAG, "onClickAddZiel(): updateZiel - Anzahl Updates: " + mid);
+            Log.d(TAG, "moveZielNummern(): updateZielNummer - Anzahl Updates: " + mid);
         }
     }
 

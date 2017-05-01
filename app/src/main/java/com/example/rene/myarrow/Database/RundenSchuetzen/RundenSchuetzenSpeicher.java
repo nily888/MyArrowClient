@@ -297,6 +297,11 @@ public class RundenSchuetzenSpeicher {
         return loadRundenSchuetzen(c);
     }
 
+    /**
+     *
+     * @param rundenGID
+     * @return
+     */
     public String[][] loadRundenSchuetzenListe(String rundenGID) {
         final SQLiteQueryBuilder rundenSchuetzenSuche =
                 new SQLiteQueryBuilder();

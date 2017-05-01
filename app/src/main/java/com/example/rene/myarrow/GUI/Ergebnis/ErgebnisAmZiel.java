@@ -184,11 +184,13 @@ public class ErgebnisAmZiel extends FragmentActivity {
                     case 3:
                         Log.d(TAG, "onCreate(): Parcour Add Ziel Start");
                         Intent i = new Intent(mContext, AddZiel.class);
-                        Log.d(TAG, "onCreate(): Parcour Add Ziel - Parcour-Id - " + mParcourGID);
+                        Log.d(TAG, "onCreate(): Parcour Add Ziel - ParcourGID     - " + mParcourGID);
+                        Log.d(TAG, "onCreate(): Parcour Add Ziel - RundenGID      - " + mRundenGID);
+                        Log.d(TAG, "onCreate(): Parcour Add Ziel - mAktuellesZiel - " + mAktuellesZiel);
                         i.putExtra(Konstante.OUT_PARAM_PARCOUR_GID, mParcourGID);
                         i.putExtra(Konstante.OUT_PARAM_RUNDEN_GID, mRundenGID);
                         i.putExtra(Konstante.OUT_PARAM_AKTUELLES_ZIEL_ID, mAktuellesZiel );
-                        startActivity(i);
+                        startActivityForResult(i, 1004);
                         Log.d(TAG, "onCreate(): Parcour Add Ziel End");
                         break;
                 }
@@ -620,6 +622,20 @@ public class ErgebnisAmZiel extends FragmentActivity {
                     }
                 } else {
                     Log.w(TAG, "onActivityResult(): Kein Dateiname übergeben");
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                // User cancelled the image capture
+            } else {
+                // Image capture failed, advise user
+            }
+        }
+        else if (requestCode == 1004){
+            if (resultCode == Activity.RESULT_OK) {
+                if (mExtras != null && mExtras.containsKey(Konstante.IN_PARAM_ANZAHL_ZIELE_ID)) {
+                    int tempAnzahlZiele = mExtras.getInt(Konstante.IN_PARAM_ANZAHL_ZIELE_ID);
+                    if (tempAnzahlZiele != mAnzahlZiele) mAnzahlZiele = tempAnzahlZiele;
+                } else {
+                    Log.w(TAG, "onActivityResult(): Kein Anzahle der Ziele erhalten, Fehler??");
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // User cancelled the image capture

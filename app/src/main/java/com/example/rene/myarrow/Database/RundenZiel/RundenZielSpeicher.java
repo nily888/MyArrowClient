@@ -730,6 +730,11 @@ public class RundenZielSpeicher {
             int newNummer,
             long zeitstempel){
 
+        Log.d(TAG, "updateZielNummer(): mRundenGID  - " + mRundenGID);
+        Log.d(TAG, "updateZielNummer(): oldNummer   - " + oldNummer);
+        Log.d(TAG, "updateZielNummer(): newNummer   - " + newNummer);
+        Log.d(TAG, "updateZielNummer(): Zeitstempel - " + zeitstempel);
+
         final ContentValues daten = new ContentValues();
         daten.put(RundenZielTbl.NUMMER, newNummer);
         daten.put(RundenZielTbl.TRANSFERED, 0);
@@ -743,6 +748,9 @@ public class RundenZielSpeicher {
                     new String[]{
                             mRundenGID,
                             String.valueOf(oldNummer)});
+        } catch (SQLException e) {
+            Log.d(TAG, "updateZielNummer(): Fehler beim Update!!!" + e.getMessage());
+            return (long) 0;
         } finally {
             dbCon.close();
         }
