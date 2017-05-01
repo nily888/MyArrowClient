@@ -331,7 +331,7 @@ public class AddZiel extends AppCompatActivity {
                  * Anzahl der Ziele wird um Eins erhöht
                  */
                 Log.d(TAG, "onClickAddZiel(): updateAnzahlZieleParcour");
-                mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele++);
+                mid = mParcourSpeicher.updateAnzahlZiele(mParcourGID, mParcour.anzahl_ziele + 1);
                 Log.d(TAG, "onClickAddZiel(): End - " + mid);
 
                 /*
@@ -341,6 +341,7 @@ public class AddZiel extends AppCompatActivity {
                     Log.d(TAG, "onClickAddZiel(): Man befindet sich in einer aktiven Runde");
                     insertNeuesZiel();
                 }
+                mParcour.anzahl_ziele++;
 
                 /*
                  * Dialog schließen
