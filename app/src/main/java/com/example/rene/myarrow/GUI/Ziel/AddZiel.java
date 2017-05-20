@@ -246,7 +246,7 @@ public class AddZiel extends AppCompatActivity {
         int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());
 
         /*
-          Passt die Zielnummer? Darf nur um eins höher sein als die aktuelle Anzahl von Zielen
+         * Passt die Zielnummer? Darf nur um eins höher sein als die aktuelle Anzahl von Zielen
          */
         Log.d(TAG, "onClickAddZiel(): Anzahl Ziele / neueZielnummer: "
                 + String.valueOf(mParcour.anzahl_ziele) + " / " + String.valueOf(nZielNummer));
@@ -270,37 +270,37 @@ public class AddZiel extends AppCompatActivity {
                 /*
                  * Ziel Nummer auslesen
                  */
-                Log.d(TAG, "onClickAddZiel(): Ziel Nummer - findViewById");
                 EditText fldZielNummer = (EditText) findViewById(R.id.edt_zielnummer);
                 int nZielNummer = Integer.valueOf(fldZielNummer.getText().toString());
+                Log.d(TAG, "onClickAddZiel(): Ziel Nummer - findViewById - " + nZielNummer);
 
                 /*
                  * Ziel Name auslesen
                  */
-                Log.d(TAG, "onClickAddZiel(): Ziel Name - findViewById");
                 EditText fldZielName = (EditText) findViewById(R.id.edt_zielname);
                 String strZielName = fldZielName.getText().toString();
+                Log.d(TAG, "onClickAddZiel(): Ziel Name - findViewById - " + strZielName);
 
                 /*
                  * GPS-Lat Koordinate auslesen
                  */
-                Log.d(TAG, "onClickAddZiel(): GPS-Lat Koordinate - findViewById");
                 Button fldgps_lat_koordinate = (Button) findViewById(R.id.txt_gps_lat_koordinaten);
                 String strLat = fldgps_lat_koordinate.getText().toString();
+                Log.d(TAG, "onClickAddZiel(): GPS-Lat Koordinate - findViewById - " + strLat);
 
                 /*
                  * GPS-Lon Koordinate auslesen
                  */
-                Log.d(TAG, "onClickAddZiel(): GPS-Lat Koordinate - findViewById");
                 Button fldgps_lon_koordinate = (Button) findViewById(R.id.txt_gps_lon_koordinaten);
                 String strLon = fldgps_lon_koordinate.getText().toString();
+                Log.d(TAG, "onClickAddZiel(): GPS-Lon Koordinate - findViewById - " + strLon);
 
                 /*
                  * Ziel Dateinamen auslesen
                  */
-                Log.d(TAG, "onClickAddZiel(): Dateiname - findViewById");
                 TextView fldZielDateiname = (TextView) findViewById(R.id.txt_zieldateiname);
                 String strZielDateiname = fldZielDateiname.getText().toString();
+                Log.d(TAG, "onClickAddZiel(): Dateiname - findViewById - " + strZielDateiname);
 
                 /*
                  * Add Ziel zur Datenbank hinzu
